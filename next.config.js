@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2021-07-29 18:38:13
- * @LastEditTime: 2021-08-27 16:34:01
+ * @LastEditTime: 2021-08-31 11:17:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \myblog\client\next.config.js
+ * @FilePath: \next-client\next.config.js
  */
 
 const withPlugins = require('next-compose-plugins');
@@ -14,6 +14,7 @@ const withAntdLess = require('next-plugin-antd-less');
 
 const nextConfig = {
   webpack5: false,
+  target: 'serverless',
   experimental: { esmExternals: true },
   // reactStrictMode: true,
 };
