@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-29 18:38:13
- * @LastEditTime: 2021-08-31 11:17:16
+ * @LastEditTime: 2021-08-31 11:35:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \next-client\next.config.js
@@ -23,25 +23,22 @@ const plugins = [
   withCSS(
     withLess(
       withAntdLess({
-        // optional
         modifyVars: {},
-        // optional
         lessVarsFilePath: './assets/antd-custom.less',
-        // optional
         lessVarsFilePathAppendToEndOfContent: false,
-        // optional https://github.com/webpack-contrib/css-loader#object
         cssLoaderOptions: {},
         lessLoaderOptions: {
           javascriptEnabled: true,
         },
 
-        webpack(config) {
+        webpack(config, { webpack }) {
           // config.plugins.push(
           //   new BundleAnalyzerPlugin({
           //     analyzerMode: 'static',
           //     // openAnalyzer: true,
           //   })
           // );
+          config.plugins.push(new webpack.IgnorePlugin(/canvas/, /jsdom$/));
           return config;
         },
       })
