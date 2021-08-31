@@ -1,0 +1,55 @@
+.post-card{
+  border-radius:5px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  overflow: hidden;
+
+}
+.post-cover{
+  width: 100%;
+  height: 250px;
+  min-height: 200px;
+  max-height: 400px;
+  overflow: hidden;
+  .post-cover-img{
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    overflow: hidden;
+    transition:all 0.3s ease-in-out; 
+    &:hover{
+      transform:scale(1.05);
+      opacity: 0.5;
+    }
+  }
+}
+.ant-card-body{
+  height:170px;
+}
+.ant-card-meta-title{
+  overflow: hidden;
+  white-space: nowrap;
+  text-decoration: none;
+  text-overflow: ellipsis;
+}
+.post-description{
+  display: flex;
+  justify-content:space-between
+
+}
+.post-tag{
+  max-height: 100px;
+  overflow: hidden;
+  > span {
+
+    line-height: 25px;
+    margin-bottom: 5px;
+    height: 25px;
+    overflow: hidden;
+  }
+}
+.post-introduction{
+  overflow: hidden;
+  white-space: nowrap;
+  text-decoration: none;
+  text-overflow: ellipsis;
+}

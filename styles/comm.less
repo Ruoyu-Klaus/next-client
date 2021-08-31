@@ -1,0 +1,161 @@
+
+div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p,
+a, abbr, acronym, address, big, cite,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+html body {
+  &.dark-mode{
+    background-color: #121212;
+    color:#FFF !important;
+    .header{
+      background-color: #333;
+      color:#FFF !important;
+      border-bottom: none;
+      box-shadow: 0 2px 4px rgb(0 0 0 / 50%);
+    }
+    .ant-menu-light{
+      color:rgba(255, 255, 255, 0.85);
+      border-bottom: none;
+    }
+    .ant-divider{
+      color:rgba(255, 255, 255, 0.85);
+      &::after,&::before{
+        border-top: 1px solid rgba(255, 255, 255, 0.06)
+      }
+      
+    }
+    .post-card{
+      background: #1d1d1d;
+      color:#FFF !important;
+      .ant-card-meta-title{
+        color:rgba(255, 255, 255, 0.85)
+      }
+      .ant-card-meta-description{
+        color:rgba(255, 255, 255, 0.45)
+      }
+    }
+    .svg-inline--fa{
+      color:#FFF !important;
+    }
+    .fa-caret-left{
+      color:#333 !important;
+    }
+    .ant-anchor-link-title{
+      color: rgba(255, 255, 255, 0.55);
+    }
+    .ant-anchor-link-title-active{
+      color: rgba(255, 255, 255, 1);
+      text-decoration:underline;
+    }
+    .post-detail-container{
+      .detailed-title{
+        color:rgba(255, 255, 255, 0.85);
+      }
+      .account{
+        background: #333;
+      }
+      .markdown-body{
+        color:rgba(255, 255, 255, 0.85);
+        h1,h2,h3,h4,h5,h6{
+          color: rgba(255, 255, 255, 0.85);
+          border-bottom: none;
+        }
+      }
+    }
+    
+  }
+
+  font-family:  "apercu","Hiragino Sans GB", "Microsoft YaHei",
+  "WenQuanYi Micro Hei", serif !important;
+  overflow-x: hidden;
+  background-color: #f6f6f6;
+  margin: 0;
+  padding: 0;
+  font-size: 28px;
+  line-height: 1;
+  scroll-behavior: smooth;
+  /* HTML5 display-role reset for older browsers */
+  article, aside, details, figcaption, figure, 
+  footer, header, hgroup, menu, nav, section {
+    display: block;
+  }
+
+  blockquote, q {
+    padding: 0 1em;
+    font-style:italic;
+    color: #6a737d;
+    border-left: .25rem solid #dfe2e5;
+    margin:1rem 0;
+  }
+  blockquote:before, blockquote:after,
+  q:before, q:after {
+    content: '';
+    content: none;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  a{
+    cursor: none !important;
+  }
+  // cursor: none !important;
+  .noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; 
+  }
+  
+  .comm-main {
+    margin-top: 4rem;
+  }
+
+  .ant-menu-item-selected,.ant-menu-item-active{
+    border-bottom: 2px solid #060606 !important;
+  }
+  .ant-tag{
+    border: none;
+  }
+  a.anchor{
+    display: block;
+    position: relative;
+    top: -90px;
+    visibility: hidden;
+  }
+  .ant-anchor-wrapper{
+    background-color:transparent !important;
+  }
+  .ant-anchor-link-title{
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 16px !important;
+  }
+  .ant-anchor-link-active{
+    color: rgba(0, 0, 0, 0.85);
+  }
+  
+}
+
+@media screen and (max-width: 720px) {
+  html, body{
+    font-size: 16px;
+  }
+}
+
+

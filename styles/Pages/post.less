@@ -1,0 +1,147 @@
+@import "../markdown.less";
+
+.detailed-title {
+  font-size: 2.5rem;
+  text-align: center;
+  color:rgba(0, 0, 0, 0.85);
+  padding: 1rem;
+}
+.center {
+  text-align: center;
+}
+.detailed-cover{
+  img{
+    width: 60vw;
+    min-width: 350px;
+    max-width: 1000px;
+    object-fit:cover;
+    height:400px;
+  }
+}
+.detailed-info{
+  width: 60vw;
+  margin: 3rem auto 0 auto;
+  min-width: 350px;
+  max-width: 1000px;
+  display: flex;
+  justify-content:flex-start;
+  position: relative;
+  font-size: 1rem;
+  color: #6a6c6e;
+  > * {
+    margin-right: 1rem;
+  }
+  .detailed-date{
+    font-style: italic;
+    font-size: 1rem;
+    color: #6a6c6e;
+  }
+  .detailed-social{
+    position: absolute;
+    right: 0;
+    a {
+      margin-right: 1rem;
+    }
+  }
+}
+
+
+.detailed-content {
+  position: relative;
+  margin: 0 auto;
+  .markdown-body{
+    margin: 0 auto;
+    // width: 60vw;
+    // min-width: 350px;
+    max-width: 1000px;
+    padding: 1.3rem;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .detailed-toc{
+    position: absolute;
+    top: 20px;
+    left: 10px;
+  }
+  
+  
+  h1,h2,h3,h4,h5,h6{
+    font-weight: bold;
+    margin:1rem 0;
+  }
+  p{
+    margin:0.5rem 0;
+  }
+  h1{
+    font-size: 1.2rem;
+    padding: 20px;
+    text-align: center;
+  }
+  h2{
+    font-size: 1.1rem;
+  }
+  img {
+    width: 100%;
+    border: 1px solid #f3f3f3;
+  }
+  iframe {
+    margin: 0 auto;
+    width: 45vw;
+    min-width: 300px;
+    max-width: 800px;
+    height:400px;
+  }
+}
+.account{
+  background: rgb(58, 43, 43);
+}
+.detailed-tag{
+  text-align: center;
+}
+.post-foot-spot{
+  width: 10px;
+  height:10px;
+  border-radius: 50%;
+  background-color: rgb(58, 43, 43);
+}
+
+pre {
+  display: block;
+  background-color: #f3f3f3;
+  padding: 0.5rem !important;
+  overflow-y: auto;
+  font-weight: 300;
+  font-family: Menlo, monospace;
+  border-radius: 0.3rem;
+}
+pre {
+  background-color: #283646 !important;
+}
+pre > code {
+  border: 0px !important;
+  background-color: #283646 !important;
+  color: #fff;
+}
+code {
+  display: inline-block !important;
+  background-color: #f3f3f3 !important;
+  border: 1px solid #fdb9cc !important;
+  border-radius: 5px !important;
+  font-size: 1rem !important;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+  color: #4f4f4f !important;
+  margin: 0px 3px !important;
+}
+
+
+
+
+.ant-anchor-link-title {
+  font-size: 12px !important;
+}
+.ant-anchor-wrapper {
+  padding: 5px !important;
+}

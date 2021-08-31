@@ -1,0 +1,117 @@
+.ringContainer{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  transition: .2s ease-out;
+  pointer-events: none;
+  .ring {
+    width: 42px;
+    height: 42px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid rgba(31, 30, 30, 0.808);
+    border-radius: 50%;
+    will-change: width, height, transform, border;
+    z-index: 999;
+    pointer-events: none;
+    animation: animateRing 1s linear  infinite alternate;
+    @keyframes animateRing {
+      from {
+        width: 42px;
+        height: 42px;
+      }to{
+        width: 46px;
+        height: 46px;
+      }
+    }
+  }
+}
+
+.dot {
+  top: 0;
+  left: 0;
+  position: fixed;
+  transition: .05s ease-out;
+  will-change: width, height, transform, border;
+  &.default{
+    width: 8px;
+    height: 8px;
+    background-color: black;
+    border-radius: 50%;
+  }
+  &.link{
+    width: fit-content;
+    height: fit-content;
+    &::after{
+      font-size:1rem;
+      content:'👀';
+      pointer-events: none;
+    }
+  }
+  &.btn{
+    width: fit-content;
+    height: fit-content;
+    &::after{
+      font-size:1rem;
+      content:'👋';
+      pointer-events: none;
+    }
+  }
+  &.email{
+    width: fit-content;
+    height: fit-content;
+    &::after{
+      font-size:1rem;
+      content:'📧';
+      pointer-events: none;
+    }
+  }
+  &.sun{
+    width: fit-content;
+    height: fit-content;
+    &::after{
+      font-size:1rem;
+      content:'🌞';
+      pointer-events: none;
+    }
+    
+  }
+
+  
+  &.moon{
+    width: fit-content;
+    height: fit-content;
+    &::after{
+      font-size:1rem;
+      content:'🌛';
+      pointer-events: none;
+    }
+  }
+  &.magnifier{
+    width: fit-content;
+    height: fit-content;
+    &::after{
+      font-size:1rem;
+      content:'🔍';
+      pointer-events: none;
+    }
+    
+  }
+  &.pointup{
+    width: fit-content;
+    height: fit-content;
+    &::after{
+      font-size:1rem;
+      content:'👆';
+      pointer-events: none;
+    }
+    
+  }
+  
+  z-index: 999;
+  pointer-events: none;
+}

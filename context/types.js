@@ -1,0 +1,1 @@
+export const SET_CURSORTYPE = 'SET_CURSORTYPE';
