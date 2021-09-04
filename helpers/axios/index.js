@@ -1,8 +1,13 @@
+/*
+ * @Author: Ruoyu
+ * @FilePath: \next-client\helpers\axios\index.js
+ */
 import axios from 'axios';
 import { API } from '../../config/default.json';
-
+const baseURL =
+  process.env.NODE_ENV === 'production' ? process.env.BASE_URL : API.baseUrl;
 const Axios = axios.create({
-  baseURL: API.base,
+  baseURL: baseURL,
   timeout: 10000,
   withCredentials: true,
 });

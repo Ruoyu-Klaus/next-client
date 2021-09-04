@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2021-08-27 11:31:21
- * @LastEditTime: 2021-08-27 15:49:08
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \myblog\client\helpers\MarkDownTOC.js
- */
 import { last } from 'lodash';
 
 export default class MarkDownTOC {
@@ -72,23 +64,6 @@ export default class MarkDownTOC {
       </h${level}>`;
     }
   };
-
-  // renderToc(items) {
-  //   // 递归 render
-  //   return items.map(item => (
-  //     <Link key={item.anchor} href={`#${item.anchor}`} title={item.text}>
-  //       {item.children && this.renderToc(item.children)}
-  //     </Link>
-  //   ));
-  // }
-
-  // render() {
-  //   return (
-  //     <Anchor affix showInkInFixed>
-  //       {this.renderToc(this.tocItems)}
-  //     </Anchor>
-  //   );
-  // }
 
   reset = () => {
     this.tocItems = [];
