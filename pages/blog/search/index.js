@@ -4,18 +4,20 @@
  */
 
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import PostCard from '../../../components/PostCard';
 import FadeIn from '../../../components/FadeIn';
 import InfiniteScrolling from '../../../components/InfiniteScrolling';
+import SearchBar from '../../../components/SearchBar';
+import LoadingCard from '../../../components/LoadingCard';
 
 import usePostFetch from '../../../hooks/usePostFetch';
 
-import { Row, Col, Skeleton } from 'antd';
+import { debounce } from 'lodash';
+
+import { Row, Col } from 'antd';
 
 const Search = () => {
-  const loadingNode = <Skeleton loading={true} avatar active />;
-
   const [pageNum, setPageNum] = useState(1);
 
   const getCurrentPageNum = page => {
@@ -28,6 +30,14 @@ const Search = () => {
   
   */
 
+  const onInputSearch = useCallback(
+    debounce(str => {
+      let sanitizedText = str
+        .trim()
+        .replace(/[^\u4e00-\u9fa5a-zA-Z0-9]+/gi, '');
+      sanitizedText && setSearchSting(sanitizedText);
+    }, 300)
+  );
   const { isLoading, hasMore, posts } = usePostFetch({
     query: searchString,
     initialLoad: false,
@@ -39,14 +49,11 @@ const Search = () => {
     <div style={{ height: '100%' }}>
       <Row className='comm-main' type='flex' justify='center'>
         <Col xs={16} sm={16} md={18} lg={18} xxl={18}>
-          <Row
-            className='post-list'
-            type='flex'
-            justify='center'
-            gutter={[16, 16]}
-          >
-            Search Bar here
-          </Row>
+          <SearchBar onInputSearch={onInputSearch} />
+        </Col>
+      </Row>
+      <Row className='comm-main' type='flex' justify='center'>
+        <Col xs={16} sm={16} md={18} lg={18} xxl={18}>
           <Row
             className='post-list'
             type='flex'
@@ -55,7 +62,7 @@ const Search = () => {
           >
             <InfiniteScrolling
               hasMore={hasMore}
-              loadingNode={loadingNode}
+              LoadingComp={LoadingCard}
               getPageNum={getCurrentPageNum}
               isLoading={isLoading}
               initialLoad={false}

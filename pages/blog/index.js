@@ -93,7 +93,6 @@ export async function getStaticProps() {
   // Call an external API endpoint to get posts
   try {
     const posts = await getArticleList();
-    console.log(posts);
     // will receive `posts` as a prop at build time
     return {
       props: {

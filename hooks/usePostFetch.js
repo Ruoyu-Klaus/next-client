@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { getArticleList } from '../request';
 import { cloneDeep } from 'lodash';
 import PropTypes from 'prop-types';
-
+import axios from 'axios';
 /**
  * @description:
  * @param {
@@ -41,27 +41,25 @@ function usePostFetch(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [posts, setPosts] = useState([]);
 
-  const _initialLoad = useRef();
-  _initialLoad.current = initialLoad;
-  console.log(_initialLoad);
+  const _initialLoad = useRef(initialLoad);
 
-  const getData = useCallback(async () => {
-    const axios = require('axios');
-    const searchRequest = axios.CancelToken.source();
-    const cancelToken = searchRequest.token;
-    setIsLoading(true);
-    const { count, rows } = await getArticleList({
-      query,
-      pageNum,
-      limit,
-      cancelToken,
-    });
-    const left = limit * pageNum - count;
-    left <= 0 && setHasmore(false);
-    setPosts(pre => [...new Set([...pre, ...rows])]);
-    setIsLoading(false);
-    return () => searchRequest.cancel();
-  }, [query, pageNum, limit]);
+  // const getData = useCallback(async () => {
+  //   const axios = require('axios');
+  //   const searchRequest = axios.CancelToken.source();
+  //   const cancelToken = searchRequest.token;
+  //   setIsLoading(true);
+  //   const { count, rows } = await getArticleList({
+  //     query,
+  //     pageNum,
+  //     limit,
+  //     cancelToken,
+  //   });
+  //   const left = limit * pageNum - count;
+  //   left <= 0 && setHasmore(false);
+  //   setPosts(pre => [...new Set([...pre, ...rows])]);
+  //   setIsLoading(false);
+  //   return () => searchRequest.cancel();
+  // }, [query, pageNum, limit]);
 
   // used for local search
   let count, rows;
@@ -83,17 +81,16 @@ function usePostFetch(props) {
   }, [pageNum, limit, originalPosts, maxPages]);
 
   useEffect(() => {
-    setPosts([]);
+    originalPosts && setPosts([]);
   }, [originalPosts]);
 
   // used for server side search
   useEffect(() => {
-    if (clientSidePagination) return;
+    if (clientSidePagination) return () => {};
     if (!_initialLoad.current) {
-      _initialLoad.current = false;
-      return;
+      _initialLoad.current = true;
+      return () => {};
     }
-    const axios = require('axios');
     const searchRequest = axios.CancelToken.source();
     const cancelToken = searchRequest.token;
     const fetchPosts = async () => {

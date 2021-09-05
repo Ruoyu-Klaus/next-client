@@ -1,10 +1,6 @@
 /*
- * @Author: your name
- * @Date: 2021-07-29 18:38:13
- * @LastEditTime: 2021-08-26 11:51:11
- * @LastEditors: your name
- * @Description: In User Settings Edit
- * @FilePath: \myblog\client\pages\_app.js
+ * @Author: Ruoyu
+ * @FilePath: \next-client\pages\_app.js
  */
 import '../styles/comm.less';
 import 'highlight.js/styles/monokai-sublime.css';

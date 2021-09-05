@@ -1,60 +1,40 @@
 /*
- * @Author: your name
- * @Date: 2021-08-24 16:46:15
- * @LastEditTime: 2021-08-24 23:30:22
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \myblog\client\components\SearchBar.js
+ * @Author: Ruoyu
+ * @FilePath: \next-client\components\SearchBar.js
  */
-import React, { useContext, useState, useRef } from 'react';
+import React, { useState } from 'react';
 import '../styles/Components/SearchBar.less';
-
-import { CursorContext } from '../context/cursor/CursorContext';
-
+import { Typography, Button } from 'antd';
+const { Title } = Typography;
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function SearchBar(props) {
-  const { searchHanlder } = props;
-  const { setCursorType } = useContext(CursorContext);
-  const [btnIcon, setBtnIcon] = useState('search');
+  const { onInputSearch } = props;
   const [searchValue, setSearchValue] = useState('');
 
-  const inputSearchRef = useRef();
-  const btnRef = useRef();
-  let inputEl = inputSearchRef.current;
-  let btnEl = btnRef.current;
-  const hanleFocus = e => {
-    e.preventDefault();
-    e.stopPropagation();
-    btnEl && btnEl.classList.toggle('focus');
-    inputEl && inputEl.classList.toggle('focus');
-    btnEl.classList.contains('focus')
-      ? setBtnIcon('caret-left')
-      : setBtnIcon('search');
+  const onInputChange = event => {
+    setSearchValue(event.target.value);
   };
-
   return (
-    <div className='search-box'>
-      <button
-        className='btn-search'
-        onClick={hanleFocus}
-        ref={btnRef}
-        onMouseEnter={e => setCursorType('magnifier')}
-        onMouseLeave={e => setCursorType('default')}
-      >
-        <FontAwesomeIcon icon={btnIcon} color='black' />
-      </button>
-      <input
-        type='text'
-        ref={inputSearchRef}
-        className='input-search'
-        placeholder='搜索一下...'
-        value={searchValue}
-        onChange={event => {
-          searchHanlder(event.target.value);
-          setSearchValue(event.target.value);
-        }}
-      />
+    <div className='searchBar-root'>
+      <Title className='searchBar-title'>SEARCH RUOYU.LIFE BLOG</Title>
+      <center className='searchBar-bar'>
+        <div>
+          <input
+            className='searchBar-input'
+            type='text'
+            title='Search'
+            name='Search'
+            onChange={onInputChange}
+          />
+          <Button
+            onClick={onInputSearch.bind(null, searchValue)}
+            ghost={true}
+            className='searchBar-btn'
+            icon={<FontAwesomeIcon icon='search' color='black' />}
+          />
+        </div>
+      </center>
     </div>
   );
 }

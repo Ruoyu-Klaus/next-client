@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-20 23:28:12
- * @LastEditTime: 2021-09-05 12:06:36
+ * @LastEditTime: 2021-09-05 21:59:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \next-client\components\InfiniteScrolling.js
@@ -16,7 +16,7 @@ function InfiniteScrolling(props) {
     children,
     isLoading,
     hasMore = true,
-    loadingNode,
+    LoadingComp,
   } = props;
   const [page, setPage] = useState(pageStart || 1);
 
@@ -45,7 +45,7 @@ function InfiniteScrolling(props) {
           return child;
         }
       })}
-      {isLoading && loadingNode}
+      {isLoading && <LoadingComp />}
     </>
   );
 }
@@ -56,7 +56,7 @@ InfiniteScrolling.propTypes = {
   pageStart: PropTypes.number,
   hasMore: PropTypes.bool,
   isLoading: PropTypes.bool,
-  loadingNode: PropTypes.node,
+  LoadingComp: PropTypes.elementType,
 };
 
 export default InfiniteScrolling;

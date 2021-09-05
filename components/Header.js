@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-29 18:38:13
- * @LastEditTime: 2021-09-04 21:13:59
+ * @LastEditTime: 2021-09-05 19:55:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \next-client\components\Header.js
@@ -18,7 +18,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { CursorContext } from '../context/cursor/CursorContext';
 import useRouterScroll from '../hooks/useRouterScroll';
-import SearchBar from './SearchBar';
+import SearchBar from './_SearchBar';
 function Header(props) {
   const { navArray = [], handleSearch } = props;
   const { setCursorType } = useContext(CursorContext);
@@ -37,8 +37,7 @@ function Header(props) {
 
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
-      let a = localStorage.getItem('themeMode') ? true : false;
-      return a;
+      return localStorage.getItem('darkMode') === 'true' ? true : false;
     } else {
       return false;
     }
@@ -55,7 +54,9 @@ function Header(props) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    isDarkMode && document.body.classList.add('dark-mode');
+    isDarkMode
+      ? document.body.classList.add('dark-mode')
+      : document.body.classList.remove('dark-mode');
     setLoaded(true);
   }, []);
 
@@ -65,7 +66,7 @@ function Header(props) {
       e.stopPropagation();
       setIsDarkMode(pre => !pre);
       if (typeof window !== 'undefined') {
-        localStorage.setItem('themeMode', !isDarkMode);
+        localStorage.setItem('darkMode', !isDarkMode);
       }
       document.body.classList.toggle('dark-mode');
     },
