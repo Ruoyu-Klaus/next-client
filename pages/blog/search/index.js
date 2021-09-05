@@ -45,7 +45,7 @@ const Search = () => {
             justify='center'
             gutter={[16, 16]}
           >
-            nihoa
+            Search Bar here
           </Row>
           <Row
             className='post-list'
