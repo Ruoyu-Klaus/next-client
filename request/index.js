@@ -6,16 +6,17 @@ import { API } from '../config/default.json';
 import Axios from '../helpers/axios';
 
 export async function getArticleList({
-  page = null,
-  limit = null,
-  query = null,
-  getCancelToken = () => {},
+  page = '',
+  limit = '',
+  query = '',
+  cancelToken = undefined,
 } = {}) {
   try {
     const requestUrl =
       API.servicePath.getArticleList +
       `?_q=${query}&_page=${[page]}&_limit=${limit}`;
-    const res = await Axios.get(requestUrl);
+    const res = await Axios.get(requestUrl, { cancelToken });
+
     return res && res.data;
   } catch (e) {
     return Promise.reject(e);

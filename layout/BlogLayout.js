@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 11:36:37
- * @LastEditTime: 2021-08-28 17:15:53
+ * @LastEditTime: 2021-09-05 10:22:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \myblog\client\layout\BlogLayout.js
+ * @FilePath: \next-client\layout\BlogLayout.js
  */
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
@@ -36,7 +36,7 @@ function BlogLayout({ children, handleSearch }) {
     <div
       style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
     >
-      <Header navArray={category} handleSearch={handleSearch.func} />
+      <Header navArray={category} />
       <main
         onTransitionEnd={() => {
           if (transitionStage === 'fadeOut') {

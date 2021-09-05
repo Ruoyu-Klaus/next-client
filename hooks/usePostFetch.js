@@ -1,14 +1,7 @@
-/*
- * @Author: your name
- * @Date: 2021-08-21 14:10:37
- * @LastEditTime: 2021-08-28 17:16:16
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \myblog\client\hooks\usePostFetch.js
- */
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { getArticleList } from '../request';
 import { cloneDeep } from 'lodash';
+import PropTypes from 'prop-types';
 
 /**
  * @description:
@@ -25,31 +18,60 @@ import { cloneDeep } from 'lodash';
  *      }
  */
 
+usePostFetch.propTypes = {
+  pageNum: PropTypes.number,
+  limit: PropTypes.number,
+  query: PropTypes.string,
+  initialLoad: PropTypes.bool,
+  clientSidePagination: PropTypes.bool,
+  originalPosts: PropTypes.object,
+};
+
 function usePostFetch(props) {
   const {
-    clientSidePagination = false,
-    originalPosts = {},
     pageNum = 1,
-    limit = null,
+    limit = 6,
+    query = '',
+    initialLoad = true,
+    clientSidePagination = false,
+    originalPosts = null,
   } = props;
 
   const [hasMore, setHasmore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [posts, setPosts] = useState([]);
 
+  const _initialLoad = useRef();
+  _initialLoad.current = initialLoad;
+  console.log(_initialLoad);
+
   const getData = useCallback(async () => {
+    const axios = require('axios');
+    const searchRequest = axios.CancelToken.source();
+    const cancelToken = searchRequest.token;
     setIsLoading(true);
-    const { count, rows } = await getArticleList({ pageNum, limit });
+    const { count, rows } = await getArticleList({
+      query,
+      pageNum,
+      limit,
+      cancelToken,
+    });
     const left = limit * pageNum - count;
     left <= 0 && setHasmore(false);
     setPosts(pre => [...new Set([...pre, ...rows])]);
     setIsLoading(false);
-  }, [pageNum, limit]);
+    return () => searchRequest.cancel();
+  }, [query, pageNum, limit]);
 
-  let { count, rows } = cloneDeep(originalPosts);
+  // used for local search
+  let count, rows;
+  if (originalPosts && clientSidePagination) {
+    count = cloneDeep(originalPosts).count;
+    rows = cloneDeep(originalPosts).rows;
+  }
   const maxPages = useMemo(() => Math.ceil(count / limit), [count, limit]);
 
-  console.log({ count, maxPages, currentPage: pageNum });
+  // console.log({ count, maxPages, currentPage: pageNum });
 
   const getDataFromLocal = useCallback(() => {
     if (pageNum >= maxPages) {
@@ -64,9 +86,44 @@ function usePostFetch(props) {
     setPosts([]);
   }, [originalPosts]);
 
+  // used for server side search
   useEffect(() => {
-    clientSidePagination ? getDataFromLocal() : getData();
-  }, [pageNum, limit, originalPosts]);
+    if (clientSidePagination) return;
+    if (!_initialLoad.current) {
+      _initialLoad.current = false;
+      return;
+    }
+    const axios = require('axios');
+    const searchRequest = axios.CancelToken.source();
+    const cancelToken = searchRequest.token;
+    const fetchPosts = async () => {
+      try {
+        setIsLoading(true);
+        const { count, rows } = await getArticleList({
+          query,
+          pageNum,
+          limit,
+          cancelToken,
+        });
+        const left = count - limit * pageNum;
+        // console.log({ count, left, pageNum, limit });
+        left <= 0 && setHasmore(false);
+        setPosts(pre => [...new Set([...pre, ...rows])]);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(true);
+      }
+    };
+
+    fetchPosts();
+
+    return () => searchRequest.cancel();
+  }, [clientSidePagination, query, pageNum, limit]);
+
+  useEffect(() => {
+    if (!clientSidePagination) return;
+    getDataFromLocal();
+  }, [clientSidePagination]);
 
   return {
     isLoading,

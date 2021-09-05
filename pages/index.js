@@ -73,7 +73,7 @@ function Cover() {
                   </Link>
                 </li>
 
-                <li>
+                {/* <li>
                   <a href='#0'>Timeline.</a>
                 </li>
                 <li>
@@ -81,7 +81,7 @@ function Cover() {
                 </li>
                 <li>
                   <a href='ruoyuwangruoyu@hotmail.com'>Contact.</a>
-                </li>
+                </li> */}
               </ul>
             </nav>
           </div>

@@ -1,18 +1,18 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 12:32:45
- * @LastEditTime: 2021-08-28 17:12:55
+ * @LastEditTime: 2021-09-04 21:14:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \myblog\client\pages\post\[cname]\index.js
+ * @FilePath: \next-client\pages\blog\post\[cname]\index.js
  */
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
-import PostCard from '../../../components/PostCard';
-import FadeIn from '../../../components/FadeIn';
-import InfiniteScrolling from '../../../components/InfiniteScrolling';
+import PostCard from '../../../../components/PostCard';
+import FadeIn from '../../../../components/FadeIn';
+import InfiniteScrolling from '../../../../components/InfiniteScrolling';
 
-import usePostFetch from '../../../hooks/usePostFetch';
+import usePostFetch from '../../../../hooks/usePostFetch';
 
 import { Row, Col, Skeleton } from 'antd';
 
@@ -90,7 +90,10 @@ const Category = ({ posts }) => {
   );
 };
 
-import { getArticleCategories, getArticleByCategoryId } from '../../../request';
+import {
+  getArticleCategories,
+  getArticleByCategoryId,
+} from '../../../../request';
 
 // This function gets called at build time
 export async function getStaticProps(context) {
@@ -141,7 +144,7 @@ export async function getStaticPaths() {
   }
 }
 
-import BlogLayout from '../../../layout/BlogLayout';
+import BlogLayout from '../../../../layout/BlogLayout';
 Category.getLayout = function getLayout(page) {
   return <BlogLayout handleSearch={handleSearch}>{page}</BlogLayout>;
 };

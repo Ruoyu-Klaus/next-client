@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2021-08-20 23:28:12
- * @LastEditTime: 2021-08-22 19:13:44
+ * @LastEditTime: 2021-09-05 12:06:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \myblog\client\components\InfiniteScrolling.js
+ * @FilePath: \next-client\components\InfiniteScrolling.js
  */
 import React, { useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';

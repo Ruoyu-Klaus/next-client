@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2021-08-20 22:14:28
- * @LastEditTime: 2021-08-26 17:33:26
+ * @LastEditTime: 2021-09-04 21:10:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \myblog\client\components\PostCard.js
+ * @FilePath: \next-client\components\PostCard.js
  */
 import React, { useContext, useMemo } from 'react';
 import { Card, Tag, Divider } from 'antd';
@@ -44,10 +44,10 @@ function PostCard({ postData }) {
     () => (
       <figure className='post-cover'>
         <Link
-          href={`/post/${encodeURIComponent(
+          href={`/blog/post/${encodeURIComponent(
             category.category_name
           )}/${encodeURIComponent(id)}`}
-          as={`/post/${encodeURIComponent(
+          as={`/blog/post/${encodeURIComponent(
             category.category_name
           )}/${encodeURIComponent(id)}`}
         >

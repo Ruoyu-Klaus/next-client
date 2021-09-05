@@ -40,10 +40,26 @@
   z-index: 99;
   background: transparent;
 }
+.search-btn{
+  width: 50px;
+  height: 50px;
+  border-style: none;
+  font-size: 20px;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color:#f4f7f6;
+  pointer-events: painted;  
+  background: transparent;
+}
 
 
 .btn-search&.focus ~ .input-search{
-  width: 300px;
+  width: 18vw;
+  min-width: 250px;
+  max-width: 350px;
+
   border-radius: 0px;
   background-color: transparent;
   border-bottom:1px solid rgba(255,255,255,.5);
@@ -54,7 +70,9 @@
               inset 5px -5px 10px #ffffff;
 }
 .input-search&.focus{
-  width: 300px;
+  width: 18vw;
+  min-width: 250px;
+  max-width: 350px;
   border-radius: 0px;
   background-color: transparent;
   border-radius: 25px;

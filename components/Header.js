@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2021-07-29 18:38:13
- * @LastEditTime: 2021-08-26 18:23:29
+ * @LastEditTime: 2021-09-04 21:13:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \myblog\client\components\Header.js
+ * @FilePath: \next-client\components\Header.js
  */
 import React, { useContext, useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -24,15 +24,17 @@ function Header(props) {
   const { setCursorType } = useContext(CursorContext);
   const Router = useRouter();
   useRouterScroll();
+
   const handleClick = e => {
     if (e.key == 'blog') {
       Router.replace({ pathname: '/blog' });
     } else {
       Router.push({
-        pathname: `/post/${encodeURIComponent(e.key)}`,
+        pathname: `/blog/post/${encodeURIComponent(e.key)}`,
       });
     }
   };
+
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       let a = localStorage.getItem('themeMode') ? true : false;
@@ -41,6 +43,14 @@ function Header(props) {
       return false;
     }
   });
+
+  const hanleSearchBtn = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    Router.push({
+      pathname: `/blog/search/`,
+    });
+  };
 
   const [loaded, setLoaded] = useState(false);
 
@@ -94,7 +104,15 @@ function Header(props) {
               </div>
             </Col>
             <Col xs={0} sm={0} md={8} lg={8} xl={12}>
-              <SearchBar searchHanlder={handleSearch} />
+              <button
+                className='search-btn'
+                onClick={hanleSearchBtn}
+                onMouseEnter={e => setCursorType('magnifier')}
+                onMouseLeave={e => setCursorType('default')}
+              >
+                <FontAwesomeIcon icon={'search'} color='black' />
+              </button>
+              {/* <SearchBar searchHanlder={handleSearch} /> */}
             </Col>
           </Row>
         </Col>

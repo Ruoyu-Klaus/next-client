@@ -8,7 +8,7 @@ import { WechatFilled, FacebookFilled, GithubFilled } from '@ant-design/icons';
 
 import dayjs from 'dayjs';
 
-import '../../../styles/Pages/post.less';
+import '../../../../styles/Pages/post.less';
 
 const tagColorScheme = [
   'magenta',
@@ -37,17 +37,6 @@ const Post = ({ post = null, tocTree = [] }) => {
     setTargetOffset(window.innerHeight / 2);
   }, []);
 
-  // 暂时弃用
-  const getFlatAnchors = items => {
-    return items.reduce((acc, item) => {
-      acc.push(item.anchor);
-      if (item.children) {
-        acc.push(...getFlatAnchors(item.children));
-      }
-      return acc;
-    }, []);
-  };
-
   const renderToc = items => {
     // 递归 render
     return items.map(item => (
@@ -66,6 +55,17 @@ const Post = ({ post = null, tocTree = [] }) => {
       </Link>
     ));
   };
+
+  // 暂时弃用
+  //  const getFlatAnchors = items => {
+  //   return items.reduce((acc, item) => {
+  //     acc.push(item.anchor);
+  //     if (item.children) {
+  //       acc.push(...getFlatAnchors(item.children));
+  //     }
+  //     return acc;
+  //   }, []);
+  // };
 
   // 已使用Antd的组件，暂时弃用
   // const toc = tocTree => (
@@ -205,13 +205,13 @@ const Post = ({ post = null, tocTree = [] }) => {
   );
 };
 
-import { getArticleById, getArticleList } from '../../../request';
+import { getArticleById, getArticleList } from '../../../../request';
 
 import marked from 'marked';
 import hljs from 'highlight.js';
 import createDOMPurify from 'dompurify';
 import { JSDOM } from 'jsdom';
-import MarkDownTOC from '../../../helpers/MarkDownTOC';
+import MarkDownTOC from '../../../../helpers/MarkDownTOC';
 
 export async function getStaticProps(context) {
   const { params } = context;
@@ -283,7 +283,7 @@ export async function getStaticPaths() {
     };
   }
 }
-import BlogLayout from '../../../layout/BlogLayout';
+import BlogLayout from '../../../../layout/BlogLayout';
 Post.getLayout = function getLayout(page) {
   return <BlogLayout handleSearch={handleSearch}>{page}</BlogLayout>;
 };

@@ -1,10 +1,10 @@
 import { useState, useCallback } from 'react';
 import Head from 'next/head';
-import PostCard from '../components/PostCard';
-import FadeIn from '../components/FadeIn';
-import InfiniteScrolling from '../components/InfiniteScrolling';
+import PostCard from '../../components/PostCard';
+import FadeIn from '../../components/FadeIn';
+import InfiniteScrolling from '../../components/InfiniteScrolling';
 
-import usePostFetch from '../hooks/usePostFetch';
+import usePostFetch from '../../hooks/usePostFetch';
 
 import { Row, Col, Skeleton } from 'antd';
 
@@ -16,19 +16,19 @@ function Blog({ posts }) {
   const [pageNum, setPageNum] = useState(1);
   const [fetchPosts, setFetchPosts] = useState(posts);
 
-  handleSearch.func = searchWords => {
-    if (!searchWords) return setFetchPosts(posts);
-    const { rows: _rows, count: _count } = posts;
-    let rows = _rows.filter(
-      post =>
-        post.post_title.match(searchWords) ||
-        post.post_content.match(searchWords) ||
-        post.post_introduce.match(searchWords)
-    );
-    let count = rows.length;
-    let result = { rows, count };
-    return setFetchPosts(result);
-  };
+  // handleSearch.func = searchWords => {
+  //   if (!searchWords) return setFetchPosts(posts);
+  //   const { rows: _rows, count: _count } = posts;
+  //   let rows = _rows.filter(
+  //     post =>
+  //       post.post_title.match(searchWords) ||
+  //       post.post_content.match(searchWords) ||
+  //       post.post_introduce.match(searchWords)
+  //   );
+  //   let count = rows.length;
+  //   let result = { rows, count };
+  //   return setFetchPosts(result);
+  // };
 
   const getCurrentPageNum = page => {
     setPageNum(page);
@@ -86,13 +86,14 @@ function Blog({ posts }) {
   );
 }
 
-import { getArticleList } from '../request';
+import { getArticleList } from '../../request';
 
 // This function gets called at build time
 export async function getStaticProps() {
   // Call an external API endpoint to get posts
   try {
     const posts = await getArticleList();
+    console.log(posts);
     // will receive `posts` as a prop at build time
     return {
       props: {
@@ -109,7 +110,7 @@ export async function getStaticProps() {
   }
 }
 
-import BlogLayout from '../layout/BlogLayout';
+import BlogLayout from '../../layout/BlogLayout';
 Blog.getLayout = function getLayout(page) {
   return <BlogLayout handleSearch={handleSearch}>{page}</BlogLayout>;
 };

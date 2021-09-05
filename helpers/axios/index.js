@@ -28,7 +28,7 @@ Axios.interceptors.request.use(
     try {
       // config.headers.Authorization = getToken();
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     } finally {
       return config;
     }
@@ -47,7 +47,8 @@ Axios.interceptors.response.use(
     return response.data;
   },
   error => {
-    console.error(error);
+    // console.error(error);
+    return Promise.reject(error);
   }
 );
 
