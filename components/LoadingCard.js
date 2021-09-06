@@ -5,8 +5,14 @@
 import React from 'react';
 import { Skeleton } from 'antd';
 
-function LoadingCard() {
-  return <Skeleton loading={true} button active block shape='Default' />;
+function LoadingCard({ isLoading }) {
+  return (
+    <div id={'loadingBars'}>
+      <Skeleton loading={isLoading} paragraph={false} active />
+      <Skeleton loading={isLoading} paragraph={false} active />
+      <Skeleton loading={isLoading} paragraph={false} active />
+    </div>
+  );
 }
 
 export default LoadingCard;

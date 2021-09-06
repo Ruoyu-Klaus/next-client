@@ -1,34 +1,20 @@
-import { useState, useCallback } from 'react';
+/*
+ * @Author: Ruoyu
+ * @FilePath: \next-client\pages\blog\index.js
+ */
+import { useState } from 'react';
 import Head from 'next/head';
 import PostCard from '../../components/PostCard';
 import FadeIn from '../../components/FadeIn';
 import InfiniteScrolling from '../../components/InfiniteScrolling';
-
+import LoadingCard from '../../components/LoadingCard';
 import usePostFetch from '../../hooks/usePostFetch';
 
-import { Row, Col, Skeleton } from 'antd';
-
-let handleSearch = { func: null };
+import { Row, Col } from 'antd';
 
 function Blog({ posts }) {
-  const loadingNode = <Skeleton loading={true} avatar active />;
-
   const [pageNum, setPageNum] = useState(1);
   const [fetchPosts, setFetchPosts] = useState(posts);
-
-  // handleSearch.func = searchWords => {
-  //   if (!searchWords) return setFetchPosts(posts);
-  //   const { rows: _rows, count: _count } = posts;
-  //   let rows = _rows.filter(
-  //     post =>
-  //       post.post_title.match(searchWords) ||
-  //       post.post_content.match(searchWords) ||
-  //       post.post_introduce.match(searchWords)
-  //   );
-  //   let count = rows.length;
-  //   let result = { rows, count };
-  //   return setFetchPosts(result);
-  // };
 
   const getCurrentPageNum = page => {
     setPageNum(page);
@@ -63,7 +49,7 @@ function Blog({ posts }) {
             >
               <InfiniteScrolling
                 hasMore={hasMore}
-                loadingNode={loadingNode}
+                LoadingComp={LoadingCard}
                 getPageNum={getCurrentPageNum}
                 isLoading={isLoading}
                 initialLoad={false}
@@ -111,7 +97,7 @@ export async function getStaticProps() {
 
 import BlogLayout from '../../layout/BlogLayout';
 Blog.getLayout = function getLayout(page) {
-  return <BlogLayout handleSearch={handleSearch}>{page}</BlogLayout>;
+  return <BlogLayout>{page}</BlogLayout>;
 };
 
 export default Blog;

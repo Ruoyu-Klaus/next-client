@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2021-08-26 11:36:37
- * @LastEditTime: 2021-09-05 10:22:38
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \next-client\layout\BlogLayout.js
- */
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -13,7 +5,7 @@ import { getArticleCategories } from '../request';
 
 import '../styles/Layout/bloglayout.less';
 
-function BlogLayout({ children, handleSearch }) {
+function BlogLayout({ children }) {
   const [category, setCategory] = useState([]);
   const [displayChildren, setDisplayChildren] = useState(children);
   const [transitionStage, setTransitionStage] = useState('fadeOut');

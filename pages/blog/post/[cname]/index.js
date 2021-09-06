@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-26 12:32:45
- * @LastEditTime: 2021-09-04 21:14:28
+ * @LastEditTime: 2021-09-06 11:12:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \next-client\pages\blog\post\[cname]\index.js
@@ -11,35 +11,18 @@ import { useState, useEffect } from 'react';
 import PostCard from '../../../../components/PostCard';
 import FadeIn from '../../../../components/FadeIn';
 import InfiniteScrolling from '../../../../components/InfiniteScrolling';
-
+import LoadingCard from '../../../../components/LoadingCard';
 import usePostFetch from '../../../../hooks/usePostFetch';
 
-import { Row, Col, Skeleton } from 'antd';
-
-let handleSearch = { func: null };
+import { Row, Col } from 'antd';
 
 const Category = ({ posts }) => {
-  const loadingNode = <Skeleton loading={true} avatar active />;
-
   const [pageNum, setPageNum] = useState(1);
   const [fetchPosts, setFetchPosts] = useState(() => posts);
 
   useEffect(() => {
     setFetchPosts(posts);
   }, [posts]);
-  handleSearch.func = searchWords => {
-    if (!searchWords) return setFetchPosts(posts);
-    const { rows: _rows, count: _count } = posts;
-    let rows = _rows.filter(
-      post =>
-        post.post_title.match(searchWords) ||
-        post.post_content.match(searchWords) ||
-        post.post_introduce.match(searchWords)
-    );
-    let count = rows.length;
-    let result = { rows, count };
-    return setFetchPosts(result);
-  };
 
   const getCurrentPageNum = page => {
     setPageNum(page);
@@ -68,7 +51,7 @@ const Category = ({ posts }) => {
           >
             <InfiniteScrolling
               hasMore={hasMore}
-              loadingNode={loadingNode}
+              LoadingComp={LoadingCard}
               getPageNum={getCurrentPageNum}
               isLoading={isLoading}
               initialLoad={false}
@@ -146,6 +129,6 @@ export async function getStaticPaths() {
 
 import BlogLayout from '../../../../layout/BlogLayout';
 Category.getLayout = function getLayout(page) {
-  return <BlogLayout handleSearch={handleSearch}>{page}</BlogLayout>;
+  return <BlogLayout>{page}</BlogLayout>;
 };
 export default Category;

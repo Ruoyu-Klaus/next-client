@@ -24,8 +24,6 @@ const tagColorScheme = [
   'purple',
 ];
 
-let handleSearch = { func: null };
-
 const Post = ({ post = null, tocTree = [] }) => {
   const router = useRouter();
   const { cname, pid } = router.query;
@@ -88,10 +86,6 @@ const Post = ({ post = null, tocTree = [] }) => {
   //     ))}
   //   </ul>
   // );
-
-  handleSearch.func = e => {
-    console.log(e);
-  };
 
   return (
     post && (
@@ -285,7 +279,7 @@ export async function getStaticPaths() {
 }
 import BlogLayout from '../../../../layout/BlogLayout';
 Post.getLayout = function getLayout(page) {
-  return <BlogLayout handleSearch={handleSearch}>{page}</BlogLayout>;
+  return <BlogLayout>{page}</BlogLayout>;
 };
 
 export default Post;

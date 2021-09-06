@@ -3,8 +3,8 @@
  * @FilePath: \next-client\pages\blog\search\index.js
  */
 
+import { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
-import { useState, useEffect, useCallback } from 'react';
 import PostCard from '../../../components/PostCard';
 import FadeIn from '../../../components/FadeIn';
 import InfiniteScrolling from '../../../components/InfiniteScrolling';
@@ -18,17 +18,14 @@ import { debounce } from 'lodash';
 import { Row, Col } from 'antd';
 
 const Search = () => {
+  const Router = useRouter();
+  const { cname, pid } = Router.query;
   const [pageNum, setPageNum] = useState(1);
-
   const getCurrentPageNum = page => {
     setPageNum(page);
   };
 
   const [searchString, setSearchSting] = useState('');
-  /*
-  Make search bar for this page
-  
-  */
 
   const onInputSearch = useCallback(
     debounce(str => {
@@ -47,19 +44,14 @@ const Search = () => {
 
   return (
     <div style={{ height: '100%' }}>
-      <Row className='comm-main' type='flex' justify='center'>
+      <Row className='comm-main' justify='center'>
         <Col xs={16} sm={16} md={18} lg={18} xxl={18}>
           <SearchBar onInputSearch={onInputSearch} />
         </Col>
       </Row>
-      <Row className='comm-main' type='flex' justify='center'>
+      <Row className='comm-main' justify='center'>
         <Col xs={16} sm={16} md={18} lg={18} xxl={18}>
-          <Row
-            className='post-list'
-            type='flex'
-            justify='flex-start'
-            gutter={[16, 16]}
-          >
+          <Row className='post-list' justify='center' gutter={[18, 18]}>
             <InfiniteScrolling
               hasMore={hasMore}
               LoadingComp={LoadingCard}

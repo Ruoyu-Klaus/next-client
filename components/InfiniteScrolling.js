@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-20 23:28:12
- * @LastEditTime: 2021-09-05 21:59:03
+ * @LastEditTime: 2021-09-06 12:50:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \next-client\components\InfiniteScrolling.js
@@ -45,7 +45,7 @@ function InfiniteScrolling(props) {
           return child;
         }
       })}
-      {isLoading && <LoadingComp />}
+      <LoadingComp isLoading={isLoading} />
     </>
   );
 }
