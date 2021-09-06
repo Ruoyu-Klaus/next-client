@@ -1,12 +1,7 @@
 /*
- * @Author: your name
- * @Date: 2021-07-29 18:38:13
- * @LastEditTime: 2021-08-31 11:35:19
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
+ * @Author: Ruoyu
  * @FilePath: \next-client\next.config.js
  */
-
 const withPlugins = require('next-compose-plugins');
 const withCSS = require('@zeit/next-css');
 const withLess = require('@zeit/next-less');
@@ -17,6 +12,9 @@ const nextConfig = {
   target: 'serverless',
   experimental: { esmExternals: true },
   // reactStrictMode: true,
+  env: {
+    BASE_URL: process.env.BASE_URL || 'http://127.0.0.1:7001/v1/',
+  },
 };
 
 const plugins = [
