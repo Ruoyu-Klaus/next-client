@@ -1,19 +1,13 @@
 /*
- * @Author: your name
- * @Date: 2021-08-20 22:14:28
- * @LastEditTime: 2021-09-04 21:10:51
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
+ * @Author: Ruoyu
  * @FilePath: \next-client\components\PostCard.js
  */
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Card, Tag, Divider } from 'antd';
 import '../styles/Components/PostCard.less';
 const { Meta } = Card;
 import dayjs from 'dayjs';
 import Link from 'next/link';
-
-// import { CursorContext } from '../context/cursor/CursorContext';
 
 const tagColorScheme = [
   'magenta',
@@ -30,7 +24,6 @@ const tagColorScheme = [
 ];
 
 function PostCard({ postData }) {
-  // const { setCursorType } = useContext(CursorContext);
   const {
     id,
     post_title,
@@ -39,19 +32,24 @@ function PostCard({ postData }) {
     post_cover,
     category,
     tags,
+    updated_at,
   } = postData;
+
   const postCover = useMemo(
     () => (
       <figure className='post-cover'>
         <Link
-          href={`/blog/post/${encodeURIComponent(
-            category.category_name
-          )}/${encodeURIComponent(id)}`}
-          as={`/blog/post/${encodeURIComponent(
-            category.category_name
-          )}/${encodeURIComponent(id)}`}
+          href={{
+            pathname: `/blog/post/[cname]/[pid]`,
+            query: {
+              cname: category.category_name,
+              pid: id,
+            },
+          }}
+          as={`/blog/post/${category.category_name}/${id}/${post_title}`}
+          passHref
         >
-          <a>
+          <a title={post_title}>
             <img
               className='post-cover-img'
               alt={post_title}
@@ -72,7 +70,7 @@ function PostCard({ postData }) {
         <div className='post-description'>
           <div className='post-category'>{category.category_name}</div>
           <time className='post-date'>
-            {dayjs(post_time).format('YYYY-MM-DD')}
+            {dayjs(updated_at).format('YYYY-MM-DD')}
           </time>
         </div>
         <Divider orientation='center' style={{ margin: '14px 0' }}></Divider>

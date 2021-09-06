@@ -82,7 +82,8 @@ function usePostFetch(props) {
 
   useEffect(() => {
     originalPosts && setPosts([]);
-  }, [originalPosts]);
+    setPosts([]);
+  }, [originalPosts, query]);
 
   // used for server side search
   useEffect(() => {
@@ -115,7 +116,7 @@ function usePostFetch(props) {
     fetchPosts();
 
     return () => searchRequest.cancel();
-  }, [clientSidePagination, query, pageNum, limit]);
+  }, [clientSidePagination, query, pageNum, limit, initialLoad]);
 
   useEffect(() => {
     if (!clientSidePagination) return;

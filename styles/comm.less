@@ -27,6 +27,11 @@ html body {
       border-bottom: none;
       box-shadow: 0 2px 4px rgb(0 0 0 / 50%);
     }
+    .dot{
+      &.default{
+        background-color: rgb(92, 92, 92);
+      }
+    }
     .ant-typography{
       color:#FFF !important;
     }
@@ -40,6 +45,17 @@ html body {
         border-top: 1px solid rgba(255, 255, 255, 0.06)
       }
     }
+    #loadingBars{
+      .ant-skeleton-title{
+        background:rgba(97, 97, 97, 0.9) 
+      } 
+      .ant-skeleton-active .ant-skeleton-title{
+        background: linear-gradient(90deg, #272727b8 25%, #6f6f6f 37%, #272727b8 63%);
+        background-size:400% 100%;
+      }
+    }
+      
+    
     .searchBar-bar{
       box-shadow: 0px 1px 1px -1px rgb(255, 255, 255, 0.2), 0px 0px 1px 0px rgb(255, 255, 255, 0.14), 0px 1px 3px 0px rgb(255, 255, 255, 0.12);
     }
@@ -138,6 +154,19 @@ html body {
   .ant-tag{
     border: none;
   }
+  #loadingBars{
+    width: 80%;
+    margin: 0 auto;
+    opacity:0.8;
+    .ant-skeleton-title{
+      border-radius: 10px;
+    }
+    .ant-skeleton-active .ant-skeleton-title{
+      background: linear-gradient(90deg, #c3c1c1cf 25%, #9c9c9cbf 37%, #c3c1c1cf 63%);
+      background-size:400% 100%;
+    }
+  }
+  
   a.anchor{
     display: block;
     position: relative;
