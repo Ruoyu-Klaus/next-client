@@ -1,21 +1,21 @@
 /*
- * @Author: your name
- * @Date: 2021-08-12 17:14:32
- * @LastEditTime: 2021-08-25 10:15:04
- * @LastEditors: your name
- * @Description: In User Settings Edit
- * @FilePath: \myblog\client\components\CustomCursor.js
+ * @Author: Ruoyu
+ * @FilePath: \next-client\components\CustomCursor.js
  */
 import React, { useEffect, useState, useRef, useContext } from 'react';
 import useMousePosition from '../hooks/useMousePosition';
 import { CursorContext } from '../context/cursor/CursorContext';
 import '../styles/Components/CustomCursor.less';
+import { isMobile } from 'react-device-detect';
 
 const getDomWidthAndHeight = dom => {
   return [dom.offsetWidth, dom.offsetHeight];
 };
 
 function CustomCursor() {
+  if (isMobile) {
+    return null;
+  }
   const { x, y } = useMousePosition();
   const ringRef = useRef();
   const dotRef = useRef();
