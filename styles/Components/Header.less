@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
 .header {
+  box-sizing: border-box;
   height:90px;
   background-color: #f4f7f6;
   padding: 0.4rem;
@@ -9,15 +10,45 @@
   position: sticky;
   top: 0;
   z-index: 999;
+  position: relative;
   > .ant-row{
     align-items: center;
+  }
+  .h-left{
+    height:75px;
+    width: 15vw;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    margin-left:1rem;
+    justify-content:space-around;
+  }
+  .mode-trigger{
+    font-size:1.5rem;
+  }
+  .search-btn{
+    font-size:1rem;
+    border: none;
+    background: transparent;
+  }
+  @media screen and (max-width: 540px) {
+    .search-btn{
+      display: none;
+    }
+  }
+  .h-right{
+    height:75px;
+    position: absolute;
+    right: 0;
+    display: flex;
+    align-items: center;
+    width: 25vw;
   }
   .header-left{
     display: flex;
     align-items: center;
     margin-left:2rem;
     justify-content:space-around;
-    
   }
   .header-logo {
     width: 250px;
@@ -44,6 +75,8 @@
     justify-content: flex-end;
   }
   .ant-menu {
+    width:100%;
+    overflow: hidden;
     background:none;
     line-height: 2.8rem;
   }
