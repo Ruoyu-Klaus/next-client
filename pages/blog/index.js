@@ -96,8 +96,8 @@ export async function getStaticProps() {
 }
 
 import BlogLayout from '../../layout/BlogLayout';
-Blog.getLayout = function getLayout(page) {
-  return <BlogLayout>{page}</BlogLayout>;
+Blog.getLayout = function getLayout(page, categories) {
+  return <BlogLayout categories={categories}>{page}</BlogLayout>;
 };
 
 export default Blog;

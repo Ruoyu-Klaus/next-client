@@ -1,23 +1,19 @@
+/*
+ * @Author: Ruoyu
+ * @FilePath: \next-client\layout\BlogLayout.js
+ */
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { getArticleCategories } from '../request';
 
 import '../styles/Layout/bloglayout.less';
 
-function BlogLayout({ children }) {
-  const [category, setCategory] = useState([]);
+function BlogLayout({ categories = [], children }) {
   const [displayChildren, setDisplayChildren] = useState(children);
   const [transitionStage, setTransitionStage] = useState('fadeOut');
 
   useEffect(() => {
     setTransitionStage('fadeIn');
-  }, []);
-
-  useEffect(() => {
-    getArticleCategories().then(categories => {
-      setCategory(categories);
-    });
   }, []);
 
   useEffect(() => {
@@ -28,7 +24,7 @@ function BlogLayout({ children }) {
     <div
       style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
     >
-      <Header navArray={category} />
+      <Header navArray={categories} />
       <main
         onTransitionEnd={() => {
           if (transitionStage === 'fadeOut') {

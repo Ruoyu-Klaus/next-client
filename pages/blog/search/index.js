@@ -77,7 +77,7 @@ const Search = () => {
 };
 
 import BlogLayout from '../../../layout/BlogLayout';
-Search.getLayout = function getLayout(page) {
-  return <BlogLayout>{page}</BlogLayout>;
+Search.getLayout = function getLayout(page, categories) {
+  return <BlogLayout categories={categories}>{page}</BlogLayout>;
 };
 export default Search;

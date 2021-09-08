@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2021-08-26 12:32:45
- * @LastEditTime: 2021-09-06 11:12:40
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \next-client\pages\blog\post\[cname]\index.js
- */
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import PostCard from '../../../../components/PostCard';
@@ -128,7 +120,7 @@ export async function getStaticPaths() {
 }
 
 import BlogLayout from '../../../../layout/BlogLayout';
-Category.getLayout = function getLayout(page) {
-  return <BlogLayout>{page}</BlogLayout>;
+Category.getLayout = function getLayout(page, categories) {
+  return <BlogLayout categories={categories}>{page}</BlogLayout>;
 };
 export default Category;
