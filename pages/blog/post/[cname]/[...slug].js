@@ -12,21 +12,21 @@ import '../../../../styles/Pages/post.less';
 
 const tagColorScheme = [
   'magenta',
+  'purple',
+  'blue',
   'red',
-  'volcano',
   'orange',
   'gold',
   'lime',
+  'volcano',
   'green',
   'cyan',
-  'blue',
   'geekblue',
-  'purple',
 ];
 
 const Post = ({ post = null, tocTree = [] }) => {
   const router = useRouter();
-  const { cname, pid } = router.query;
+  const { cname, slug } = router.query;
   const [targetOffset, setTargetOffset] = useState(undefined);
   useEffect(() => {
     !post && router.push('/blog');
@@ -120,7 +120,7 @@ const Post = ({ post = null, tocTree = [] }) => {
               <div className='detailed-category'>
                 <span>{post.category.category_name}</span>
               </div>
-              <div className='detailed-category '>
+              <div className='detailed-tag'>
                 {post?.tags.map((tag, i) => (
                   <Tag key={tag.id} color={tagColorScheme[i]}>
                     {tag.tag_name}
@@ -179,15 +179,7 @@ const Post = ({ post = null, tocTree = [] }) => {
               </Row>
             </div>
           </Col>
-          <Col xs={24} sm={24} md={18} lg={18} xxl={18}>
-            <div className='detailed-tag'>
-              {post?.tags.map((tag, i) => (
-                <Tag key={tag.id} color={tagColorScheme[i]}>
-                  {tag.tag_name}
-                </Tag>
-              ))}
-            </div>
-          </Col>
+
           <Col xs={24} sm={24} md={18} lg={18} xxl={18}>
             <Divider>
               <img src='/favicon.ico' width='30px' />
@@ -226,7 +218,7 @@ export async function getStaticProps(context) {
   marked.use({ renderer });
 
   try {
-    const id = params.pid;
+    const [id] = params.slug;
     const post = await getArticleById(id);
 
     const window = new JSDOM('').window;
@@ -263,7 +255,10 @@ export async function getStaticPaths() {
     const paths = rows.map(post => ({
       params: {
         cname: encodeURIComponent(post.category.category_name),
-        pid: encodeURIComponent(post.id),
+        slug: [
+          encodeURIComponent(post.id),
+          encodeURIComponent(post.post_title),
+        ],
       },
     }));
     return {
@@ -278,8 +273,8 @@ export async function getStaticPaths() {
   }
 }
 import BlogLayout from '../../../../layout/BlogLayout';
-Post.getLayout = function getLayout(page) {
-  return <BlogLayout>{page}</BlogLayout>;
+Post.getLayout = function getLayout(page, categories) {
+  return <BlogLayout categories={categories}>{page}</BlogLayout>;
 };
 
 export default Post;

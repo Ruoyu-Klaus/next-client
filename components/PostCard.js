@@ -40,10 +40,10 @@ function PostCard({ postData }) {
       <figure className='post-cover'>
         <Link
           href={{
-            pathname: `/blog/post/[cname]/[pid]`,
+            pathname: `/blog/post/[cname]/[...slug]`,
             query: {
               cname: category.category_name,
-              pid: id,
+              slug: [id, post_title],
             },
           }}
           as={`/blog/post/${category.category_name}/${id}/${post_title}`}
