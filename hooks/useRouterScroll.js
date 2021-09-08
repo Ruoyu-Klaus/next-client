@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2021-08-23 21:03:17
- * @LastEditTime: 2021-08-23 21:05:26
+ * @LastEditTime: 2021-09-08 09:43:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \myblog\client\hooks\useRouterScroll.js
+ * @FilePath: \next-client\hooks\useRouterScroll.js
  */
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -12,8 +12,11 @@ import { useEffect } from 'react';
 function useRouterScroll({ behavior = 'smooth', left = 0, top = 0 } = {}) {
   const router = useRouter();
   useEffect(() => {
-    const handleRouteChangeComplete = () => {
+    const handleRouteChangeComplete = url => {
       window.scrollTo({ top, left, behavior });
+      window.gtag('config', 'G-TVHYT0JX36', {
+        page_path: url,
+      });
     };
 
     router.events.on('routeChangeComplete', handleRouteChangeComplete);
