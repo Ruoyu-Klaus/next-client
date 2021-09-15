@@ -7,7 +7,8 @@
 - [X] routes for post name
 - [X] use dynamic slug routes for post id and title
 - [ ] implement search filter like category and tags
-
+- [ ] post cover postion
+- [X] post MD parse highlight not right
 
 
 * Responsiveness
