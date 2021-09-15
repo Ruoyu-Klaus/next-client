@@ -211,8 +211,10 @@ export async function getStaticProps(context) {
     breaks: false,
     smartLists: true,
     smartypants: false,
+    langPrefix: 'hljs language-',
     highlight: function (code, lang) {
-      return hljs.highlightAuto(code).value;
+      const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+      return hljs.highlight(language, code).value;
     },
   });
   marked.use({ renderer });

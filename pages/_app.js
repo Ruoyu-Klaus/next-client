@@ -3,17 +3,20 @@
  * @FilePath: \next-client\pages\_app.js
  */
 import '../styles/comm.less';
-import 'highlight.js/styles/monokai-sublime.css';
+import '../styles/markdown.less';
+import 'highlight.js/styles/github.css';
 
 import { CursorContextProvider } from '../context/cursor/CursorContext';
-// import CustomCorsor from '../components/CustomCursor';
 import dynamic from 'next/dynamic';
+
 import { config, library } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 config.autoAddCss = false;
 import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas);
+
 import { BackTop } from 'antd';
+
 import { getArticleCategories } from '../request';
 
 const CustomCorsor = dynamic(() => import('../components/CustomCursor'), {
