@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import NextLink from 'next/link';
-import PostCard from '../../../../components/PostCard';
 
 import { Tag, Divider, Avatar, Anchor, Row, Col } from 'antd';
 const { Link } = Anchor;
@@ -98,8 +97,6 @@ function Post({ post = null, tocTree = [], previousPath, nextPath }) {
           <link rel='icon' href='/favicon.ico' />
         </Head>
         <div style={{ height: '100%' }}>
-          {/* load postcard style prevent tansition flash */}
-          {cname === '_$placeholder' && <PostCard />}
           <Row
             type='flex'
             justify='center'

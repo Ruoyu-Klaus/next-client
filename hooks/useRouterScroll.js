@@ -14,6 +14,18 @@ function useRouterScroll({ behavior = 'smooth', left = 0, top = 0 } = {}) {
         window.gtag('config', 'G-TVHYT0JX36', {
           page_path: url,
         });
+
+      /* 
+      load postcard style prevent tansition flash 
+      Temp solution
+      */
+      const tempFix = () => {
+        const allStyleElems = document.querySelectorAll('style[media="x"]');
+        allStyleElems.forEach(elem => {
+          elem.removeAttribute('media');
+        });
+      };
+      tempFix();
     };
 
     router.events.on('routeChangeComplete', handleRouteChangeComplete);
