@@ -18,7 +18,7 @@ function BlogLayout({ categories = [], children }) {
 
   useEffect(() => {
     if (children !== displayChildren) setTransitionStage('fadeOut');
-  }, [children, setDisplayChildren, displayChildren]);
+  }, [children, setTransitionStage, displayChildren]);
 
   return (
     <div
@@ -26,13 +26,13 @@ function BlogLayout({ categories = [], children }) {
     >
       <Header navArray={categories} />
       <main
-        onTransitionEnd={() => {
+        onTransitionEnd={e => {
           if (transitionStage === 'fadeOut') {
-            setDisplayChildren(children);
             setTransitionStage('fadeIn');
+            setDisplayChildren(children);
           }
         }}
-        className={`content ${transitionStage}`}
+        className={`blog-main ${transitionStage}`}
       >
         {displayChildren}
       </main>

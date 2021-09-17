@@ -9,7 +9,11 @@
 - [ ] implement search filter like category and tags
 - [ ] post cover postion
 - [X] post MD parse highlight not right
+- [ ] strange post transition-in 
+- [X] previous post & next post
 
+
+- [ ] use CSS module instead of build-in CSS
 
 * Responsiveness
 
