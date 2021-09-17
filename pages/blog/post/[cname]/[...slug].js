@@ -35,7 +35,7 @@ function Post({ post = null, tocTree = [], previousPath, nextPath }) {
     !post && router.push('/blog');
   }, []);
   useEffect(() => {
-    setTargetOffset(window.innerHeight / 1.8);
+    setTargetOffset(window.innerHeight / 2.2);
   }, []);
 
   const renderToc = items => {
