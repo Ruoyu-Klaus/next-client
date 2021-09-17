@@ -8,7 +8,7 @@ import usePostFetch from '../../../../hooks/usePostFetch';
 
 import { Row, Col } from 'antd';
 
-const Category = ({ posts }) => {
+function Category({ posts }) {
   const [pageNum, setPageNum] = useState(1);
   const [fetchPosts, setFetchPosts] = useState(() => posts);
 
@@ -63,7 +63,7 @@ const Category = ({ posts }) => {
       </Row>
     </div>
   );
-};
+}
 
 import {
   getArticleCategories,

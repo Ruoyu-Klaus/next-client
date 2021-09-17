@@ -70,7 +70,7 @@ function PostCard({ postData }) {
         <div className='post-description'>
           <div className='post-category'>{category.category_name}</div>
           <time className='post-date'>
-            {dayjs(updated_at).format('YYYY-MM-DD')}
+            {dayjs(post_time).format('YYYY-MM-DD')}
           </time>
         </div>
         <Divider orientation='center' style={{ margin: '14px 0' }}></Divider>

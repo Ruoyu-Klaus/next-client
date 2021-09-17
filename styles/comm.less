@@ -18,7 +18,94 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 html body {
-  &.dark-mode{
+  font-family:  "apercu","Hiragino Sans GB", "Microsoft YaHei",
+  "WenQuanYi Micro Hei", serif !important;
+  overflow-x: hidden;
+  background-color: #f6f6f6;
+  margin: 0;
+  padding: 0;
+  font-size: 28px;
+  line-height: 1;
+  scroll-behavior: smooth;
+  /* HTML5 display-role reset for older browsers */
+  article, aside, details, figcaption, figure, 
+  footer, header, hgroup, menu, nav, section {
+    display: block;
+  }
+
+  blockquote, q {
+    padding: 0 1em;
+    font-style:italic;
+    color: #6a737d;
+    border-left: .25rem solid #dfe2e5;
+    margin:1rem 0;
+  }
+  blockquote:before, blockquote:after,
+  q:before, q:after {
+    content: '';
+    content: none;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  a{
+    cursor: none !important;
+  }
+  // cursor: none !important;
+  .noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; 
+  }
+  
+  .comm-main {
+    margin-top: 4rem;
+  }
+
+  .ant-menu-item-selected,.ant-menu-item-active{
+    border-bottom: 2px solid #060606 !important;
+  }
+  .ant-tag{
+    border: none;
+  }
+  #loadingBars{
+    width: 80%;
+    margin: 0 auto;
+    opacity:0.8;
+    .ant-skeleton-title{
+      border-radius: 10px;
+    }
+    .ant-skeleton-active .ant-skeleton-title{
+      background: linear-gradient(90deg, #c3c1c1cf 25%, #9c9c9cbf 37%, #c3c1c1cf 63%);
+      background-size:400% 100%;
+    }
+  }
+  
+  a.anchor{
+    display: block;
+    position: relative;
+    top: -90px;
+    visibility: hidden;
+  }
+  .ant-anchor-wrapper{
+    background-color:transparent !important;
+  }
+  .ant-anchor-link-title{
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 16px !important;
+  }
+  .ant-anchor-link-active{
+    color: rgba(0, 0, 0, 0.85);
+  }
+  
+}
+
+body{
+   &.dark-mode{
     background-color: #121212;
     color:#FFF !important;
     .header{
@@ -105,91 +192,6 @@ html body {
    
     
   }
-
-  font-family:  "apercu","Hiragino Sans GB", "Microsoft YaHei",
-  "WenQuanYi Micro Hei", serif !important;
-  overflow-x: hidden;
-  background-color: #f6f6f6;
-  margin: 0;
-  padding: 0;
-  font-size: 28px;
-  line-height: 1;
-  scroll-behavior: smooth;
-  /* HTML5 display-role reset for older browsers */
-  article, aside, details, figcaption, figure, 
-  footer, header, hgroup, menu, nav, section {
-    display: block;
-  }
-
-  blockquote, q {
-    padding: 0 1em;
-    font-style:italic;
-    color: #6a737d;
-    border-left: .25rem solid #dfe2e5;
-    margin:1rem 0;
-  }
-  blockquote:before, blockquote:after,
-  q:before, q:after {
-    content: '';
-    content: none;
-  }
-  table {
-    border-collapse: collapse;
-    border-spacing: 0;
-  }
-  a{
-    cursor: none !important;
-  }
-  // cursor: none !important;
-  .noselect {
-    -webkit-touch-callout: none; /* iOS Safari */
-      -webkit-user-select: none; /* Safari */
-       -khtml-user-select: none; /* Konqueror HTML */
-         -moz-user-select: none; /* Firefox */
-          -ms-user-select: none; /* Internet Explorer/Edge */
-              user-select: none; 
-  }
-  
-  .comm-main {
-    margin-top: 4rem;
-  }
-
-  .ant-menu-item-selected,.ant-menu-item-active{
-    border-bottom: 2px solid #060606 !important;
-  }
-  .ant-tag{
-    border: none;
-  }
-  #loadingBars{
-    width: 80%;
-    margin: 0 auto;
-    opacity:0.8;
-    .ant-skeleton-title{
-      border-radius: 10px;
-    }
-    .ant-skeleton-active .ant-skeleton-title{
-      background: linear-gradient(90deg, #c3c1c1cf 25%, #9c9c9cbf 37%, #c3c1c1cf 63%);
-      background-size:400% 100%;
-    }
-  }
-  
-  a.anchor{
-    display: block;
-    position: relative;
-    top: -90px;
-    visibility: hidden;
-  }
-  .ant-anchor-wrapper{
-    background-color:transparent !important;
-  }
-  .ant-anchor-link-title{
-    color: rgba(0, 0, 0, 0.85);
-    font-size: 16px !important;
-  }
-  .ant-anchor-link-active{
-    color: rgba(0, 0, 0, 0.85);
-  }
-  
 }
 
 @media screen and (max-width: 720px) {
