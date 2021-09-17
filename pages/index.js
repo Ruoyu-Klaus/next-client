@@ -26,11 +26,18 @@ function Cover() {
           style={{ backgroundImage: 'url(./SaoPaulo.jpg)' }}
         >
           <div className='top-textImage'>
-            <img
-              src='../imruoyu.png'
-              alt='Lettering fonts'
-              designfrom='https://www.fontspace.com/youth-touch-font-f30771'
-            />
+            <Link href={{ pathname: '/blog' }}>
+              <a
+                onMouseEnter={e => setCursorType('link')}
+                onMouseLeave={e => setCursorType('default')}
+              >
+                <img
+                  src='../imruoyu.png'
+                  alt='Lettering fonts'
+                  designfrom='https://www.fontspace.com/youth-touch-font-f30771'
+                />
+              </a>
+            </Link>
             <img src='../softewaredeveloper.png' alt='Lettering fonts' />
           </div>
           <div className='rtCorner'>

@@ -17,7 +17,7 @@ import { debounce } from 'lodash';
 
 import { Row, Col } from 'antd';
 
-const Search = () => {
+function Search() {
   const Router = useRouter();
   const { cname, pid } = Router.query;
   const [pageNum, setPageNum] = useState(1);
@@ -74,7 +74,7 @@ const Search = () => {
       </Row>
     </div>
   );
-};
+}
 
 import BlogLayout from '../../../layout/BlogLayout';
 Search.getLayout = function getLayout(page, categories) {

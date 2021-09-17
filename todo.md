@@ -7,9 +7,13 @@
 - [X] routes for post name
 - [X] use dynamic slug routes for post id and title
 - [ ] implement search filter like category and tags
-- [ ] post cover postion
+- [X] post cover postion
 - [X] post MD parse highlight not right
+- [X] strange post transition-in 
+- [X] previous post & next post
 
+
+- [ ] use CSS module instead of build-in CSS
 
 * Responsiveness
 
