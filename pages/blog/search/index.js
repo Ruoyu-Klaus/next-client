@@ -17,7 +17,7 @@ import { debounce } from 'lodash';
 
 import { Row, Col } from 'antd';
 
-function Search() {
+function Search({ keywords }) {
   const Router = useRouter();
   const { cname, pid } = Router.query;
   const [pageNum, setPageNum] = useState(1);
@@ -46,7 +46,7 @@ function Search() {
     <div style={{ height: '100%' }}>
       <Row className='comm-main' justify='center'>
         <Col xs={16} sm={16} md={18} lg={18} xxl={18}>
-          <SearchBar onInputSearch={onInputSearch} />
+          <SearchBar keywords={keywords} onInputSearch={onInputSearch} />
         </Col>
       </Row>
       <Row className='comm-main' justify='center'>
@@ -74,6 +74,26 @@ function Search() {
       </Row>
     </div>
   );
+}
+import { getArticleList } from '../../../request';
+
+export async function getStaticProps() {
+  try {
+    const posts = await getArticleList();
+    const keywords = posts.keywords;
+    return {
+      props: {
+        keywords: keywords || [],
+      },
+    };
+  } catch (e) {
+    return {
+      props: {
+        msg: 'server error',
+        posts: [],
+      },
+    };
+  }
 }
 
 import BlogLayout from '../../../layout/BlogLayout';

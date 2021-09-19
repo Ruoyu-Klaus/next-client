@@ -23,7 +23,8 @@
     "next": "9.5.3",
     "react": "16.13.1",
     "react-device-detect": "^1.17.0",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "react-wordcloud": "^1.2.7"
   },
   "devDependencies": {
     "@zeit/next-css": "^1.0.1",
