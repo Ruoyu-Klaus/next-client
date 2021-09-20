@@ -10,32 +10,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CloudWords from './Cloudwords';
 
 function SearchBar(props) {
-  const { keywords, onInputSearch } = props;
+  const { keywords = [], onInputSearch } = props;
   const [searchValue, setSearchValue] = useState('');
-  const words = [
-    {
-      text: 'told',
-      value: 64,
-    },
-    {
-      text: 'mistake',
-      value: 11,
-    },
-    {
-      text: 'thought',
-      value: 16,
-    },
-    {
-      text: 'bad',
-      value: 17,
-    },
-  ];
+
   const onInputChange = event => {
     setSearchValue(event.target.value);
   };
   return (
     <div className='searchBar-root'>
-      <CloudWords keywords={words} setSearchTerm={setSearchValue} />
+      <CloudWords keywords={keywords} setSearchTerm={setSearchValue} />
       <Title className='searchBar-title'>SEARCH RUOYU.LIFE BLOG</Title>
       <center className='searchBar-bar'>
         <div>
