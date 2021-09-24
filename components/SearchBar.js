@@ -2,20 +2,23 @@
  * @Author: Ruoyu
  * @FilePath: \next-client\components\SearchBar.js
  */
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import '../styles/Components/SearchBar.less';
 import { Typography, Button } from 'antd';
 const { Title } = Typography;
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CloudWords from './Cloudwords';
 
 function SearchBar(props) {
-  const { onInputSearch } = props;
+  const { keywords = [], onInputSearch } = props;
   const [searchValue, setSearchValue] = useState('');
+
   const onInputChange = event => {
     setSearchValue(event.target.value);
   };
   return (
     <div className='searchBar-root'>
+      <CloudWords keywords={keywords} setSearchTerm={setSearchValue} />
       <Title className='searchBar-title'>SEARCH RUOYU.LIFE BLOG</Title>
       <center className='searchBar-bar'>
         <div>
