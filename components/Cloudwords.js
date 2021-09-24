@@ -1,6 +1,6 @@
 /*
  * @Author: Ruoyu
- * @FilePath: \next-client\components\Cloudwords.js
+ * @FilePath: /next-client/components/Cloudwords.js
  */
 import { useState, useEffect } from 'react';
 import { Skeleton } from 'antd';
@@ -9,7 +9,7 @@ import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/scale.css';
 import useBreakpoint from '../hooks/useBreakPoint';
 
-function WordCloud({ keywords, setSearchTerm, loading }) {
+function WordCloud({ keywords, setSearchTerm }) {
   const [renderKeywords, setRenderKeywords] = useState(null);
   const bp = useBreakpoint();
   useEffect(() => {
@@ -38,13 +38,6 @@ function WordCloud({ keywords, setSearchTerm, loading }) {
     rotationAngles: [0, 0],
   };
 
-  if (loading && !keywords) {
-    return (
-      <>
-        <Skeleton loading={loading} paragraph={false} active />
-      </>
-    );
-  }
   return renderKeywords ? (
     <div style={{ height: '260px', width: '100%' }}>
       <ReactWordcloud
