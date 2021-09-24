@@ -2,6 +2,7 @@
  * @Author: Ruoyu
  * @FilePath: /next-client/pages/sitemap.xml.js
  */
+import React from 'react';
 
 function generateSiteMap(paths) {
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -36,13 +37,11 @@ function generateSiteMap(paths) {
  `;
 }
 
-function SiteMap() {
-  // getServerSideProps will do the heavy lifting
-}
+function SiteMap() {}
 
 import { getArticleList } from '../request';
 
-export async function getServerSideProps({ res }) {
+export const getServerSideProps = async ({ res }) => {
   // We make an API call to gather the URLs for our site
   try {
     const { count, rows } = await getArticleList();
@@ -60,15 +59,15 @@ export async function getServerSideProps({ res }) {
     res.end();
 
     return {
-      paths: paths,
-      fallback: false,
+      props: {
+        paths,
+      },
     };
   } catch (error) {
     return {
       paths: [],
-      fallback: false,
     };
   }
-}
+};
 
 export default SiteMap;
