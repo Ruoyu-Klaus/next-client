@@ -41,7 +41,7 @@ function SiteMap() {}
 
 import { getArticleList } from '../request';
 
-export const getServerSideProps = async ({ res }) => {
+export const getStaticProps = async ({ res }) => {
   // We make an API call to gather the URLs for our site
   try {
     const { count, rows } = await getArticleList();
