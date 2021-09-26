@@ -4,6 +4,37 @@
  */
 import React from 'react';
 
+// const Sitemap = ({ paths }) => {
+//   return (
+//     <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+//       <url>
+//         <loc>https://ruoyu.life</loc>
+//       </url>
+//       <url>
+//         <loc>https://ruoyu.life/blog</loc>
+//       </url>
+//       <url>
+//         <loc>https://ruoyu.life/blog/post/学习</loc>
+//       </url>
+//       <url>
+//         <loc>https://ruoyu.life/blog/post/生活</loc>
+//       </url>
+//       <url>
+//         <loc>https://ruoyu.life/blog/search</loc>
+//       </url>
+//       {paths
+//         .map(path => {
+//           return `
+//        <url>
+//            <loc>${`${process.env.BASE_URL}${path}`}</loc>
+//        </url>
+//      `;
+//         })
+//         .join('')}
+//     </urlset>
+//   );
+// };
+
 function generateSiteMap(paths) {
   return `<?xml version="1.0" encoding="UTF-8"?>
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -41,33 +72,23 @@ function SiteMap() {}
 
 import { getArticleList } from '../request';
 
-export const getStaticProps = async ({ res }) => {
+export async function getServerSideProps({ res }) {
   // We make an API call to gather the URLs for our site
-  try {
-    const { count, rows } = await getArticleList();
-    const paths = rows.map(
-      post =>
-        `blog/post/${post.category.category_name}/${post.id}/${post.post_title}`
-    );
+  const { count, rows } = await getArticleList();
 
-    // We generate the XML sitemap with the posts data
-    const sitemap = generateSiteMap(paths);
+  const paths = rows.map(
+    post =>
+      `blog/post/${post.category.category_name}/${post.id}/${post.post_title}`
+  );
+  const sitemap = generateSiteMap(paths);
+  res.setHeader('Content-Type', 'text/xml');
+  // we send the XML to the browser
+  res.write(sitemap);
+  res.end();
 
-    res.setHeader('Content-Type', 'text/xml');
-    // we send the XML to the browser
-    res.write(sitemap);
-    res.end();
-
-    return {
-      props: {
-        paths,
-      },
-    };
-  } catch (error) {
-    return {
-      paths: [],
-    };
-  }
-};
+  return {
+    props: {},
+  };
+}
 
 export default SiteMap;
