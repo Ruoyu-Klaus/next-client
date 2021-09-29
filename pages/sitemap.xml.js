@@ -2,7 +2,6 @@
  * @Author: Ruoyu
  * @FilePath: /next-client/pages/sitemap.xml.js
  */
-import React from 'react';
 
 // const Sitemap = ({ paths }) => {
 //   return (
