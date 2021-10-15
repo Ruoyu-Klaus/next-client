@@ -1,9 +1,8 @@
 /*
  * @Author: Ruoyu
- * @FilePath: /next-client/components/Cloudwords.js
+ * @FilePath: \next-client\components\Cloudwords.js
  */
 import { useState, useEffect } from 'react';
-import { Skeleton } from 'antd';
 import ReactWordcloud from 'react-wordcloud';
 import 'tippy.js/dist/tippy.css';
 import 'tippy.js/animations/scale.css';
@@ -12,6 +11,12 @@ import useBreakpoint from '../hooks/useBreakPoint';
 function WordCloud({ keywords, setSearchTerm }) {
   const [renderKeywords, setRenderKeywords] = useState(null);
   const bp = useBreakpoint();
+
+  // let isDarkMode = null;
+  // if (typeof window !== 'undefined') {
+  //   isDarkMode = localStorage.getItem('darkMode') === 'true' ? true : false;
+  // }
+  // console.log(isDarkMode);
   useEffect(() => {
     if (keywords) {
       if (bp === 'xs' || bp === 'sm') {
@@ -23,7 +28,8 @@ function WordCloud({ keywords, setSearchTerm }) {
   }, [keywords, bp]);
 
   const callbacks = {
-    getWordColor: word => (word.value > 0 ? 'black' : 'red'),
+    getWordColor: word =>
+      localStorage.getItem('darkMode') === 'true' ? 'white' : 'black',
     onWordClick: word => setSearchTerm(word.text),
     getWordTooltip: word => `${word.text}`,
   };

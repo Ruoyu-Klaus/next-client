@@ -9,10 +9,17 @@ import '../styles/Components/Header.less';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { CursorContext } from '../context/cursor/CursorContext';
+import { ThemeContext } from '../context/theme/ThemeContext';
 import useRouterScroll from '../hooks/useRouterScroll';
 function Header(props) {
   const { navArray = [] } = props;
   const { setCursorType } = useContext(CursorContext);
+  const {
+    theme: { isDarkMode },
+    setDarkTheme,
+    setLightTheme,
+  } = useContext(ThemeContext);
+
   const Router = useRouter();
   useRouterScroll();
 
@@ -25,14 +32,6 @@ function Header(props) {
       });
     }
   };
-
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('darkMode') === 'true' ? true : false;
-    } else {
-      return false;
-    }
-  });
 
   const hanleSearchBtn = e => {
     e.preventDefault();
@@ -55,10 +54,7 @@ function Header(props) {
     e => {
       e.preventDefault();
       e.stopPropagation();
-      setIsDarkMode(pre => !pre);
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('darkMode', !isDarkMode);
-      }
+      isDarkMode ? setLightTheme() : setDarkTheme();
       document.body.classList.toggle('dark-mode');
     },
     [isDarkMode]

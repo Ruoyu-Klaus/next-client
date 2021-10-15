@@ -7,6 +7,7 @@ import '../styles/markdown.less';
 import 'highlight.js/styles/github.css';
 
 import { CursorContextProvider } from '../context/cursor/CursorContext';
+import { ThemeContextProvider } from '../context/theme/ThemeContext';
 import dynamic from 'next/dynamic';
 
 import { config, library } from '@fortawesome/fontawesome-svg-core';
@@ -25,11 +26,13 @@ const CustomCorsor = dynamic(() => import('../components/CustomCursor'), {
 function MyApp({ Component, pageProps, categories }) {
   const getLayout = Component.getLayout || (page => page);
   return (
-    <CursorContextProvider>
-      {getLayout(<Component {...pageProps} />, categories)}
-      <CustomCorsor />
-      <BackTop />
-    </CursorContextProvider>
+    <ThemeContextProvider>
+      <CursorContextProvider>
+        {getLayout(<Component {...pageProps} />, categories)}
+        <CustomCorsor />
+        <BackTop />
+      </CursorContextProvider>
+    </ThemeContextProvider>
   );
 }
 

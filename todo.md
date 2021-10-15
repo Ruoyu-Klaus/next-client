@@ -2,6 +2,8 @@
  * @Author: Ruoyu
  * @FilePath: \next-client\todo.md
 -->
+[Notion Task Board](https://pickled-wavelength-834.notion.site/20909d852f724c6db954cd65cdf70a4a?v=591ee0e1c96741d98672d5f991f7bac0)
+
 
 - [X] cloud words for search pages
 - [X] routes for post name
@@ -12,8 +14,6 @@
 - [X] strange post transition-in 
 - [X] previous post & next post
 
-
-- [ ] use CSS module instead of build-in CSS
 
 * Responsiveness
 
