@@ -15,7 +15,7 @@ import { Row, Col } from 'antd';
 function Blog({ posts }) {
   const [pageNum, setPageNum] = useState(1);
   const [fetchPosts, setFetchPosts] = useState(posts);
-
+  console.log(fetchPosts);
   const getCurrentPageNum = page => {
     setPageNum(page);
   };

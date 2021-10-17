@@ -25,31 +25,56 @@
 .ant-card-body{
   height:170px;
 }
-.ant-card-meta-title{
+
+.post-category{
+  margin-bottom: 10px;
+}
+
+.post-title{
+  font-size: 1rem;
+  color:black;
   overflow: hidden;
   white-space: nowrap;
   text-decoration: none;
   text-overflow: ellipsis;
-}
-.post-description{
-  display: flex;
-  justify-content:space-between
-
-}
-.post-tag{
-  max-height: 100px;
-  overflow: hidden;
-  > span {
-
-    line-height: 25px;
-    margin-bottom: 5px;
-    height: 25px;
-    overflow: hidden;
-  }
+  margin-bottom:10px;
 }
 .post-introduction{
+  height: 40px;
+  line-height: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom:10px;
+  display:-webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.post-tag{
+  height:20px;
+  display: flex;
+  flex-flow: row wrap;
+  overflow: hidden;
+  > span {
+    overflow: hidden;
+  }
+  margin-bottom:20px;
+}
+.post-meta{
+  display: flex;
+  justify-content:space-between;
   overflow: hidden;
   white-space: nowrap;
   text-decoration: none;
   text-overflow: ellipsis;
+  .post-author{
+    span{
+      text-decoration: underline;
+    }
+  }
+  .post-date{
+    span{
+      margin-right: 5px;
+    }
+  }
 }

@@ -4,6 +4,7 @@
  */
 import React, { useMemo } from 'react';
 import { Card, Tag, Divider } from 'antd';
+import { FieldTimeOutlined } from '@ant-design/icons';
 import '../styles/Components/PostCard.less';
 const { Meta } = Card;
 import dayjs from 'dayjs';
@@ -67,14 +68,10 @@ function PostCard({ postData }) {
   const discription = useMemo(
     () => (
       <>
-        <div className='post-description'>
-          <div className='post-category'>{category.category_name}</div>
-          <time className='post-date'>
-            {dayjs(post_time).format('YYYY-MM-DD')}
-          </time>
-        </div>
+        <p className='post-category'>{category.category_name}</p>
+        <p className='post-title'>{post_title}</p>
+        <p className='post-introduction'>{post_introduce}</p>
         <Divider orientation='center' style={{ margin: '14px 0' }}></Divider>
-        {/* <div className='post-introduction'>{intro}</div> */}
         <div className='post-tag'>
           {tags.map((tag, i) => (
             <Tag key={tag.id} color={tagColorScheme[i]}>
@@ -82,13 +79,22 @@ function PostCard({ postData }) {
             </Tag>
           ))}
         </div>
+        <div className='post-meta'>
+          <div className='post-author'>
+            By <span>Ruoyu</span>
+          </div>
+          <time className='post-date'>
+            <FieldTimeOutlined />
+            {dayjs(post_time).format('YYYY-MM-DD')}
+          </time>
+        </div>
       </>
     ),
     [category.category_name, post_time]
   );
   return (
     <Card className='post-card' bordered={false} cover={postCover}>
-      <Meta title={post_title} description={discription} />
+      <Meta description={discription} />
     </Card>
   );
 }
