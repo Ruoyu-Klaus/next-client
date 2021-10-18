@@ -10,6 +10,9 @@
     "start": "next start"
   },
   "dependencies": {
+    "@chakra-ui/react": "^1.6.10",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
@@ -17,6 +20,7 @@
     "axios": "^0.20.0",
     "dayjs": "^1.9.4",
     "dompurify": "^2.3.1",
+    "framer-motion": "^4",
     "highlight.js": "^10.2.0",
     "jsdom": "^17.0.0",
     "lodash": "^4.17.20",
@@ -26,7 +30,8 @@
     "react": "16.13.1",
     "react-device-detect": "^1.17.0",
     "react-dom": "16.13.1",
-    "react-wordcloud": "^1.2.7"
+    "react-wordcloud": "^1.2.7",
+    "sass": "^1.43.2"
   },
   "devDependencies": {
     "@zeit/next-css": "^1.0.1",

@@ -1,9 +1,11 @@
-.ringContainer{
+.ringContainer {
   position: fixed;
   top: 0;
   left: 0;
   width: 80px;
   height: 80px;
+  z-index: 9999;
+
   transition: .2s ease-out;
   pointer-events: none;
   .ring {
@@ -16,7 +18,7 @@
     border: 3px solid rgba(31, 30, 30, 0.808);
     border-radius: 50%;
     will-change: width, height, transform, border;
-    z-index: 999;
+    z-index: 9999;
     pointer-events: none;
     animation: animateRing 1s linear  infinite alternate;
     @keyframes animateRing {
@@ -37,6 +39,8 @@
   position: fixed;
   transition: .05s ease-out;
   will-change: width, height, transform, border;
+  z-index: 9999;
+  pointer-events: none;
   &.default{
     width: 8px;
     height: 8px;
@@ -112,6 +116,5 @@
     
   }
   
-  z-index: 999;
-  pointer-events: none;
+  
 }

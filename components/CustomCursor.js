@@ -5,7 +5,6 @@
 import React, { useEffect, useState, useRef, useContext } from 'react';
 import useMousePosition from '../hooks/useMousePosition';
 import { CursorContext } from '../context/cursor/CursorContext';
-import '../styles/Components/CustomCursor.less';
 import { isMobile } from 'react-device-detect';
 
 const getDomWidthAndHeight = dom => {

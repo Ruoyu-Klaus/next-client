@@ -17,7 +17,7 @@ const nextConfig = {
   },
 };
 
-const plugins = [
+const plugins = [] || [
   withCSS(
     withLess(
       withAntdLess({
@@ -30,12 +30,6 @@ const plugins = [
         },
 
         webpack(config, { webpack }) {
-          // config.plugins.push(
-          //   new BundleAnalyzerPlugin({
-          //     analyzerMode: 'static',
-          //     // openAnalyzer: true,
-          //   })
-          // );
           config.plugins.push(new webpack.IgnorePlugin(/canvas/, /jsdom$/));
           return config;
         },
