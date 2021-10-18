@@ -10,7 +10,7 @@ import useBreakpoint from '../hooks/useBreakPoint';
 
 import { ThemeContext } from '../context/theme/ThemeContext';
 
-function WordCloud({ keywords, setSearchTerm }) {
+function WordCloud({ keywords = [], setSearchTerm }) {
   const [renderKeywords, setRenderKeywords] = useState(null);
   const bp = useBreakpoint();
 
@@ -18,13 +18,20 @@ function WordCloud({ keywords, setSearchTerm }) {
     theme: { isDarkMode },
   } = useContext(ThemeContext);
 
+  const getUniqueKeywords = keywords => {
+    return keywords.filter((keyword, index, originalArray) => {
+      const indexOfDuplicateWord = originalArray.findIndex(
+        originalKeyword => originalKeyword.word === keyword.word
+      );
+      return indexOfDuplicateWord === index;
+    });
+  };
+
   useEffect(() => {
-    if (keywords) {
-      if (bp === 'xs' || bp === 'sm') {
-        setRenderKeywords(keywords.slice(0, 20));
-      } else {
-        setRenderKeywords(keywords);
-      }
+    if (bp === 'xs' || bp === 'sm') {
+      setRenderKeywords(getUniqueKeywords(keywords.slice(0, 20)));
+    } else {
+      setRenderKeywords(getUniqueKeywords(keywords));
     }
   }, [keywords, bp]);
 
