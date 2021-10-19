@@ -1,7 +1,3 @@
-/*
- * @Author: Ruoyu
- * @FilePath: \next-client\pages\index.js
- */
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRef, useContext } from 'react';
@@ -34,8 +30,16 @@ function Cover() {
         <title>首页 | Ruoyu</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Container maxW={'container.xl'} p={0}>
-        <Center h={'100vh'} bg={'url(./SaoPaulo.jpg)'}>
+
+      <Container maxW={'100vw'} p={0}>
+        <Center
+          w='100vw'
+          h='100vh'
+          bgPosition='center'
+          bgRepeat='no-repeat'
+          bgSize='cover'
+          bgImage={'url(./SaoPaulo.jpg)'}
+        >
           <VStack>
             <Link href={{ pathname: '/blog' }}>
               <a
