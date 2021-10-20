@@ -1,16 +1,17 @@
 import React, { useContext, useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 
-import styles from '../styles/Components/Header.module.scss';
+import NavBarLogo from './NavBarLogo';
+import MenuItemLink from './MenuItemLink';
+import MenuToggleForSmallScreen from './NavBarMenuToggle';
 
 import {
   Box,
   Grid,
   GridItem,
-  Center,
   HStack,
+  Stack,
   Text,
   Button,
   useColorMode,
@@ -22,8 +23,11 @@ import { CursorContext } from '../context/cursor/CursorContext';
 import { ThemeContext } from '../context/theme/ThemeContext';
 import useRouterScroll from '../hooks/useRouterScroll';
 
-function Header(props) {
-  const { navArray = [] } = props;
+Header.propTypes = {
+  navArray: PropTypes.array,
+};
+
+function Header({ navArray = [] }) {
   const { setCursorType } = useContext(CursorContext);
   const {
     theme: { isDarkMode },
@@ -44,13 +48,13 @@ function Header(props) {
     });
   };
 
-  const [loaded, setLoaded] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const toggleMenuIcon = () => setIsMenuOpen(!isMenuOpen);
 
   useEffect(() => {
     isDarkMode
       ? document.body.classList.add('dark-mode')
       : document.body.classList.remove('dark-mode');
-    setLoaded(true);
   }, []);
 
   const handleThemeChange = useCallback(
@@ -84,7 +88,6 @@ function Header(props) {
               onMouseEnter={e => setCursorType('moon')}
               onMouseLeave={e => setCursorType('default')}
             >
-              {' '}
               🌙
             </Text>
           ) : (
@@ -93,7 +96,6 @@ function Header(props) {
               onMouseEnter={e => setCursorType('sun')}
               onMouseLeave={e => setCursorType('default')}
             >
-              {' '}
               🌤️
             </Text>
           )}
@@ -108,44 +110,44 @@ function Header(props) {
         </Button>
       </HStack>
       <GridItem w={'full'} justifySelf='center'>
-        <Center>
-          <Box
-            w={44}
-            h={16}
-            bgPosition='center'
-            bgRepeat='no-repeat'
-            bgSize='cover'
-            bgImage={
-              colorMode === 'light'
-                ? `url(/klauswang.png)`
-                : `url('/klauswang-white.png')`
-            }
-          >
-            <Link href={{ pathname: '/' }}>
-              <a
-                className={styles.logoLink}
-                onMouseEnter={e => setCursorType('link')}
-                onMouseLeave={e => setCursorType('default')}
-              ></a>
-            </Link>
-          </Box>
-        </Center>
+        <NavBarLogo />
       </GridItem>
 
       <GridItem justifySelf='end'>
-        <HStack spacing='4'>
-          <Button variant='link' leftIcon={'💒'}>
-            <Text fontSize='md'>首页</Text>
-          </Button>
-        </HStack>
+        <MenuToggleForSmallScreen
+          toggle={toggleMenuIcon}
+          isMenuOpen={isMenuOpen}
+        />
+        <Box
+          display={{ base: isMenuOpen ? 'flex' : 'none', md: 'flex' }}
+          top={16}
+          right={0}
+          zIndex={20}
+          w={{ base: '100vw', md: 'auto' }}
+          pos={{ base: 'fixed', md: 'unset' }}
+        >
+          <Stack
+            pt={{ base: 4, md: 'inherit' }}
+            w='full'
+            alignItems={'center'}
+            spacing='4'
+            direction={['column', 'column', 'row', 'row']}
+          >
+            <MenuItemLink>
+              <Button variant='link' leftIcon={'💒'}>
+                首页
+              </Button>
+            </MenuItemLink>
+            {navArray.map(nav => (
+              <MenuItemLink key={nav.category_name}>
+                <Button variant='link'>{nav.category_name}</Button>
+              </MenuItemLink>
+            ))}
+          </Stack>
+        </Box>
       </GridItem>
     </Grid>
   );
 }
-
-Header.propTypes = {
-  navArray: PropTypes.array,
-  handleSearch: PropTypes.func,
-};
 
 export default Header;

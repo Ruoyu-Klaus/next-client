@@ -1,18 +1,16 @@
-/*
- * @Author: Ruoyu
- * @FilePath: \next-client\components\Footer.js
- */
-import '../styles/Components/Footer.less';
+import { Box, VStack, Text, Link } from '@chakra-ui/react';
+
 const Footer = () => (
-  <div className='footer-div'>
-    <div>
-      Powered by <a href='https://nextjs.org/'>Next.js</a>
-    </div>
-    <br />
-    <div>
-      <a href='https://ruoyu.life'>ruoyu.life</a>
-    </div>
-  </div>
+  <Box>
+    <VStack className='footer-div'>
+      <Text fontSize='0.4rem'>
+        Powered by <Link href='https://nextjs.org/'>Next.js</Link>
+      </Text>
+      <Text fontSize='0.4rem'>
+        <Link href='https://ruoyu.life'>ruoyu.life</Link>
+      </Text>
+    </VStack>
+  </Box>
 );
 
 export default Footer;
