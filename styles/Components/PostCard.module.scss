@@ -1,0 +1,29 @@
+.postCard{
+  border-radius:5px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  overflow: hidden;
+}
+.postTitle{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display:-webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.postIntroduction{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display:-webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.postTag{
+  margin-top: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  & > span{
+    min-width: fit-content;
+  }
+}

@@ -1,14 +1,21 @@
-/*
- * @Author: Ruoyu
- * @FilePath: \next-client\components\PostCard.js
- */
 import React, { useMemo } from 'react';
-import { Card, Tag, Divider } from 'antd';
-import { FieldTimeOutlined } from '@ant-design/icons';
-import '../styles/Components/PostCard.less';
-const { Meta } = Card;
 import dayjs from 'dayjs';
 import Link from 'next/link';
+
+import styles from '../styles/Components/PostCard.module.scss';
+
+import {
+  Box,
+  VStack,
+  HStack,
+  Image,
+  Heading,
+  Text,
+  Divider,
+  Tag,
+  Flex,
+} from '@chakra-ui/react';
+import { TimeIcon } from '@chakra-ui/icons';
 
 const tagColorScheme = [
   'magenta',
@@ -38,64 +45,108 @@ function PostCard({ postData }) {
 
   const postCover = useMemo(
     () => (
-      <figure className='post-cover'>
-        <Link
-          href={{
-            pathname: `/blog/post/[cname]/[...slug]`,
-            query: {
-              cname: category.category_name,
-              slug: [id, post_title],
-            },
-          }}
-          as={`/blog/post/${category.category_name}/${id}/${post_title}`}
-          passHref
-        >
-          <a title={post_title}>
-            <img
-              className='post-cover-img'
-              alt={post_title}
-              src={
-                post_cover ||
-                'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
-              }
-            />
-          </a>
-        </Link>
-      </figure>
+      <Link
+        href={{
+          pathname: `/blog/post/[cname]/[...slug]`,
+          query: {
+            cname: category.category_name,
+            slug: [id, post_title],
+          },
+        }}
+        as={`/blog/post/${category.category_name}/${id}/${post_title}`}
+        passHref
+      >
+        <a title={post_title}>
+          <Image
+            h='100%'
+            transition='all 0.3s ease-in-out'
+            _hover={{
+              transform: 'scale(1.05)',
+              opacity: '0.5',
+            }}
+            overflow='hidden'
+            objectFit='cover'
+            alt={post_title}
+            src={
+              post_cover ||
+              'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
+            }
+          />
+        </a>
+      </Link>
     ),
     [post_cover, post_title]
   );
   const discription = useMemo(
     () => (
-      <>
-        <p className='post-category'>{category.category_name}</p>
-        <p className='post-title'>{post_title}</p>
-        <p className='post-introduction'>{post_introduce}</p>
-        <Divider orientation='center' style={{ margin: '14px 0' }}></Divider>
-        <div className='post-tag'>
+      <VStack h='full' spacing={3} alignItems='flex-start'>
+        <Text mt={1} fontSize={'16px'} color='gray.500'>
+          {category.category_name}
+        </Text>
+        <Heading as='h3' size='md' className={styles.postTitle}>
+          {post_title}撒答打撒打撒打撒打撒打打撒打打撒打打撒打
+          撒答打撒打撒打撒打撒打打撒打打撒打
+        </Heading>
+        <Text fontSize={'16px'} className={styles.postIntroduction}>
+          {post_introduce}打打撒撒打撒打撒打撒打打撒打打撒打打撒打
+          撒答打撒打撒打撒打撒打打撒打打撒打
+        </Text>
+        <Divider />
+
+        <HStack className={styles.postTag} w={'full'} spacing={4}>
+          <Tag size='sm'>TTT</Tag>
+          <Tag size='sm'>aaaa</Tag>
+          <Tag size='sm'>aaaa</Tag>
+          <Tag size='sm'>aaaa</Tag>
+          <Tag size='sm'>aaaa</Tag>
+          <Tag size='sm'>a</Tag>
+
           {tags.map((tag, i) => (
-            <Tag key={tag.id} color={tagColorScheme[i]}>
+            <Tag size='sm' key={tag.id}>
               {tag.tag_name}
             </Tag>
           ))}
-        </div>
-        <div className='post-meta'>
-          <div className='post-author'>
-            By <span>Ruoyu</span>
-          </div>
-          <time className='post-date'>
-            <FieldTimeOutlined />
-            {dayjs(post_time).format('YYYY-MM-DD')}
-          </time>
-        </div>
-      </>
+        </HStack>
+      </VStack>
     ),
-    [category.category_name, post_time]
+    [category.category_name]
   );
+
+  const meta = useMemo(
+    () => (
+      <Flex w={'full'} justifyContent='space-between'>
+        <Text fontSize={'xs'}>
+          By <span>Ruoyu</span>
+        </Text>
+        <Text fontSize={'xs'}>
+          <TimeIcon /> {dayjs(post_time).format('YYYY-MM-DD')}
+        </Text>
+      </Flex>
+    ),
+    [post_time]
+  );
+
   return (
-    <Card className='post-card' bordered={false} cover={postCover}>
-      <Meta description={discription} />
-    </Card>
+    <Box
+      w='80'
+      h='500px'
+      borderWidth='1px'
+      borderRadius='6'
+      justifySelf='center'
+      display='flex'
+      flexDir='column'
+      className={styles.postCard}
+    >
+      <Box w='full' h='240px' minH='240px' overflow='hidden'>
+        {postCover}
+      </Box>
+
+      <Box flex='1' p={4} py={1}>
+        {discription}
+      </Box>
+
+      <Box p={4}>{meta}</Box>
+    </Box>
   );
 }
 

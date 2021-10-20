@@ -1,12 +1,7 @@
-/*
- * @Author: Ruoyu
- * @FilePath: \next-client\layout\BlogLayout.js
- */
 import React, { useState, useEffect } from 'react';
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
-
-import '../styles/Layout/bloglayout.less';
+import { Flex } from '@chakra-ui/react';
 
 function BlogLayout({ categories = [], children }) {
   const [displayChildren, setDisplayChildren] = useState(children);
@@ -21,10 +16,8 @@ function BlogLayout({ categories = [], children }) {
   }, [children, setTransitionStage, displayChildren]);
 
   return (
-    <div
-      style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
-    >
-      <Header navArray={categories} />
+    <Flex flexDir='column' minH='100vh'>
+      <NavBar navArray={categories} />
       <main
         onTransitionEnd={e => {
           if (transitionStage === 'fadeOut') {
@@ -37,7 +30,7 @@ function BlogLayout({ categories = [], children }) {
         {displayChildren}
       </main>
       <Footer />
-    </div>
+    </Flex>
   );
 }
 
