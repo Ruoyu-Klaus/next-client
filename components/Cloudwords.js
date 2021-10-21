@@ -4,8 +4,7 @@
  */
 import { useState, useEffect, useContext } from 'react';
 import ReactWordcloud from 'react-wordcloud';
-import 'tippy.js/dist/tippy.css';
-import 'tippy.js/animations/scale.css';
+
 import useBreakpoint from '../hooks/useBreakPoint';
 
 import { ThemeContext } from '../context/theme/ThemeContext';

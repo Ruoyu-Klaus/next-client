@@ -1,10 +1,7 @@
-/*
- * @Author: Ruoyu
- * @FilePath: \next-client\pages\blog\search\index.js
- */
-
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
+
 import PostCard from '../../../components/PostCard';
 import FadeIn from '../../../components/FadeIn';
 import InfiniteScrolling from '../../../components/InfiniteScrolling';
@@ -15,7 +12,7 @@ import usePostFetch from '../../../hooks/usePostFetch';
 
 import { debounce } from 'lodash';
 
-import { Row, Col } from 'antd';
+import { Container, SimpleGrid, Flex } from '@chakra-ui/react';
 
 function Search({ keywords }) {
   const Router = useRouter();
@@ -43,36 +40,41 @@ function Search({ keywords }) {
   });
 
   return (
-    <div style={{ height: '100%' }}>
-      <Row className='comm-main' justify='center'>
-        <Col xs={16} sm={16} md={18} lg={18} xxl={18}>
+    <>
+      <Head>
+        <title>搜索 | Ruoyu</title>
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+      <Container maxW='container.xl' mt={8}>
+        <Flex flexDir='column' justify='center'>
           <SearchBar keywords={keywords} onInputSearch={onInputSearch} />
-        </Col>
-      </Row>
-      <Row className='comm-main' justify='center'>
-        <Col xs={16} sm={16} md={18} lg={18} xxl={18}>
-          <Row className='post-list' justify='center' gutter={[18, 18]}>
+        </Flex>
+        <Container maxW='container.xl' mt={8}>
+          <SimpleGrid
+            minChildWidth='250px'
+            spacing='8'
+            justifyItems='center'
+            alignItems='center'
+          >
             <InfiniteScrolling
               hasMore={hasMore}
-              LoadingComp={LoadingCard}
               getPageNum={getCurrentPageNum}
               isLoading={isLoading}
-              initialLoad={false}
             >
-              {posts.map((post, i) => {
-                return (
-                  <Col xs={24} sm={24} md={10} xl={8} xxl={5} key={post.id}>
-                    <FadeIn>
-                      <PostCard postData={post} />
-                    </FadeIn>
-                  </Col>
-                );
-              })}
+              {posts.map((post, i) => (
+                <FadeIn key={i}>
+                  <PostCard
+                    postDetails={post}
+                    isLoading={isLoading}
+                    LoadingComp={LoadingCard}
+                  />
+                </FadeIn>
+              ))}
             </InfiniteScrolling>
-          </Row>
-        </Col>
-      </Row>
-    </div>
+          </SimpleGrid>
+        </Container>
+      </Container>
+    </>
   );
 }
 import { getArticleList } from '../../../request';

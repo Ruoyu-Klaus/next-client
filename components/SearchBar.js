@@ -1,13 +1,17 @@
-/*
- * @Author: Ruoyu
- * @FilePath: \next-client\components\SearchBar.js
- */
 import { useState } from 'react';
-import '../styles/Components/SearchBar.less';
-import { Typography, Button } from 'antd';
-const { Title } = Typography;
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CloudWords from './Cloudwords';
+
+import {
+  Container,
+  Flex,
+  Center,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Button,
+  Heading,
+} from '@chakra-ui/react';
+import { SearchIcon } from '@chakra-ui/icons';
 
 function SearchBar(props) {
   const { keywords = [], onInputSearch } = props;
@@ -17,14 +21,18 @@ function SearchBar(props) {
     setSearchValue(event.target.value);
   };
   return (
-    <div className='searchBar-root'>
+    <>
       <CloudWords keywords={keywords} setSearchTerm={setSearchValue} />
-      <Title className='searchBar-title'>SEARCH RUOYU.LIFE BLOG</Title>
-      <center className='searchBar-bar'>
-        <div>
-          <input
+      <Center my={4}>
+        <Heading fontSize='1.5rem' as='h5'>
+          SEARCH RUOYU.LIFE BLOG
+        </Heading>
+      </Center>
+      <Flex my={4} w='60%' m={'0 auto'}>
+        <InputGroup>
+          <Input
+            placeholder='Try to click words above or enter keywords...'
             autoComplete='off'
-            className='searchBar-input'
             type='text'
             title='Search'
             name='Search'
@@ -36,15 +44,19 @@ function SearchBar(props) {
               }
             }}
           />
-          <Button
-            onClick={onInputSearch.bind(null, searchValue)}
-            ghost={true}
-            className='searchBar-btn'
-            icon={<FontAwesomeIcon icon='search' color='black' />}
+          <InputRightElement
+            children={
+              <Button
+                onClick={onInputSearch.bind(null, searchValue)}
+                variant='ghost'
+              >
+                <SearchIcon />
+              </Button>
+            }
           />
-        </div>
-      </center>
-    </div>
+        </InputGroup>
+      </Flex>
+    </>
   );
 }
 

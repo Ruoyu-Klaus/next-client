@@ -133,7 +133,7 @@ function Header({ navArray = [] }) {
             spacing='4'
             direction={['column', 'column', 'row', 'row']}
           >
-            <MenuItemLink>
+            <MenuItemLink to='/blog'>
               <Button variant='link' leftIcon={'💒'}>
                 首页
               </Button>
