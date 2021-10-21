@@ -1,7 +1,7 @@
 import React from 'react';
-import '../styles/Components/FadeIn.less';
+import styles from '../styles/Components/FadeIn.module.scss';
 
-const FadeInSection = function (props) {
+const FadeInSection = React.forwardRef((props, ref) => {
   const [isVisible, setVisible] = React.useState(false);
 
   const domRef = React.useRef();
@@ -19,13 +19,17 @@ const FadeInSection = function (props) {
   }, []);
 
   return (
-    <div
-      className={`fade-in-section ${isVisible ? 'is-visible' : ''}`}
-      ref={domRef}
-    >
-      {props.children}
+    <div {...props} ref={ref}>
+      <div
+        className={`${styles.fadeInSection} ${
+          isVisible ? styles.isVisible : ''
+        }`}
+        ref={domRef}
+      >
+        {props.children}
+      </div>
     </div>
   );
-};
+});
 
 export default FadeInSection;

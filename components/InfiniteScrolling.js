@@ -1,26 +1,23 @@
-/*
- * @Author: your name
- * @Date: 2021-08-20 23:28:12
- * @LastEditTime: 2021-09-06 12:50:37
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \next-client\components\InfiniteScrolling.js
- */
 import React, { useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 
+// Waring, Child Component muse be wrapped with React.forwardRef
+
+InfiniteScrolling.propTypes = {
+  children: PropTypes.node.isRequired,
+  getPageNum: PropTypes.func.isRequired,
+  pageStart: PropTypes.number,
+  hasMore: PropTypes.bool,
+  isLoading: PropTypes.bool,
+};
+
 function InfiniteScrolling(props) {
-  const {
-    getPageNum,
-    pageStart,
-    children,
-    isLoading,
-    hasMore = true,
-    LoadingComp,
-  } = props;
+  const { getPageNum, pageStart, children, isLoading, hasMore = true } = props;
+
   const [page, setPage] = useState(pageStart || 1);
 
   const observer = useRef();
+
   const lastChildRef = useCallback(
     node => {
       if (isLoading) return;
@@ -39,24 +36,13 @@ function InfiniteScrolling(props) {
   return (
     <>
       {children.map((child, index) => {
-        if (children.length - 1 === index) {
-          return React.cloneElement(child, { ref: lastChildRef });
-        } else {
-          return child;
-        }
+        const isLastChild = children.length - 1 === index;
+        return isLastChild
+          ? React.cloneElement(child, { ref: lastChildRef })
+          : child;
       })}
-      <LoadingComp isLoading={isLoading} />
     </>
   );
 }
-
-InfiniteScrolling.propTypes = {
-  children: PropTypes.node.isRequired,
-  getPageNum: PropTypes.func.isRequired,
-  pageStart: PropTypes.number,
-  hasMore: PropTypes.bool,
-  isLoading: PropTypes.bool,
-  LoadingComp: PropTypes.elementType,
-};
 
 export default InfiniteScrolling;

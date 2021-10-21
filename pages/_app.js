@@ -1,12 +1,7 @@
-/*
- * @Author: Ruoyu
- * @FilePath: \next-client\pages\_app.js
- */
 import '../styles/comm.scss';
 import '../styles/markdown.scss';
 import 'highlight.js/styles/github.css';
 import '../styles/Components/CustomCursor.scss';
-import '../styles/Layout/bloglayout.scss';
 
 import { ChakraProvider } from '@chakra-ui/react';
 

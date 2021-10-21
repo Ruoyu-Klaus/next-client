@@ -1,17 +1,18 @@
-/*
- * @Author: Ruoyu
- * @FilePath: \next-client\components\LoadingCard.js
- */
 import React from 'react';
-import { Skeleton } from 'antd';
+import { Skeleton, SkeletonText } from '@chakra-ui/react';
 
-function LoadingCard({ isLoading }) {
+function LoadingCard({ isLoading = true }) {
   return (
-    <div id={'loadingBars'}>
-      <Skeleton loading={isLoading} paragraph={false} active />
-      <Skeleton loading={isLoading} paragraph={false} active />
-      <Skeleton loading={isLoading} paragraph={false} active />
-    </div>
+    <>
+      <Skeleton w='full' h='240px' isLoaded={!isLoading} />
+      <SkeletonText
+        p={4}
+        isLoaded={!isLoading}
+        mt='6'
+        noOfLines={6}
+        spacing='4'
+      />
+    </>
   );
 }
 

@@ -3,6 +3,8 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import { Flex } from '@chakra-ui/react';
 
+import styles from '../styles/Layout/bloglayout.module.scss';
+
 function BlogLayout({ categories = [], children }) {
   const [displayChildren, setDisplayChildren] = useState(children);
   const [transitionStage, setTransitionStage] = useState('fadeOut');
@@ -25,7 +27,7 @@ function BlogLayout({ categories = [], children }) {
             setDisplayChildren(children);
           }
         }}
-        className={`blog-main ${transitionStage}`}
+        className={`${styles.root} ${styles[transitionStage]}`}
       >
         {displayChildren}
       </main>

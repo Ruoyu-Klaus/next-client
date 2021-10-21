@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
-import dayjs from 'dayjs';
+import PropTypes from 'prop-types';
 import Link from 'next/link';
 
+import dayjs from 'dayjs';
 import styles from '../styles/Components/PostCard.module.scss';
 
 import {
@@ -14,6 +15,7 @@ import {
   Divider,
   Tag,
   Flex,
+  Skeleton,
 } from '@chakra-ui/react';
 import { TimeIcon } from '@chakra-ui/icons';
 
@@ -31,7 +33,13 @@ const tagColorScheme = [
   'purple',
 ];
 
-function PostCard({ postData }) {
+PostCard.propTypes = {
+  postDetails: PropTypes.object,
+  isLoading: PropTypes.bool,
+  LoadingComp: PropTypes.elementType,
+};
+
+function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
   const {
     id,
     post_title,
@@ -41,7 +49,7 @@ function PostCard({ postData }) {
     category,
     tags,
     updated_at,
-  } = postData;
+  } = postDetails;
 
   const postCover = useMemo(
     () => (
@@ -132,20 +140,25 @@ function PostCard({ postData }) {
       h='500px'
       borderWidth='1px'
       borderRadius='6'
-      justifySelf='center'
       display='flex'
       flexDir='column'
       className={styles.postCard}
     >
-      <Box w='full' h='240px' minH='240px' overflow='hidden'>
-        {postCover}
-      </Box>
+      {isLoading ? (
+        <LoadingComp w='full' h='full' />
+      ) : (
+        <>
+          <Box w='full' h='240px' minH='240px' overflow='hidden'>
+            {postCover}
+          </Box>
 
-      <Box flex='1' p={4} py={1}>
-        {discription}
-      </Box>
+          <Box flex='1' p={4} py={1}>
+            {discription}
+          </Box>
 
-      <Box p={4}>{meta}</Box>
+          <Box p={4}>{meta}</Box>
+        </>
+      )}
     </Box>
   );
 }
