@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-// Waring, Child Component muse be wrapped with React.forwardRef
+// Waring, Function Components as Children muse be wrapped with React.forwardRef
 
 InfiniteScrolling.propTypes = {
   children: PropTypes.node.isRequired,
