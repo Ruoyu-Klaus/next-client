@@ -1,39 +1,3 @@
-/*
- * @Author: Ruoyu
- * @FilePath: /next-client/pages/sitemap.xml.js
- */
-
-// const Sitemap = ({ paths }) => {
-//   return (
-//     <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
-//       <url>
-//         <loc>https://ruoyu.life</loc>
-//       </url>
-//       <url>
-//         <loc>https://ruoyu.life/blog</loc>
-//       </url>
-//       <url>
-//         <loc>https://ruoyu.life/blog/post/学习</loc>
-//       </url>
-//       <url>
-//         <loc>https://ruoyu.life/blog/post/生活</loc>
-//       </url>
-//       <url>
-//         <loc>https://ruoyu.life/blog/search</loc>
-//       </url>
-//       {paths
-//         .map(path => {
-//           return `
-//        <url>
-//            <loc>${`${process.env.BASE_URL}${path}`}</loc>
-//        </url>
-//      `;
-//         })
-//         .join('')}
-//     </urlset>
-//   );
-// };
-
 function generateSiteMap(paths) {
   return `<?xml version="1.0" encoding="UTF-8"?>
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -73,7 +37,7 @@ import { getArticleList } from '../request';
 
 export async function getServerSideProps({ res }) {
   // We make an API call to gather the URLs for our site
-  const { count, rows } = await getArticleList();
+  const { rows } = await getArticleList();
 
   const paths = rows.map(
     post =>

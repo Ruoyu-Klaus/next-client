@@ -1,7 +1,3 @@
-/*
- * @Author: Ruoyu
- * @FilePath: \next-client\context\cursor\CursorContext.js
- */
 import React, { createContext, useReducer } from 'react';
 import { CursorReducer } from './CursorReducer';
 import { SET_CURSORTYPE } from '../types';

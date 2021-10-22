@@ -1,7 +1,3 @@
-/*
- * @Author: Ruoyu
- * @FilePath: \next-client\hooks\useBreakPoint.js
- */
 import { useState, useEffect } from 'react';
 
 export const throttle = (fn, time = 1000) => {

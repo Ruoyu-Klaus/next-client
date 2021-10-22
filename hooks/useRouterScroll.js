@@ -1,7 +1,3 @@
-/*
- * @Author: Ruoyu
- * @FilePath: \next-client\hooks\useRouterScroll.js
- */
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 

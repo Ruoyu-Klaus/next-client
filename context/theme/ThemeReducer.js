@@ -1,7 +1,3 @@
-/*
- * @Author: Ruoyu
- * @FilePath: \next-client\context\theme\ThemeReducer.js
- */
 import { SET_DARK_THEME, SET_LIGHT_THEME } from '../types';
 
 export const ThemeReducer = (state, actions) => {

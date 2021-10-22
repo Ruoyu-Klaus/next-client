@@ -1,7 +1,3 @@
-/*
- * @Author: Ruoyu
- * @FilePath: \next-client\context\cursor\CursorReducer.js
- */
 import { SET_CURSORTYPE } from '../types';
 
 export const CursorReducer = (state, action) => {

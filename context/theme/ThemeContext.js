@@ -1,8 +1,3 @@
-/*
- * @Author: Ruoyu
- * @FilePath: \next-client\context\theme\themeContext.js
- */
-
 import React, { createContext, useReducer } from 'react';
 import { ThemeReducer } from './ThemeReducer';
 import { SET_DARK_THEME, SET_LIGHT_THEME } from '../types';
