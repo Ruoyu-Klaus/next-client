@@ -109,8 +109,8 @@ function Header({ navArray = [] }) {
           <SearchIcon />
         </Button>
       </HStack>
-      <GridItem w={'full'} justifySelf='center'>
-        <NavBarLogo />
+      <GridItem justifySelf='center'>
+        <NavBarLogo w='80%' m='0 auto' />
       </GridItem>
 
       <GridItem justifySelf='end'>
@@ -138,9 +138,12 @@ function Header({ navArray = [] }) {
                 首页
               </Button>
             </MenuItemLink>
-            {navArray.map(nav => (
-              <MenuItemLink key={nav.category_name}>
-                <Button variant='link'>{nav.category_name}</Button>
+            {navArray.map(item => (
+              <MenuItemLink
+                to={`/blog/post/${encodeURIComponent(item.category_name)}`}
+                key={item.category_name}
+              >
+                <Button variant='link'>{item.category_name}</Button>
               </MenuItemLink>
             ))}
           </Stack>

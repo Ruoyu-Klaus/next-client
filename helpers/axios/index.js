@@ -1,7 +1,3 @@
-/*
- * @Author: Ruoyu
- * @FilePath: \next-client\helpers\axios\index.js
- */
 import axios from 'axios';
 import { API } from '../../config/default.json';
 const baseURL =

@@ -3,12 +3,12 @@ import Link from 'next/link';
 import { Center, useColorMode, Image } from '@chakra-ui/react';
 import { CursorContext } from '../context/cursor/CursorContext';
 
-function NavBarLogo({ to = '/' }) {
+function NavBarLogo({ to = '/', ...rest }) {
   const { colorMode } = useColorMode();
   const { setCursorType } = useContext(CursorContext);
 
   return (
-    <Center>
+    <Center {...rest}>
       <Link href={{ pathname: to }}>
         <a
           onMouseEnter={e => setCursorType('link')}

@@ -36,7 +36,7 @@ function Blog({ posts }) {
       </Head>
       <Container maxW='container.xl' mt={8}>
         <SimpleGrid
-          minChildWidth='250px'
+          minChildWidth='350px'
           spacing='8'
           justifyItems='center'
           alignItems='center'

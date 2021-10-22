@@ -31,7 +31,7 @@ function BlogLayout({ categories = [], children }) {
       >
         {displayChildren}
       </main>
-      <Footer />
+      <Footer mb={4} />
     </Flex>
   );
 }

@@ -19,20 +19,6 @@ import {
 } from '@chakra-ui/react';
 import { TimeIcon } from '@chakra-ui/icons';
 
-const tagColorScheme = [
-  'magenta',
-  'lime',
-  'red',
-  'orange',
-  'green',
-  'geekblue',
-  'cyan',
-  'gold',
-  'blue',
-  'volcano',
-  'purple',
-];
-
 PostCard.propTypes = {
   postDetails: PropTypes.object,
   isLoading: PropTypes.bool,
@@ -67,6 +53,7 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
         <a title={post_title}>
           <Image
             h='100%'
+            w='100%'
             transition='all 0.3s ease-in-out'
             _hover={{
               transform: 'scale(1.05)',
@@ -136,8 +123,10 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
 
   return (
     <Box
-      w='80'
-      h='500px'
+      w='350px'
+      minW='250px'
+      maxW='350px'
+      h='480px'
       borderWidth='1px'
       borderRadius='6'
       display='flex'
