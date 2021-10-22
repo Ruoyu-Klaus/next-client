@@ -101,7 +101,7 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
           </AspectRatio>
           <Heading>{post.post_title}</Heading>
           <Flex w='60%' justifyContent='space-between'>
-            <Text fontSize='0.8rem'>{post.category.category_name}</Text>
+            <Text fontSize='0.8rem'>{post.category?.category_name}</Text>
             <Text fontSize='0.8rem'>
               {dayjs(post.post_time).format('MM-DD, YYYY')}
             </Text>
