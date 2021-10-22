@@ -20,8 +20,6 @@ import {
 
 import dayjs from 'dayjs';
 
-// import '../../../../styles/Pages/post.less';
-
 function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
   const router = useRouter();
 
@@ -108,7 +106,7 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
           </Flex>
 
           <HStack spacing={4}>
-            {post?.tags.map((tag, i) => (
+            {post?.tags?.map((tag, i) => (
               <Tag key={tag.id}>{tag.tag_name}</Tag>
             ))}
           </HStack>

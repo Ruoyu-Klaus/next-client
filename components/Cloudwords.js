@@ -1,21 +1,14 @@
-/*
- * @Author: Ruoyu
- * @FilePath: \next-client\components\Cloudwords.js
- */
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import ReactWordcloud from 'react-wordcloud';
 
 import useBreakpoint from '../hooks/useBreakPoint';
-
-import { ThemeContext } from '../context/theme/ThemeContext';
+import { Box, useColorMode } from '@chakra-ui/react';
 
 function WordCloud({ keywords = [], setSearchTerm }) {
   const [renderKeywords, setRenderKeywords] = useState(null);
   const bp = useBreakpoint();
 
-  const {
-    theme: { isDarkMode },
-  } = useContext(ThemeContext);
+  const { colorMode } = useColorMode();
 
   const getUniqueKeywords = keywords => {
     return keywords.filter((keyword, index, originalArray) => {
@@ -35,7 +28,7 @@ function WordCloud({ keywords = [], setSearchTerm }) {
   }, [keywords, bp]);
 
   const callbacks = {
-    getWordColor: word => (isDarkMode ? 'white' : 'black'),
+    getWordColor: word => (colorMode === 'light' ? 'black' : 'white'),
     onWordClick: word => setSearchTerm(word.text),
     getWordTooltip: word => `${word.text}`,
   };
@@ -51,7 +44,7 @@ function WordCloud({ keywords = [], setSearchTerm }) {
   };
 
   return renderKeywords ? (
-    <div style={{ height: '260px', width: '100%' }}>
+    <Box h='280px' w='full'>
       <ReactWordcloud
         words={renderKeywords.map(keyword => {
           return {
@@ -62,7 +55,7 @@ function WordCloud({ keywords = [], setSearchTerm }) {
         callbacks={callbacks}
         options={options}
       />
-    </div>
+    </Box>
   ) : (
     <></>
   );

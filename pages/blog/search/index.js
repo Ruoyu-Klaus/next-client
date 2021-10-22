@@ -1,28 +1,21 @@
 import { useState, useCallback } from 'react';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 
-import PostCard from '../../../components/PostCard';
-import FadeIn from '../../../components/FadeIn';
-import InfiniteScrolling from '../../../components/InfiniteScrolling';
 import SearchBar from '../../../components/SearchBar';
-import LoadingCard from '../../../components/LoadingCard';
-
+import PostCardGridList from '../../../components/PostCardGridList';
+import NoSearchResult from '../../../components/NoSearchResult';
 import usePostFetch from '../../../hooks/usePostFetch';
 
 import { debounce } from 'lodash';
-
-import { Container, SimpleGrid, Flex } from '@chakra-ui/react';
-
+import { Container, Flex } from '@chakra-ui/react';
 function Search({ keywords }) {
-  const Router = useRouter();
-  const { cname, pid } = Router.query;
   const [pageNum, setPageNum] = useState(1);
   const getCurrentPageNum = page => {
     setPageNum(page);
   };
 
-  const [searchString, setSearchSting] = useState('');
+  const [hasClickedSearch, setHasClickedSearche] = useState(false);
+  const [searchString, setSearchSting] = useState(null);
 
   const onInputSearch = useCallback(
     debounce(str => {
@@ -30,6 +23,7 @@ function Search({ keywords }) {
         .trim()
         .replace(/[^\u4e00-\u9fa5a-zA-Z0-9]+/gi, '');
       sanitizedText && setSearchSting(sanitizedText);
+      setHasClickedSearche(true);
     }, 300)
   );
   const { isLoading, hasMore, posts } = usePostFetch({
@@ -49,34 +43,20 @@ function Search({ keywords }) {
         <Flex flexDir='column' justify='center'>
           <SearchBar keywords={keywords} onInputSearch={onInputSearch} />
         </Flex>
-        <Container maxW='container.xl' mt={8}>
-          <SimpleGrid
-            minChildWidth='350px'
-            spacing='8'
-            justifyItems='center'
-            alignItems='center'
-          >
-            <InfiniteScrolling
-              hasMore={hasMore}
-              getPageNum={getCurrentPageNum}
-              isLoading={isLoading}
-            >
-              {posts.map((post, i) => (
-                <FadeIn key={i}>
-                  <PostCard
-                    postDetails={post}
-                    isLoading={isLoading}
-                    LoadingComp={LoadingCard}
-                  />
-                </FadeIn>
-              ))}
-            </InfiniteScrolling>
-          </SimpleGrid>
-        </Container>
+        <PostCardGridList
+          posts={posts}
+          isLoading={isLoading}
+          hasMore={hasMore}
+          getCurrentPageNum={getCurrentPageNum}
+        />
+        {(!posts || posts.length === 0) && hasClickedSearch && (
+          <NoSearchResult text={'没有找到结果'} />
+        )}
       </Container>
     </>
   );
 }
+
 import { getArticleList } from '../../../request';
 
 export async function getStaticProps() {
