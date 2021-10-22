@@ -1,14 +1,19 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
+import Head from 'next/head';
+
 import PostCard from '../../../../components/PostCard';
 import FadeIn from '../../../../components/FadeIn';
 import InfiniteScrolling from '../../../../components/InfiniteScrolling';
 import LoadingCard from '../../../../components/LoadingCard';
 import usePostFetch from '../../../../hooks/usePostFetch';
 
-import { Row, Col } from 'antd';
+import { Container, SimpleGrid } from '@chakra-ui/react';
 
 function Category({ posts }) {
+  const router = useRouter();
+  const { cname } = router.query;
+
   const [pageNum, setPageNum] = useState(1);
   const [fetchPosts, setFetchPosts] = useState(() => posts);
 
@@ -30,38 +35,39 @@ function Category({ posts }) {
     originalPosts: fetchPosts,
     limit: 6,
   });
+  console.log(fetchPosts);
 
   return (
-    <div style={{ height: '100%' }}>
-      <Row className='comm-main' type='flex' justify='center'>
-        <Col xs={16} sm={16} md={18} lg={18} xxl={18}>
-          <Row
-            className='post-list'
-            type='flex'
-            justify='flex-start'
-            gutter={[16, 16]}
+    <>
+      <Head>
+        <title>{cname} | Ruoyu</title>
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+      <Container maxW='container.xl' mt={8}>
+        <SimpleGrid
+          minChildWidth='350px'
+          spacing='8'
+          justifyItems='center'
+          alignItems='center'
+        >
+          <InfiniteScrolling
+            hasMore={hasMore}
+            getPageNum={getCurrentPageNum}
+            isLoading={isLoading}
           >
-            <InfiniteScrolling
-              hasMore={hasMore}
-              LoadingComp={LoadingCard}
-              getPageNum={getCurrentPageNum}
-              isLoading={isLoading}
-              initialLoad={false}
-            >
-              {pagePosts.map((post, i) => {
-                return (
-                  <Col xs={24} sm={24} md={10} xl={8} xxl={5} key={post.id}>
-                    <FadeIn>
-                      <PostCard postData={post} />
-                    </FadeIn>
-                  </Col>
-                );
-              })}
-            </InfiniteScrolling>
-          </Row>
-        </Col>
-      </Row>
-    </div>
+            {pagePosts.map((post, i) => (
+              <FadeIn key={i}>
+                <PostCard
+                  postDetails={post}
+                  isLoading={isLoading}
+                  LoadingComp={LoadingCard}
+                />
+              </FadeIn>
+            ))}
+          </InfiniteScrolling>
+        </SimpleGrid>
+      </Container>
+    </>
   );
 }
 

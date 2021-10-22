@@ -3,36 +3,34 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import NextLink from 'next/link';
 
-import { Tag, Divider, Avatar, Anchor, Row, Col } from 'antd';
-const { Link } = Anchor;
-import { WechatFilled, FacebookFilled, GithubFilled } from '@ant-design/icons';
+import {
+  Container,
+  Flex,
+  HStack,
+  VStack,
+  Heading,
+  Text,
+  Box,
+  AspectRatio,
+  Image,
+  Link,
+  Tag,
+  Divider,
+} from '@chakra-ui/react';
 
 import dayjs from 'dayjs';
 
-import '../../../../styles/Pages/post.less';
-
-const tagColorScheme = [
-  'magenta',
-  'purple',
-  'blue',
-  'red',
-  'orange',
-  'gold',
-  'lime',
-  'volcano',
-  'green',
-  'cyan',
-  'geekblue',
-];
+// import '../../../../styles/Pages/post.less';
 
 function Post({ post = null, tocTree = [], previousPath, nextPath }) {
   const router = useRouter();
-  const { cname, slug } = router.query;
 
   const [targetOffset, setTargetOffset] = useState(undefined);
+
   useEffect(() => {
     !post && router.push('/blog');
   }, []);
+
   useEffect(() => {
     setTargetOffset(window.innerHeight / 2.2);
   }, []);
@@ -40,7 +38,7 @@ function Post({ post = null, tocTree = [], previousPath, nextPath }) {
   const renderToc = items => {
     // 递归 render
     return items.map(item => (
-      <Link
+      <NextLink
         onClick={e => {
           e.preventDefault();
           document.querySelector(`#${item.anchor}`).scrollIntoView({
@@ -52,7 +50,7 @@ function Post({ post = null, tocTree = [], previousPath, nextPath }) {
         title={item.text}
       >
         {item.children && renderToc(item.children)}
-      </Link>
+      </NextLink>
     ));
   };
 
@@ -90,187 +88,91 @@ function Post({ post = null, tocTree = [], previousPath, nextPath }) {
   // );
 
   return (
-    post && (
-      <>
-        <Head>
-          <title>{post.post_title} | Ruoyu</title>
-          <link rel='icon' href='/favicon.ico' />
-        </Head>
-        <div style={{ height: '100%' }}>
-          <Row
-            type='flex'
-            justify='center'
-            className='comm-main post-detail-container'
-          >
-            <Col xs={24} sm={24} md={18} lg={18} xxl={18}>
-              <Divider>
-                <div className='post-foot-spot' />
-              </Divider>
-            </Col>
-            <Col xs={24} sm={24} md={18} lg={18} xxl={18}>
-              <div className='detailed-title '>{post.post_title}</div>
-            </Col>
-            <Col xs={24} sm={24} md={18} lg={18} xxl={18}>
-              <div className='detailed-cover center'>
-                <img src={post.post_cover} />
-              </div>
-            </Col>
-            <Col xs={24} sm={24} md={18} lg={18} xxl={18}>
-              <div className='detailed-info'>
-                <div className='detailed-date '>
-                  <time>{dayjs(post.post_time).format('MM-DD, YYYY')}</time>
-                </div>
-                <div className='detailed-category'>
-                  <span>{post.category.category_name}</span>
-                </div>
-                <div className='detailed-tag'>
-                  {post?.tags.map((tag, i) => (
-                    <Tag key={tag.id} color={tagColorScheme[i]}>
-                      {tag.tag_name}
-                    </Tag>
-                  ))}
-                </div>
-                <div className='detailed-social'>
-                  <a target='_blank' href='https://github.com/Ruoyu-Klaus'>
-                    <Avatar
-                      size={30}
-                      icon={<GithubFilled />}
-                      className='account'
-                    />
-                  </a>
-                  <a
-                    target='_blank'
-                    href='https://www.facebook.com/ruoyu.wang.9028194'
-                  >
-                    <Avatar
-                      size={30}
-                      icon={<FacebookFilled />}
-                      className='account'
-                    />
-                  </a>
-                  <a
-                    target='_blank'
-                    href='https://i.loli.net/2020/07/03/WklZBzG2MxepQyg.jpg'
-                  >
-                    <Avatar
-                      size={30}
-                      icon={<WechatFilled />}
-                      className='account'
-                    />
-                  </a>
-                </div>
-              </div>
-            </Col>
-            <Col xs={24} sm={24} md={24} lg={24} xxl={24}>
-              <div className='detailed-content'>
-                <Row type='flex' justify='center'>
-                  <Col xs={24} sm={24} md={5} lg={5}></Col>
-                  <Col xs={24} sm={24} md={14} lg={14}>
-                    <div
-                      className='markdown-body'
-                      id='content'
-                      dangerouslySetInnerHTML={{ __html: post.post_content }}
-                    />
-                  </Col>
-                  <Col xs={0} sm={0} md={5} lg={5}>
-                    <div className='detailed-toc'>
-                      <Anchor affix showInkInFixed offsetTop={targetOffset}>
-                        {renderToc(tocTree)}
-                      </Anchor>
-                    </div>
-                  </Col>
-                </Row>
-              </div>
-            </Col>
+    <>
+      <Head>
+        <title>{post.post_title} | Ruoyu</title>
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+      <Container maxW='container.xl' my={8}>
+        <Divider my={4} />
+        <VStack spacing='4'>
+          <AspectRatio w={['90%', '80vw', '60vw']} maxW='800px' ratio={3 / 2}>
+            <Image objectFit='cover' src={post.post_cover} />
+          </AspectRatio>
+          <Heading>{post.post_title}</Heading>
+          <Flex w='60%' justifyContent='space-between'>
+            <Text fontSize='0.8rem'>{post.category.category_name}</Text>
+            <Text fontSize='0.8rem'>
+              {dayjs(post.post_time).format('MM-DD, YYYY')}
+            </Text>
+          </Flex>
 
-            <Col xs={24} sm={24} md={18} lg={18} xxl={18}>
-              <div className='post-link'>
-                <div className='post-link left'>
-                  {previousPath && (
-                    <NextLink href={previousPath} as={previousPath.as}>
-                      <a>previous: {previousPath && previousPath.title}</a>
-                    </NextLink>
-                  )}
-                </div>
-                <div className='post-link right'>
-                  {nextPath && (
-                    <NextLink href={nextPath} as={nextPath.as}>
-                      <a>next: {nextPath && nextPath.title}</a>
-                    </NextLink>
-                  )}
-                </div>
-              </div>
-              <Divider>
-                <img src='/favicon.ico' width='30px' />
-              </Divider>
-            </Col>
-          </Row>
-        </div>
-      </>
-    )
+          <HStack spacing={4}>
+            {post?.tags.map((tag, i) => (
+              <Tag key={tag.id}>{tag.tag_name}</Tag>
+            ))}
+          </HStack>
+
+          <Box
+            w={['90%', '80vw', '60vw']}
+            maxW='1000px'
+            className='markdown-body'
+            id='content'
+            dangerouslySetInnerHTML={{ __html: post.post_content }}
+          />
+          <Flex
+            w={['auto', 'full']}
+            justifyContent={['center', 'space-between']}
+            flexDir={['column', 'row']}
+          >
+            {previousPath ? (
+              <NextLink href={previousPath} as={previousPath.as}>
+                <Link>
+                  <Text fontSize='0.8rem'>
+                    previous: {previousPath && previousPath.title}
+                  </Text>
+                </Link>
+              </NextLink>
+            ) : (
+              <div></div>
+            )}
+            {nextPath && (
+              <NextLink href={nextPath} as={nextPath.as}>
+                <Link>
+                  <Text fontSize='0.8rem'>
+                    next: {nextPath && nextPath.title}
+                  </Text>
+                </Link>
+              </NextLink>
+            )}
+          </Flex>
+        </VStack>
+        <Divider my={4} />
+      </Container>
+    </>
   );
 }
 
-import { getArticleById, getArticleList } from '../../../../request';
-
-import marked from 'marked';
-import hljs from 'highlight.js';
-import createDOMPurify from 'dompurify';
-import { JSDOM } from 'jsdom';
-import MarkDownTOC from '../../../../helpers/MarkDownTOC';
+import { getArticleById } from '../../../../request';
+import { getParsedContentWithTocTree } from '../../../../helpers/markDownRenderer';
+import { getPostPaths } from '../../../../helpers';
 
 export async function getStaticProps(context) {
-  const { params } = context;
-  const renderer = new marked.Renderer();
-  const tocRenderer = new MarkDownTOC();
-  renderer.heading = function (text, level) {
-    return tocRenderer.renderHTML(text, level);
-  };
-  marked.setOptions({
-    tables: true,
-    breaks: false,
-    smartLists: true,
-    smartypants: false,
-    langPrefix: 'hljs language-',
-    highlight: function (code, lang) {
-      const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-      return hljs.highlight(language, code).value;
-    },
-  });
-  marked.use({ renderer });
-
   try {
+    const { params } = context;
     const [id] = params.slug;
     const post = await getArticleById(id);
 
-    const window = new JSDOM('').window;
-    const DOMPurify = createDOMPurify(window);
-    const sanitizeOptions = {
-      ADD_TAGS: ['iframe'],
-      ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling'],
-    };
-
-    post.post_content = DOMPurify.sanitize(
-      marked(post.post_content),
-      sanitizeOptions
+    const { santizedContent, tocTree } = await getParsedContentWithTocTree(
+      post.post_content
     );
 
-    const { count, rows } = await getArticleList();
-    const paths = rows.map(post => ({
-      pathname: `/blog/post/[cname]/[...slug]`,
-      query: {
-        cname: post.category.category_name,
-        slug: [post.id, post.post_title],
-      },
+    post.post_content = santizedContent;
 
-      title: post.post_title,
-      as: `/blog/post/${post.category.category_name}/${post.id}/${post.post_title}`,
-    }));
-
+    const paths = await getPostPaths(true);
     const currentPathIndex = paths.findIndex(
       path => path.query?.slug[0] == post.id
     );
-
     let previousPath = null,
       nextPath = null;
     if (currentPathIndex !== 0) {
@@ -283,7 +185,7 @@ export async function getStaticProps(context) {
     return {
       props: {
         post,
-        tocTree: tocRenderer && tocRenderer.getTocItems(),
+        tocTree,
         previousPath,
         nextPath,
       },
@@ -300,16 +202,7 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
   try {
-    const { count, rows } = await getArticleList();
-    const paths = rows.map(post => ({
-      params: {
-        cname: encodeURIComponent(post.category.category_name),
-        slug: [
-          encodeURIComponent(post.id),
-          encodeURIComponent(post.post_title),
-        ],
-      },
-    }));
+    const paths = await getPostPaths();
     return {
       paths: paths,
       fallback: false,
@@ -321,6 +214,7 @@ export async function getStaticPaths() {
     };
   }
 }
+
 import BlogLayout from '../../../../layout/BlogLayout';
 Post.getLayout = function getLayout(page, categories) {
   return <BlogLayout categories={categories}>{page}</BlogLayout>;

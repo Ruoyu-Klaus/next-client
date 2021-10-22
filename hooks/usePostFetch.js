@@ -3,20 +3,6 @@ import { getArticleList } from '../request';
 import { cloneDeep } from 'lodash';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-/**
- * @description:
- * @param {
- * clientSidePagination?: boolean
- * originalPosts?: {}
- * pageNum?: number
- * limit?: any
- *      }
- * @return {
- * isLoading: boolean;
- * posts: any[];
- * hasMore: boolean;
- *      }
- */
 
 usePostFetch.propTypes = {
   pageNum: PropTypes.number,
@@ -43,24 +29,6 @@ function usePostFetch(props) {
 
   const _initialLoad = useRef(initialLoad);
 
-  // const getData = useCallback(async () => {
-  //   const axios = require('axios');
-  //   const searchRequest = axios.CancelToken.source();
-  //   const cancelToken = searchRequest.token;
-  //   setIsLoading(true);
-  //   const { count, rows } = await getArticleList({
-  //     query,
-  //     pageNum,
-  //     limit,
-  //     cancelToken,
-  //   });
-  //   const left = limit * pageNum - count;
-  //   left <= 0 && setHasmore(false);
-  //   setPosts(pre => [...new Set([...pre, ...rows])]);
-  //   setIsLoading(false);
-  //   return () => searchRequest.cancel();
-  // }, [query, pageNum, limit]);
-
   // used for local search
   let count, rows;
   if (originalPosts && clientSidePagination) {
@@ -72,18 +40,18 @@ function usePostFetch(props) {
   // console.log({ count, maxPages, currentPage: pageNum });
 
   const getDataFromLocal = useCallback(() => {
+    if (!rows || !rows.length) return;
     if (pageNum >= maxPages) {
       setHasmore(false);
     }
-    if (!rows || !rows.length) return;
     let data = rows.splice((pageNum - 1) * (limit * pageNum), limit);
     setPosts(pre => [...new Set([...pre, ...data])]);
   }, [pageNum, limit, originalPosts, maxPages]);
 
   useEffect(() => {
-    originalPosts && setPosts([]);
     setPosts([]);
-  }, [originalPosts, query]);
+    getDataFromLocal();
+  }, [originalPosts, query, clientSidePagination]);
 
   // used for server side search
   useEffect(() => {
@@ -117,11 +85,6 @@ function usePostFetch(props) {
 
     return () => searchRequest.cancel();
   }, [clientSidePagination, query, pageNum, limit, initialLoad]);
-
-  useEffect(() => {
-    if (!clientSidePagination) return;
-    getDataFromLocal();
-  }, [clientSidePagination]);
 
   return {
     isLoading,
