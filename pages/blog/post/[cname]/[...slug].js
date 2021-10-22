@@ -22,7 +22,7 @@ import dayjs from 'dayjs';
 
 // import '../../../../styles/Pages/post.less';
 
-function Post({ post = null, tocTree = [], previousPath, nextPath }) {
+function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
   const router = useRouter();
 
   const [targetOffset, setTargetOffset] = useState(undefined);
@@ -194,7 +194,7 @@ export async function getStaticProps(context) {
     return {
       props: {
         msg: 'server error',
-        post: null,
+        post: {},
       },
     };
   }

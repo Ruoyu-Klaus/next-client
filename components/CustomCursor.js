@@ -1,7 +1,3 @@
-/*
- * @Author: Ruoyu
- * @FilePath: \next-client\components\CustomCursor.js
- */
 import React, { useEffect, useState, useRef, useContext } from 'react';
 import useMousePosition from '../hooks/useMousePosition';
 import { CursorContext } from '../context/cursor/CursorContext';
