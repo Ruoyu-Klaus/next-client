@@ -70,11 +70,12 @@ function Header({ navArray = [] }) {
 
   return (
     <Grid
+      className='header'
       w='full'
       h={16}
       px={4}
       templateColumns='repeat(3, 1fr)'
-      bg={useColorModeValue('gray.100', 'gray.900')}
+      bg={useColorModeValue('gray.100', '#333')}
       borderBottomWidth={'1px'}
       borderBottomStyle={'solid'}
       borderBottomColor={useColorModeValue('gray.200', 'gray.800')}
@@ -125,9 +126,13 @@ function Header({ navArray = [] }) {
           zIndex={20}
           w={{ base: '100vw', md: 'auto' }}
           pos={{ base: 'fixed', md: 'unset' }}
+          bg={{
+            base: useColorModeValue('gray.200', 'gray.900'),
+            md: 'transparent',
+          }}
         >
           <Stack
-            pt={{ base: 4, md: 'inherit' }}
+            py={{ base: 4, md: 'inherit' }}
             w='full'
             alignItems={'center'}
             spacing='4'

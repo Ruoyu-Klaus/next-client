@@ -2,7 +2,6 @@ import { useState } from 'react';
 import CloudWords from './Cloudwords';
 
 import {
-  Container,
   Flex,
   Center,
   Input,

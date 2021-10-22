@@ -40,7 +40,7 @@ function Cover() {
           bgSize='cover'
           bgImage={'url(./SaoPaulo.jpg)'}
         >
-          <VStack>
+          <VStack className='noselect'>
             <Link href={{ pathname: '/blog' }}>
               <a
                 onMouseEnter={e => setCursorType('link')}
