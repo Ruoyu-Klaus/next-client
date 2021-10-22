@@ -79,23 +79,14 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
           {category.category_name}
         </Text>
         <Heading as='h3' size='md' className={styles.postTitle}>
-          {post_title}撒答打撒打撒打撒打撒打打撒打打撒打打撒打
-          撒答打撒打撒打撒打撒打打撒打打撒打
+          {post_title}
         </Heading>
         <Text fontSize={'16px'} className={styles.postIntroduction}>
-          {post_introduce}打打撒撒打撒打撒打撒打打撒打打撒打打撒打
-          撒答打撒打撒打撒打撒打打撒打打撒打
+          {post_introduce}
         </Text>
         <Divider />
 
         <HStack className={styles.postTag} w={'full'} spacing={4}>
-          <Tag size='sm'>TTT</Tag>
-          <Tag size='sm'>aaaa</Tag>
-          <Tag size='sm'>aaaa</Tag>
-          <Tag size='sm'>aaaa</Tag>
-          <Tag size='sm'>aaaa</Tag>
-          <Tag size='sm'>a</Tag>
-
           {tags.map((tag, i) => (
             <Tag size='sm' key={tag.id}>
               {tag.tag_name}
