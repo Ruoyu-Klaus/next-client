@@ -25,67 +25,30 @@ import dayjs from 'dayjs';
 function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
   const router = useRouter();
 
-  const [targetOffset, setTargetOffset] = useState(undefined);
-
   useEffect(() => {
     !post && router.push('/blog');
   }, []);
 
-  useEffect(() => {
-    setTargetOffset(window.innerHeight / 2.2);
-  }, []);
-
-  const renderToc = items => {
-    // 递归 render
-    return items.map(item => (
-      <NextLink
-        onClick={e => {
-          e.preventDefault();
-          document.querySelector(`#${item.anchor}`).scrollIntoView({
-            behavior: 'smooth',
-          });
-        }}
-        key={item.anchor}
-        href={`#${item.anchor}`}
-        title={item.text}
-      >
-        {item.children && renderToc(item.children)}
-      </NextLink>
-    ));
-  };
-
-  // 暂时弃用
-  //  const getFlatAnchors = items => {
-  //   return items.reduce((acc, item) => {
-  //     acc.push(item.anchor);
-  //     if (item.children) {
-  //       acc.push(...getFlatAnchors(item.children));
-  //     }
-  //     return acc;
-  //   }, []);
-  // };
-
-  // 已使用Antd的组件，暂时弃用
-  // const toc = tocTree => (
-  //   <ul>
-  //     {tocTree.map(item => (
-  //       <li key={item.anchor}>
-  //         <a
-  //           href={`#${item.anchor}`}
-  //           onClick={e => {
-  //             e.preventDefault();
-  //             document.getElementById(`${item.anchor}`).scrollIntoView({
-  //               behavior: 'smooth',
-  //             });
-  //           }}
-  //         >
-  //           {item.text}
-  //         </a>
-  //         {item.children && toc(item.children)}
-  //       </li>
-  //     ))}
-  //   </ul>
-  // );
+  const renderTOC = tocTree => (
+    <ul>
+      {tocTree.map(item => (
+        <li key={item.anchor}>
+          <a
+            href={`#${item.anchor}`}
+            onClick={e => {
+              e.preventDefault();
+              document.getElementById(`${item.anchor}`).scrollIntoView({
+                behavior: 'smooth',
+              });
+            }}
+          >
+            {item.text}
+          </a>
+          {item.children && renderTOC(item.children)}
+        </li>
+      ))}
+    </ul>
+  );
 
   return (
     <>
@@ -93,6 +56,7 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
         <title>{post.post_title} | Ruoyu</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
+
       <Container maxW='container.xl' my={8}>
         <Divider my={4} />
         <VStack spacing='4'>
@@ -100,6 +64,7 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
             <Image objectFit='cover' src={post.post_cover} />
           </AspectRatio>
           <Heading>{post.post_title}</Heading>
+
           <Flex w='60%' justifyContent='space-between'>
             <Text fontSize='0.8rem'>{post.category?.category_name}</Text>
             <Text fontSize='0.8rem'>
@@ -112,7 +77,13 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
               <Tag key={tag.id}>{tag.tag_name}</Tag>
             ))}
           </HStack>
-
+          <Box
+            w={['90%', '80vw', '60vw']}
+            maxW='1000px'
+            className='markdown-body'
+          >
+            {renderTOC(tocTree)}
+          </Box>
           <Box
             w={['90%', '80vw', '60vw']}
             maxW='1000px'
@@ -120,6 +91,7 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
             id='content'
             dangerouslySetInnerHTML={{ __html: post.post_content }}
           />
+
           <Flex
             w={['auto', 'full']}
             justifyContent={['center', 'space-between']}
