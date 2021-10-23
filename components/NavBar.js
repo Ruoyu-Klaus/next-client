@@ -16,6 +16,7 @@ import {
   Button,
   useColorMode,
   useColorModeValue,
+  Slide,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 
@@ -136,12 +137,10 @@ function Header({ navArray = [] }) {
             w='full'
             alignItems={'center'}
             spacing='4'
-            direction={['column', 'column', 'row', 'row']}
+            direction={['column', 'column', 'row']}
           >
             <MenuItemLink to='/blog'>
-              <Button variant='link' leftIcon={'💒'}>
-                首页
-              </Button>
+              <Button variant='link'>首页</Button>
             </MenuItemLink>
             {navArray.map(item => (
               <MenuItemLink

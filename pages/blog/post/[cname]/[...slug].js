@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import NextLink from 'next/link';
 
+import BackToTop from '../../../../components/BackToTop';
+
 import {
   Container,
   Flex,
@@ -146,6 +148,7 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
           </Flex>
         </VStack>
         <Divider my={4} />
+        <BackToTop />
       </Container>
     </>
   );
