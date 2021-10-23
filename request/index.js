@@ -1,7 +1,3 @@
-/*
- * @Author: Ruoyu
- * @FilePath: \next-client\request\index.js
- */
 import { API } from '../config/default.json';
 import Axios from '../helpers/axios';
 
@@ -9,13 +5,14 @@ export async function getArticleList({
   page = '',
   limit = '',
   query = '',
-  cancelToken = undefined,
+  cancelToken = null,
 } = {}) {
   try {
     const requestUrl =
       API.servicePath.getArticleList +
       `?_q=${query}&_page=${[page]}&_limit=${limit}`;
-    const res = await Axios.get(requestUrl, { cancelToken });
+    const res =
+      query !== null && (await Axios.get(requestUrl, { cancelToken }));
 
     return res && res.data;
   } catch (e) {

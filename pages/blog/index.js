@@ -1,27 +1,18 @@
 import { useState } from 'react';
 import Head from 'next/head';
 
-import PostCard from '../../components/PostCard';
-import FadeIn from '../../components/FadeIn';
-import InfiniteScrolling from '../../components/InfiniteScrolling';
-import LoadingCard from '../../components/LoadingCard';
+import PostCardGridList from '../../components/PostCardGridList';
 
 import usePostFetch from '../../hooks/usePostFetch';
 
-import { Container, SimpleGrid } from '@chakra-ui/react';
-
-function Blog({ posts }) {
+function Blog({ posts: pagePosts }) {
   const [pageNum, setPageNum] = useState(1);
-  const [fetchPosts] = useState(posts);
+  const [fetchPosts] = useState(pagePosts);
   const getCurrentPageNum = page => {
     setPageNum(page);
   };
 
-  const {
-    isLoading,
-    hasMore,
-    posts: pagePosts,
-  } = usePostFetch({
+  const { isLoading, hasMore, posts } = usePostFetch({
     pageNum,
     clientSidePagination: true,
     originalPosts: fetchPosts,
@@ -34,30 +25,12 @@ function Blog({ posts }) {
         <title>博客 | Ruoyu</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Container maxW='container.xl' mt={8}>
-        <SimpleGrid
-          minChildWidth='350px'
-          spacing='8'
-          justifyItems='center'
-          alignItems='center'
-        >
-          <InfiniteScrolling
-            hasMore={hasMore}
-            getPageNum={getCurrentPageNum}
-            isLoading={isLoading}
-          >
-            {pagePosts.map((post, i) => (
-              <FadeIn key={i}>
-                <PostCard
-                  postDetails={post}
-                  isLoading={isLoading}
-                  LoadingComp={LoadingCard}
-                />
-              </FadeIn>
-            ))}
-          </InfiniteScrolling>
-        </SimpleGrid>
-      </Container>
+      <PostCardGridList
+        posts={posts}
+        isLoading={isLoading}
+        hasMore={hasMore}
+        getCurrentPageNum={getCurrentPageNum}
+      />
     </>
   );
 }
