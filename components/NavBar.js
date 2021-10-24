@@ -117,6 +117,7 @@ function Header({ navArray = [] }) {
 
       <GridItem justifySelf='end'>
         <MenuToggleForSmallScreen
+          display={{ base: 'block', md: 'none' }}
           toggle={toggleMenuIcon}
           isMenuOpen={isMenuOpen}
         />
