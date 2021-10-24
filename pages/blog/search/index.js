@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 import SearchBar from '../../../components/SearchBar';
 import PostCardGridList from '../../../components/PostCardGridList';
-import NoSearchResult from '../../../components/NoSearchResult';
+import CustomDivider from '../../../components/CustomDivider';
 import usePostFetch from '../../../hooks/usePostFetch';
 
 import { debounce } from 'lodash';
@@ -50,7 +50,7 @@ function Search({ keywords }) {
           getCurrentPageNum={getCurrentPageNum}
         />
         {(!posts || posts.length === 0) && hasClickedSearch && (
-          <NoSearchResult text={'没有找到结果'} />
+          <CustomDivider text={'没有找到结果'} dividerWidth={'25%'} />
         )}
       </Container>
     </>

@@ -23,3 +23,26 @@ export async function getPostPaths(linkPath = false) {
     },
   }));
 }
+
+export function randomEmoji() {
+  const emojiList = [
+    '😊',
+    '🙃',
+    '🤪',
+    '🤓',
+    '🤯',
+    '😴',
+    '💩',
+    '👻',
+    '👽',
+    '🤖',
+    '👾',
+    '✌️',
+    '🤙',
+    '🐭',
+    '🎃',
+    '🐉',
+  ];
+  const randomIndex = Math.floor(Math.random() * emojiList.length);
+  return emojiList[randomIndex];
+}
