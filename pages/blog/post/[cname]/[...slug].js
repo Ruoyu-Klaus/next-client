@@ -4,6 +4,9 @@ import Head from 'next/head';
 import NextLink from 'next/link';
 
 import BackToTop from '../../../../components/BackToTop';
+import CustomDivider from '../../../../components/CustomDivider';
+
+import { randomEmoji } from '../../../../helpers';
 
 import {
   Container,
@@ -58,7 +61,7 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
       </Head>
 
       <Container maxW='container.xl' my={8}>
-        <Divider my={4} />
+        <CustomDivider my={4} text={randomEmoji()} dividerWidth='full' />
         <VStack spacing='4'>
           <AspectRatio w={['90%', '80vw', '60vw']} maxW='800px' ratio={3 / 2}>
             <Image objectFit='cover' src={post.post_cover} />
@@ -119,7 +122,8 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
             )}
           </Flex>
         </VStack>
-        <Divider my={4} />
+        <CustomDivider my={4} text={randomEmoji()} dividerWidth='full' />
+
         <BackToTop />
       </Container>
     </>
