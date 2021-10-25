@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { useRef, useContext } from 'react';
 import { CursorContext } from '../context/cursor/CursorContext';
 
@@ -8,15 +8,21 @@ import styles from '../styles/Pages/index.module.scss';
 import {
   Container,
   Center,
+  HStack,
   VStack,
   Drawer,
   DrawerOverlay,
   DrawerCloseButton,
   DrawerContent,
   DrawerBody,
+  DrawerFooter,
   useDisclosure,
   Text,
+  Icon,
+  Link,
 } from '@chakra-ui/react';
+
+import { VscGithubAlt, VscMail } from 'react-icons/vsc';
 
 function Cover() {
   const { setCursorType } = useContext(CursorContext);
@@ -41,7 +47,7 @@ function Cover() {
           bgImage={'url(./SaoPaulo.jpg)'}
         >
           <VStack className='noselect'>
-            <Link href={{ pathname: '/blog' }}>
+            <NextLink href={{ pathname: '/blog' }}>
               <a
                 onMouseEnter={e => setCursorType('link')}
                 onMouseLeave={e => setCursorType('default')}
@@ -53,7 +59,7 @@ function Cover() {
                   designfrom='https://www.fontspace.com/youth-touch-font-f30771'
                 />
               </a>
-            </Link>
+            </NextLink>
             <img
               className={styles.authorInfo}
               src='../softewaredeveloper.png'
@@ -97,7 +103,7 @@ function Cover() {
             <DrawerCloseButton />
             <VStack w='full' h='full' my={40} spacing={3} alignItems='flex-end'>
               <DrawerBody>
-                <Link href={{ pathname: '/blog' }}>
+                <NextLink href={{ pathname: '/blog' }}>
                   <a
                     className='blog'
                     onMouseEnter={e => setCursorType('link')}
@@ -105,8 +111,18 @@ function Cover() {
                   >
                     <Text fontSize='3xl'>Blog.</Text>
                   </a>
-                </Link>
+                </NextLink>
               </DrawerBody>
+              <DrawerFooter>
+                <HStack spacing={4}>
+                  <Link href='https://github.com/Ruoyu-Klaus' isExternal>
+                    <Icon as={VscGithubAlt} />
+                  </Link>
+                  <Link href='mailto:ruoyuwangruoyu@hotmail.com' isExternal>
+                    <Icon as={VscMail} />
+                  </Link>
+                </HStack>
+              </DrawerFooter>
             </VStack>
           </DrawerContent>
         </Drawer>
