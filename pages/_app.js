@@ -8,7 +8,6 @@ import 'tippy.js/animations/scale.css';
 import { ChakraProvider } from '@chakra-ui/react';
 
 import { CursorContextProvider } from '../context/cursor/CursorContext';
-import { ThemeContextProvider } from '../context/theme/ThemeContext';
 import dynamic from 'next/dynamic';
 
 import { getArticleCategories } from '../request';
@@ -21,12 +20,10 @@ function MyApp({ Component, pageProps, categories }) {
   const getLayout = Component.getLayout || (page => page);
   return (
     <ChakraProvider>
-      <ThemeContextProvider>
-        <CursorContextProvider>
-          {getLayout(<Component {...pageProps} />, categories)}
-          <CustomCorsor />
-        </CursorContextProvider>
-      </ThemeContextProvider>
+      <CursorContextProvider>
+        {getLayout(<Component {...pageProps} />, categories)}
+        <CustomCorsor />
+      </CursorContextProvider>
     </ChakraProvider>
   );
 }
