@@ -21,7 +21,6 @@ import {
 import { SearchIcon } from '@chakra-ui/icons';
 
 import { CursorContext } from '../context/cursor/CursorContext';
-import { ThemeContext } from '../context/theme/ThemeContext';
 import useRouterScroll from '../hooks/useRouterScroll';
 
 Header.propTypes = {
@@ -30,11 +29,6 @@ Header.propTypes = {
 
 function Header({ navArray = [] }) {
   const { setCursorType } = useContext(CursorContext);
-  const {
-    theme: { isDarkMode },
-    setDarkTheme,
-    setLightTheme,
-  } = useContext(ThemeContext);
 
   const { colorMode, toggleColorMode } = useColorMode();
 
@@ -53,7 +47,7 @@ function Header({ navArray = [] }) {
   const toggleMenuIcon = () => setIsMenuOpen(!isMenuOpen);
 
   useEffect(() => {
-    isDarkMode
+    colorMode === 'dark'
       ? document.body.classList.add('dark-mode')
       : document.body.classList.remove('dark-mode');
   }, []);
@@ -63,10 +57,9 @@ function Header({ navArray = [] }) {
       toggleColorMode();
       e.preventDefault();
       e.stopPropagation();
-      isDarkMode ? setLightTheme() : setDarkTheme();
       document.body.classList.toggle('dark-mode');
     },
-    [isDarkMode]
+    [colorMode]
   );
 
   return (
