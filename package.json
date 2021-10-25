@@ -25,6 +25,7 @@
     "react": "16.13.1",
     "react-device-detect": "^1.17.0",
     "react-dom": "16.13.1",
+    "react-icons": "^4.3.1",
     "react-wordcloud": "^1.2.7",
     "sass": "^1.43.2"
   },
