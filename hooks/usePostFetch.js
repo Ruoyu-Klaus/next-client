@@ -37,8 +37,6 @@ function usePostFetch(props) {
   }
   const maxPages = useMemo(() => Math.ceil(count / limit), [count, limit]);
 
-  // console.log({ count, maxPages, currentPage: pageNum });
-
   const getDataFromLocal = useCallback(() => {
     if (!rows || !rows.length) return;
     if (pageNum >= maxPages) {

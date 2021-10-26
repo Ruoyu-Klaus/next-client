@@ -10,7 +10,7 @@ import InfiniteScrolling from './InfiniteScrolling';
 function PostCardGridList({ posts, isLoading, hasMore, getCurrentPageNum }) {
   return (
     <Container maxW='container.xl' my={8}>
-      {isLoading && <Progress size='xs' isIndeterminate />}
+      {isLoading && <Progress m='0 auto' w='60%' size='xs' isIndeterminate />}
       <SimpleGrid
         minChildWidth='350px'
         spacing='8'

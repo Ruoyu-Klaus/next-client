@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CloudWords from './Cloudwords';
 
 import {
@@ -15,6 +15,10 @@ import { SearchIcon } from '@chakra-ui/icons';
 function SearchBar(props) {
   const { keywords = [], onInputSearch } = props;
   const [searchValue, setSearchValue] = useState('');
+
+  useEffect(() => {
+    searchValue && onInputSearch.call(null, searchValue);
+  }, [searchValue]);
 
   const onInputChange = event => {
     setSearchValue(event.target.value);

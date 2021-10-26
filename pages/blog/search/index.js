@@ -14,7 +14,7 @@ function Search({ keywords }) {
     setPageNum(page);
   };
 
-  const [hasClickedSearch, setHasClickedSearche] = useState(false);
+  const [hasClickedSearch, setHasClickedSearch] = useState(false);
   const [searchString, setSearchSting] = useState(null);
 
   const onInputSearch = useCallback(
@@ -23,8 +23,8 @@ function Search({ keywords }) {
         .trim()
         .replace(/[^\u4e00-\u9fa5a-zA-Z0-9]+/gi, '');
       sanitizedText && setSearchSting(sanitizedText);
-      setHasClickedSearche(true);
-    }, 300)
+      setHasClickedSearch(true);
+    }, 1000)
   );
   const { isLoading, hasMore, posts } = usePostFetch({
     query: searchString,
@@ -49,7 +49,7 @@ function Search({ keywords }) {
           hasMore={hasMore}
           getCurrentPageNum={getCurrentPageNum}
         />
-        {(!posts || posts.length === 0) && hasClickedSearch && (
+        {(!posts || posts.length === 0) && hasClickedSearch && !isLoading && (
           <CustomDivider text={'没有找到结果'} dividerWidth={'25%'} />
         )}
       </Container>
