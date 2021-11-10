@@ -1,0 +1,37 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "category_name": "category1"
+    },
+    {
+      "id": 2,
+      "category_name": "category2"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "post_title": "post 1 title",
+      "post_time": "2020-02-21",
+      "post_introduce": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
+      "post_content": "# Types \n ## BaseBase button layout sample: \n - 1 \n - 2",
+      "post_cover": "https://picsum.photos/400/500",
+      "categoryId": 1,
+      "tags": [
+        { "id": 1, "tag_name": "lorem" },
+        { "id": 2, "tag_name": "posts" }
+      ]
+    },
+    {
+      "id": 2,
+      "post_title": "post 2 title",
+      "post_time": "2020-02-25",
+      "post_introduce": "vitae consequat massa ultrices. Vivamus pretium massa vel ligula facilisis, ut finibus erat tempus. In tristique turpis porta mauris semper luctus. ",
+      "post_content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu ipsum in tortor dignissim feugiat. Maecenas elementum sem a lorem vulputate, quis luctus felis aliquet. Cras id purus dolor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam commodo massa non leo hendrerit, in rutrum ante gravida. Aliquam consequat id mi sit amet interdum. Nullam nec auctor nunc. Sed condimentum nunc diam, eget efficitur ex vestibulum consectetur. Sed vel aliquam erat. Nunc non leo aliquet, tempor velit sed, vehicula nisl.",
+      "post_cover": "https://picsum.photos/400/500",
+      "categoryId": 2,
+      "tags": [{ "id": 1, "tag_name": "lorem" }]
+    }
+  ]
+}

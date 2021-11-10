@@ -6,7 +6,8 @@
     "dev": "next dev -p 8000",
     "build": "next build",
     "build:export": "next build && next export",
-    "start": "next start"
+    "start": "next start",
+    "server":"json-server --watch --port=7001 --routes json-server/routes.json json-server/v1.json"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.16",
@@ -32,6 +33,7 @@
   "devDependencies": {
     "@netlify/plugin-nextjs": "1.1.5",
     "babel-plugin-import": "^1.13.0",
+    "json-server": "^0.17.0",
     "next-compose-plugins": "^2.2.0"
   }
 }

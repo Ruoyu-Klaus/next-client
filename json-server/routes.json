@@ -1,0 +1,7 @@
+{
+  "/v1/*": "/$1",
+  "/client/getPosts/?_q=&_page=&_limit=": "/posts?_expand=category",
+  "/client/getPostById/:id": "/posts/:id?_expand=category",
+  "/client/getCategories/": "/categories",
+  "/client/getPostsByCategoryId/:id": "/posts?_expand=category&categoryId=:id"
+}
