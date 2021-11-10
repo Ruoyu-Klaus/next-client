@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
-import NextLink from 'next/link';
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import Head from 'next/head'
+import NextLink from 'next/link'
 
-import BackToTop from '../../../../components/BackToTop';
-import CustomDivider from '../../../../components/CustomDivider';
+import BackToTop from '../../../../components/BackToTop'
+import CustomDivider from '../../../../components/CustomDivider'
 
-import { randomEmoji } from '../../../../helpers';
+import { randomEmoji } from '../../../../helpers'
 
 import {
   Container,
@@ -20,17 +20,17 @@ import {
   Image,
   Link,
   Tag,
-  Divider,
-} from '@chakra-ui/react';
+} from '@chakra-ui/react'
 
-import dayjs from 'dayjs';
+import dayjs from 'dayjs'
 
 function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
-  const router = useRouter();
+  const router = useRouter()
+  const [emoji] = useState(randomEmoji())
 
   useEffect(() => {
-    !post && router.push('/blog');
-  }, []);
+    !post && router.push('/blog')
+  }, [])
 
   const renderTOC = tocTree => (
     <ul>
@@ -39,10 +39,10 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
           <a
             href={`#${item.anchor}`}
             onClick={e => {
-              e.preventDefault();
+              e.preventDefault()
               document.getElementById(`${item.anchor}`).scrollIntoView({
                 behavior: 'smooth',
-              });
+              })
             }}
           >
             {item.text}
@@ -51,7 +51,22 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
         </li>
       ))}
     </ul>
-  );
+  )
+
+  const renderPostLink = (path, isNext) => {
+    if (!path) {
+      return <div></div>
+    }
+    return (
+      <NextLink href={path.href} as={path.as}>
+        <Link>
+          <Text fontSize='0.8rem'>
+            {isNext ? 'next' : 'previous'}: {path.title}
+          </Text>
+        </Link>
+      </NextLink>
+    )
+  }
 
   return (
     <>
@@ -61,7 +76,7 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
       </Head>
 
       <Container maxW='container.xl' my={8}>
-        <CustomDivider my={4} text={randomEmoji()} dividerWidth='full' />
+        <CustomDivider my={4} text={emoji} dividerWidth='full' />
         <VStack spacing='4'>
           <AspectRatio w={['90%', '80vw', '60vw']} maxW='800px' ratio={3 / 2}>
             <Image objectFit='cover' src={post.post_cover} />
@@ -100,63 +115,43 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
             justifyContent={['center', 'space-between']}
             flexDir={['column', 'row']}
           >
-            {previousPath ? (
-              <NextLink href={previousPath} as={previousPath.as}>
-                <Link>
-                  <Text fontSize='0.8rem'>
-                    previous: {previousPath && previousPath.title}
-                  </Text>
-                </Link>
-              </NextLink>
-            ) : (
-              <div></div>
-            )}
-            {nextPath && (
-              <NextLink href={nextPath} as={nextPath.as}>
-                <Link>
-                  <Text fontSize='0.8rem'>
-                    next: {nextPath && nextPath.title}
-                  </Text>
-                </Link>
-              </NextLink>
-            )}
+            {renderPostLink(previousPath)}
+            {renderPostLink(nextPath, true)}
           </Flex>
         </VStack>
-        <CustomDivider my={4} text={randomEmoji()} dividerWidth='full' />
+        <CustomDivider my={4} text={emoji} dividerWidth='full' />
 
         <BackToTop />
       </Container>
     </>
-  );
+  )
 }
 
-import { getArticleById } from '../../../../request';
-import { getParsedContentWithTocTree } from '../../../../helpers/markDownRenderer';
-import { getPostPaths } from '../../../../helpers';
+import { getArticleById } from '../../../../request'
+import { getParsedContentWithTocTree } from '../../../../helpers/markDownRenderer'
+import { getPostPaths } from '../../../../helpers'
 
 export async function getStaticProps(context) {
   try {
-    const { params } = context;
-    const [id] = params.slug;
-    const post = await getArticleById(id);
+    const { params } = context
+    const [id] = params.slug
+    const post = await getArticleById(id)
 
     const { santizedContent, tocTree } = await getParsedContentWithTocTree(
       post.post_content
-    );
+    )
 
-    post.post_content = santizedContent;
+    post.post_content = santizedContent
 
-    const paths = await getPostPaths(true);
-    const currentPathIndex = paths.findIndex(
-      path => path.query?.slug[0] == post.id
-    );
+    const linkPaths = await getPostPaths(true)
+    const currentPathIndex = linkPaths.findIndex(path => path.id === post.id)
     let previousPath = null,
-      nextPath = null;
+      nextPath = null
     if (currentPathIndex !== 0) {
-      previousPath = paths[currentPathIndex - 1];
+      previousPath = linkPaths[currentPathIndex - 1]
     }
-    if (currentPathIndex !== paths.length - 1) {
-      nextPath = paths[currentPathIndex + 1];
+    if (currentPathIndex !== linkPaths.length - 1) {
+      nextPath = linkPaths[currentPathIndex + 1]
     }
 
     return {
@@ -166,35 +161,35 @@ export async function getStaticProps(context) {
         previousPath,
         nextPath,
       },
-    };
+    }
   } catch (error) {
     return {
       props: {
         msg: 'server error',
         post: {},
       },
-    };
+    }
   }
 }
 
 export async function getStaticPaths() {
   try {
-    const paths = await getPostPaths();
+    const paths = await getPostPaths()
     return {
       paths: paths,
       fallback: false,
-    };
+    }
   } catch (error) {
     return {
       paths: [],
       fallback: false,
-    };
+    }
   }
 }
 
-import BlogLayout from '../../../../layout/BlogLayout';
+import BlogLayout from '../../../../layout/BlogLayout'
 Post.getLayout = function getLayout(page, categories) {
-  return <BlogLayout categories={categories}>{page}</BlogLayout>;
-};
+  return <BlogLayout categories={categories}>{page}</BlogLayout>
+}
 
-export default Post;
+export default Post
