@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import Link from 'next/link';
+import React, { useMemo } from 'react'
+import PropTypes from 'prop-types'
+import Link from 'next/link'
 
-import dayjs from 'dayjs';
-import styles from '../styles/Components/PostCard.module.scss';
+import dayjs from 'dayjs'
+import styles from '../styles/Components/PostCard.module.scss'
 
 import {
   Box,
@@ -16,14 +16,14 @@ import {
   Tag,
   Flex,
   Skeleton,
-} from '@chakra-ui/react';
-import { TimeIcon } from '@chakra-ui/icons';
+} from '@chakra-ui/react'
+import { TimeIcon } from '@chakra-ui/icons'
 
 PostCard.propTypes = {
   postDetails: PropTypes.object,
   isLoading: PropTypes.bool,
   LoadingComp: PropTypes.elementType,
-};
+}
 
 function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
   const {
@@ -35,7 +35,7 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
     category,
     tags,
     updated_at,
-  } = postDetails;
+  } = postDetails
 
   const postCover = useMemo(
     () => (
@@ -71,7 +71,7 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
       </Link>
     ),
     [post_cover, post_title]
-  );
+  )
   const discription = useMemo(
     () => (
       <VStack h='full' spacing={3} alignItems='flex-start'>
@@ -96,7 +96,7 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
       </VStack>
     ),
     [category.category_name]
-  );
+  )
 
   const meta = useMemo(
     () => (
@@ -110,7 +110,7 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
       </Flex>
     ),
     [post_time]
-  );
+  )
 
   return (
     <Box
@@ -140,7 +140,7 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
         </>
       )}
     </Box>
-  );
+  )
 }
 
-export default PostCard;
+export default PostCard
