@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Head from 'next/head'
 
 import PostCardGridList from '../../components/PostCardGridList'
-
+import Farm3DModal from '../../components/Farm3DModal'
 import usePostFetch from '../../hooks/usePostFetch'
 
 function Blog({ posts: pagePosts }) {
@@ -24,6 +24,7 @@ function Blog({ posts: pagePosts }) {
         <title>博客 | Ruoyu</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
+      <Farm3DModal />
       <PostCardGridList
         posts={posts}
         isLoading={isLoading}

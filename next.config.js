@@ -1,17 +1,17 @@
-const withPlugins = require('next-compose-plugins');
+const withPlugins = require('next-compose-plugins')
+const withTM = require('next-transpile-modules')(['three', 'react-three-fiber'])
 
 const nextConfig = {
   target: 'serverless',
-  webpack5: false,
+  // webpack5: false,
   env: {
     BASE_URL: process.env.BASE_URL || 'http://127.0.0.1:7001/v1/',
   },
   webpack: (config, { webpack }) => {
-    config.plugins.push(new webpack.IgnorePlugin(/canvas/, /jsdom$/));
-    return config;
+    config.plugins.push(new webpack.IgnorePlugin(/canvas/, /jsdom$/))
+    return config
   },
-};
+}
 
-const plugins = [];
-
-module.exports = withPlugins(plugins, nextConfig);
+const plugins = [withTM]
+module.exports = withPlugins(plugins, nextConfig)
