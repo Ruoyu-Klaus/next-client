@@ -1,5 +1,9 @@
 const withPlugins = require('next-compose-plugins')
-const withTM = require('next-transpile-modules')(['three', 'react-three-fiber'])
+const withTM = require('next-transpile-modules')([
+  'three',
+  'react-three-fiber',
+  '@react-three/drei',
+])
 
 const nextConfig = {
   target: 'serverless',

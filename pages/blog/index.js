@@ -2,9 +2,14 @@ import { useState } from 'react'
 import Head from 'next/head'
 
 import PostCardGridList from '../../components/PostCardGridList'
-import Farm3DModal from '../../components/Farm3DModal'
 import usePostFetch from '../../hooks/usePostFetch'
 
+import dynamic from 'next/dynamic'
+import FarmModalLoadingSpinner from '../../components/FarmModalContainer'
+const ThreejsCanvas = dynamic(() => import('../../components/ThreejsCanvas'), {
+  ssr: false,
+  loading: () => <FarmModalLoadingSpinner />,
+})
 function Blog({ posts: pagePosts }) {
   const [pageNum, setPageNum] = useState(1)
   const [fetchPosts] = useState(pagePosts)
@@ -24,7 +29,7 @@ function Blog({ posts: pagePosts }) {
         <title>博客 | Ruoyu</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Farm3DModal />
+      <ThreejsCanvas />
       <PostCardGridList
         posts={posts}
         isLoading={isLoading}

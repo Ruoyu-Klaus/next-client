@@ -13,11 +13,6 @@ export function loadGLTFModel(
       gltf => {
         const obj = gltf.scene
         obj.name = 'farm_yard'
-        obj.position.y = 0
-        obj.position.x = 0
-        obj.scale.x = 0.4
-        obj.scale.y = 0.4
-        obj.scale.z = 0.4
         obj.receiveShadow = receiveShadow
         obj.castShadow = castShadow
         setModel(obj)
