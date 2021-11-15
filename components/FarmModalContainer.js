@@ -2,7 +2,7 @@ import { Box, Spinner } from '@chakra-ui/react'
 
 export const FarmModalContainer = ({ children }) => {
   return (
-    <Box m='auto' w={[280, 480, 640]} h={[280, 460, 460]} position='relative'>
+    <Box m='auto' w={[280, 380, 440]} h={[220, 240, 240]} position='relative'>
       {children}
     </Box>
   )

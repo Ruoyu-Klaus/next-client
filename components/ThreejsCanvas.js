@@ -1,16 +1,17 @@
-import { Suspense } from 'react'
+import { Suspense, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import Modal from './ThreeModal'
-import { OrbitControls, Stats } from '@react-three/drei'
+import { OrbitControls, Stats, PerspectiveCamera } from '@react-three/drei'
 import { FarmModalContainer } from './FarmModalContainer'
 
 function ThreejsCanvas() {
   return (
     <FarmModalContainer>
-      <Canvas camera={{ position: [0, 3, 4] }}>
-        <ambientLight intensity={0.4} />
+      <Canvas camera={{ fov: 65, position: [0, 0, 5] }}>
+        <PerspectiveCamera />
+        <ambientLight intensity={0.2} />
         <Suspense fallback={null}>
-          <Modal url='/farmhouse.glb' />
+          <Modal url='/farmhouse2.0.glb' />
         </Suspense>
         <OrbitControls />
         {/* <Stats /> */}
