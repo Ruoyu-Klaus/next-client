@@ -2,56 +2,44 @@ function generateSiteMap(paths) {
   return `<?xml version="1.0" encoding="UTF-8"?>
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      <!--We manually set the two URLs we know already-->
-     <url>
-       <loc>https://ruoyu.life</loc>
+       <url>
+       <loc>${process.env.HOST_NAME}</loc>
      </url>
-     <url>
-       <loc>https://ruoyu.life/blog</loc>
-     </url>
-     <url>
-       <loc>https://ruoyu.life/blog/post/学习</loc>
-     </url>
-     <url>
-       <loc>https://ruoyu.life/blog/post/生活</loc>
-     </url>
-     <url>
-       <loc>https://ruoyu.life/blog/search</loc>
-     </url>
-
+     
      ${paths
        .map(path => {
          return `
        <url>
-           <loc>${`${process.env.BASE_URL}${path}`}</loc>
+           <loc>${`${process.env.HOST_NAME}/${path}`}</loc>
        </url>
-     `;
+     `
        })
        .join('')}
    </urlset>
- `;
+ `
 }
 
 function SiteMap() {}
 
-import { getArticleList } from '../request';
+import { Blog } from '../helpers'
 
 export async function getServerSideProps({ res }) {
-  // We make an API call to gather the URLs for our site
-  const { rows } = await getArticleList();
+  const blog = new Blog()
+  const posts = blog.getAllBlogs()
+  const categories = blog.getAllCategories()
+  let paths = ['blog']
+  paths.concat(categories.map(category => `blog/post/${category}`))
+  paths.concat(posts.map(post => `blog/post/${post.category}/${post.id}`))
 
-  const paths = rows.map(
-    post =>
-      `blog/post/${post.category.category_name}/${post.id}/${post.post_title}`
-  );
-  const sitemap = generateSiteMap(paths);
-  res.setHeader('Content-Type', 'text/xml');
+  const sitemap = generateSiteMap(paths)
+  res.setHeader('Content-Type', 'text/xml')
   // we send the XML to the browser
-  res.write(sitemap);
-  res.end();
+  res.write(sitemap)
+  res.end()
 
   return {
     props: {},
-  };
+  }
 }
 
-export default SiteMap;
+export default SiteMap
