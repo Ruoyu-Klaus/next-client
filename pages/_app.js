@@ -10,8 +10,6 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { CursorContextProvider } from '../context/cursor/CursorContext'
 import dynamic from 'next/dynamic'
 
-import { getArticleCategories } from '../request'
-
 const CustomCursor = dynamic(() => import('../components/CustomCursor'), {
   ssr: false,
 })

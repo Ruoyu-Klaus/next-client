@@ -1,4 +1,3 @@
-import { getArticleList } from '../request'
 import emojiList from './emoji.json'
 
 import fs from 'fs'
