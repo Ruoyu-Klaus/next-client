@@ -27,10 +27,10 @@ export async function getParsedContentWithTocTree(content) {
   marked.use({ renderer })
 
   const parsedContent = await marked(content)
-  const santizedContent = await sanitizeContent(parsedContent)
+  const sanitizedContent = await sanitizeContent(parsedContent)
   const tocTree = getTocTree(tocRenderer)
 
-  return { santizedContent, tocTree }
+  return { sanitizedContent, tocTree }
 }
 
 async function sanitizeContent(parsedContent) {
@@ -40,11 +40,11 @@ async function sanitizeContent(parsedContent) {
     ADD_TAGS: ['iframe'],
     ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling'],
   }
-  const santizedContent = await DOMPurify.sanitize(
+  const sanitizedContent = await DOMPurify.sanitize(
     parsedContent,
     sanitizeOptions
   )
-  return santizedContent
+  return sanitizedContent
 }
 
 export function getTocTree(tocRenderer) {

@@ -29,7 +29,7 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
   const [emoji] = useState(randomEmoji())
 
   useEffect(() => {
-    !post && router.push('/blog')
+    !post.id && router.push('/blog')
   }, [])
 
   const renderTOC = tocTree => (
@@ -71,7 +71,7 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
   return (
     <>
       <Head>
-        <title>{post.post_title} | Ruoyu</title>
+        <title>{post?.post_title} | Ruoyu</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
@@ -84,15 +84,15 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
           <Heading>{post.post_title}</Heading>
 
           <Flex w='60%' justifyContent='space-between'>
-            <Text fontSize='0.8rem'>{post.category?.category_name}</Text>
+            <Text fontSize='0.8rem'>{post.category}</Text>
             <Text fontSize='0.8rem'>
               {dayjs(post.post_time).format('MM-DD, YYYY')}
             </Text>
           </Flex>
 
           <HStack spacing={4}>
-            {post?.tags?.map((tag, i) => (
-              <Tag key={tag.id}>{tag.tag_name}</Tag>
+            {post?.tags?.map(tag => (
+              <Tag key={tag}>{tag}</Tag>
             ))}
           </HStack>
           <Box
@@ -127,23 +127,31 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
   )
 }
 
-import { getArticleById } from '../../../../request'
 import { getParsedContentWithTocTree } from '../../../../helpers/markDownRenderer'
-import { getPostPaths } from '../../../../helpers'
+import { Blog } from '../../../../helpers'
 
 export async function getStaticProps(context) {
   try {
     const { params } = context
+    const category_name = params.cname
     const [id] = params.slug
-    const post = await getArticleById(id)
 
-    const { santizedContent, tocTree } = await getParsedContentWithTocTree(
+    const blog = new Blog()
+    const linkPaths = blog.getAllPostPaths(true)
+    const post = blog.getPostByCategoryAndId(category_name, id)
+
+    if (!post) {
+      return {
+        props: { post: {} },
+      }
+    }
+
+    const { sanitizedContent, tocTree } = await getParsedContentWithTocTree(
       post.post_content
     )
 
-    post.post_content = santizedContent
+    post.post_content = sanitizedContent
 
-    const linkPaths = await getPostPaths(true)
     const currentPathIndex = linkPaths.findIndex(path => path.id === post.id)
     let previousPath = null,
       nextPath = null
@@ -174,15 +182,16 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
   try {
-    const paths = await getPostPaths()
+    const blog = new Blog()
+    const paths = blog.getAllPostPaths()
     return {
       paths: paths,
-      fallback: false,
+      fallback: true,
     }
   } catch (error) {
     return {
       paths: [],
-      fallback: false,
+      fallback: true,
     }
   }
 }

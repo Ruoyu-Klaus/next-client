@@ -34,7 +34,6 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
     post_cover,
     category,
     tags,
-    updated_at,
   } = postDetails
 
   const postCover = useMemo(
@@ -43,11 +42,11 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
         href={{
           pathname: `/blog/post/[cname]/[...slug]`,
           query: {
-            cname: category.category_name,
-            slug: [id, post_title],
+            cname: category,
+            slug: [id],
           },
         }}
-        as={`/blog/post/${category.category_name}/${id}/${post_title}`}
+        as={`/blog/post/${category}/${id}`}
         passHref
       >
         <a title={post_title}>
@@ -72,11 +71,11 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
     ),
     [post_cover, post_title]
   )
-  const discription = useMemo(
+  const description = useMemo(
     () => (
       <VStack h='full' spacing={3} alignItems='flex-start'>
         <Text mt={1} fontSize={'16px'} color='gray.500'>
-          {category.category_name}
+          {category}
         </Text>
         <Heading as='h3' size='md' className={styles.postTitle}>
           {post_title}
@@ -87,15 +86,15 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
         <Divider />
 
         <HStack className={styles.postTag} w={'full'} spacing={4}>
-          {tags.map((tag, i) => (
-            <Tag size='sm' key={tag.id}>
-              {tag.tag_name}
+          {tags.map(tag => (
+            <Tag size='sm' key={tag}>
+              {tag}
             </Tag>
           ))}
         </HStack>
       </VStack>
     ),
-    [category.category_name]
+    [category]
   )
 
   const meta = useMemo(
@@ -133,7 +132,7 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
           </Box>
 
           <Box flex='1' p={4} py={1}>
-            {discription}
+            {description}
           </Box>
 
           <Box p={4}>{meta}</Box>

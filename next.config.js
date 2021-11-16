@@ -7,11 +7,15 @@ const withTM = require('next-transpile-modules')([
 
 const nextConfig = {
   target: 'serverless',
-  // webpack5: false,
   env: {
     BASE_URL: process.env.BASE_URL || 'http://127.0.0.1:7001/v1/',
   },
-  webpack: (config, { webpack }) => {
+  webpack: (config, { webpack, isServer }) => {
+    if (!isServer) {
+      config.node = {
+        fs: 'empty',
+      }
+    }
     config.plugins.push(new webpack.IgnorePlugin(/canvas/, /jsdom$/))
     return config
   },

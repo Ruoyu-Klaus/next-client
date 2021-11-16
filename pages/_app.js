@@ -12,26 +12,27 @@ import dynamic from 'next/dynamic'
 
 import { getArticleCategories } from '../request'
 
-const CustomCorsor = dynamic(() => import('../components/CustomCursor'), {
+const CustomCursor = dynamic(() => import('../components/CustomCursor'), {
   ssr: false,
 })
-
 function MyApp({ Component, pageProps, categories }) {
   const getLayout = Component.getLayout || (page => page)
   return (
     <ChakraProvider>
       <CursorContextProvider>
         {getLayout(<Component {...pageProps} />, categories)}
-        <CustomCorsor />
+        <CustomCursor />
       </CursorContextProvider>
     </ChakraProvider>
   )
 }
 
-// This function gets called at build time
-MyApp.getInitialProps = async () => {
+import { Blog } from '../helpers/index'
+MyApp.getInitialProps = async appContext => {
   try {
-    const categories = await getArticleCategories()
+    const blog = new Blog()
+    const categories = blog.findAllCategories()
+
     return { categories: categories || [] }
   } catch (e) {
     return { categories: [] }

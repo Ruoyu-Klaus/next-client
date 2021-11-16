@@ -1,10 +1,10 @@
-import React, { useContext, useState, useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useRouter } from 'next/router';
+import React, { useContext, useState, useCallback, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { useRouter } from 'next/router'
 
-import NavBarLogo from './NavBarLogo';
-import MenuItemLink from './MenuItemLink';
-import MenuToggleForSmallScreen from './NavBarMenuToggle';
+import NavBarLogo from './NavBarLogo'
+import MenuItemLink from './MenuItemLink'
+import MenuToggleForSmallScreen from './NavBarMenuToggle'
 
 import {
   Box,
@@ -17,50 +17,50 @@ import {
   useColorMode,
   useColorModeValue,
   Slide,
-} from '@chakra-ui/react';
-import { SearchIcon } from '@chakra-ui/icons';
+} from '@chakra-ui/react'
+import { SearchIcon } from '@chakra-ui/icons'
 
-import { CursorContext } from '../context/cursor/CursorContext';
-import useRouterScroll from '../hooks/useRouterScroll';
+import { CursorContext } from '../context/cursor/CursorContext'
+import useRouterScroll from '../hooks/useRouterScroll'
 
 Header.propTypes = {
   navArray: PropTypes.array,
-};
+}
 
 function Header({ navArray = [] }) {
-  const { setCursorType } = useContext(CursorContext);
+  const { setCursorType } = useContext(CursorContext)
 
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode, toggleColorMode } = useColorMode()
 
-  const Router = useRouter();
-  useRouterScroll();
+  const Router = useRouter()
+  useRouterScroll()
 
   const hanleSearchBtn = e => {
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault()
+    e.stopPropagation()
     Router.push({
       pathname: `/blog/search/`,
-    });
-  };
+    })
+  }
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const toggleMenuIcon = () => setIsMenuOpen(!isMenuOpen);
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const toggleMenuIcon = () => setIsMenuOpen(!isMenuOpen)
 
   useEffect(() => {
     colorMode === 'dark'
       ? document.body.classList.add('dark-mode')
-      : document.body.classList.remove('dark-mode');
-  }, []);
+      : document.body.classList.remove('dark-mode')
+  }, [])
 
   const handleThemeChange = useCallback(
     e => {
-      toggleColorMode();
-      e.preventDefault();
-      e.stopPropagation();
-      document.body.classList.toggle('dark-mode');
+      toggleColorMode()
+      e.preventDefault()
+      e.stopPropagation()
+      document.body.classList.toggle('dark-mode')
     },
     [colorMode]
-  );
+  )
 
   return (
     <Grid
@@ -138,17 +138,17 @@ function Header({ navArray = [] }) {
             </MenuItemLink>
             {navArray.map(item => (
               <MenuItemLink
-                to={`/blog/post/${encodeURIComponent(item.category_name)}`}
-                key={item.category_name}
+                to={`/blog/post/${encodeURIComponent(item)}`}
+                key={item}
               >
-                <Button variant='link'>{item.category_name}</Button>
+                <Button variant='link'>{item.toUpperCase()}</Button>
               </MenuItemLink>
             ))}
           </Stack>
         </Box>
       </GridItem>
     </Grid>
-  );
+  )
 }
 
-export default Header;
+export default Header
