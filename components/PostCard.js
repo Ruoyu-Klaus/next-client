@@ -95,9 +95,10 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
         <Text fontSize={'xs'}>
           By <span>Ruoyu</span>
         </Text>
-        <Text fontSize={'xs'}>
-          <TimeIcon /> {dayjs(date).format('YYYY-MM-DD')}
-        </Text>
+        <HStack fontSize={'xs'}>
+          <TimeIcon />
+          <Text>{dayjs(date).format('YYYY-MM-DD')}</Text>
+        </HStack>
       </Flex>
     ),
     [date]

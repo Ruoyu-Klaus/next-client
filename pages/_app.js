@@ -7,9 +7,8 @@ import 'tippy.js/animations/scale.css'
 
 import { ChakraProvider } from '@chakra-ui/react'
 
-import { CursorContextProvider } from '../context/cursor/CursorContext'
 import dynamic from 'next/dynamic'
-
+import { CursorContextProvider } from '../context/cursor/CursorContext'
 const CustomCursor = dynamic(() => import('../components/CustomCursor'), {
   ssr: false,
 })
