@@ -17,6 +17,7 @@ class Category {
     if (index !== -1 && isProduction) {
       categories.splice(index, 1)
     }
+    fs.writeFileSync('helpers/categories.json', JSON.stringify(categories))
     this.categories = categories
   }
 }

@@ -17,7 +17,7 @@ function usePostFetch(props) {
     limit = 6,
     query = '',
     clientSidePagination = false,
-    originalPosts = null,
+    originalPosts = [],
   } = props
 
   const [hasMore, setHasmore] = useState(true)
@@ -27,14 +27,8 @@ function usePostFetch(props) {
   // used for local search
   function getCountAndRows() {
     const copyPosts = cloneDeep(originalPosts)
-    let count = copyPosts.count,
-      rows = copyPosts.rows
-    if (!count) {
-      count = copyPosts.length
-    }
-    if (!rows) {
-      rows = copyPosts
-    }
+    let count = copyPosts.length
+    let rows = copyPosts
     return { count, rows }
   }
 

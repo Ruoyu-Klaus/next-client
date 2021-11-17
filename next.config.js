@@ -16,6 +16,10 @@ const nextConfig = {
         fs: 'empty',
       }
     }
+    config.module.rules.push({
+      test: /\.md$/,
+      use: 'raw-loader',
+    })
     config.plugins.push(new webpack.IgnorePlugin(/canvas/, /jsdom$/))
     return config
   },

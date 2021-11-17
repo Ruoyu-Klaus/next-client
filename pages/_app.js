@@ -12,7 +12,7 @@ import { CursorContextProvider } from '../context/cursor/CursorContext'
 const CustomCursor = dynamic(() => import('../components/CustomCursor'), {
   ssr: false,
 })
-function MyApp({ Component, pageProps, blogCollection }) {
+function MyApp({ Component, pageProps, blogCollection = {} }) {
   const getLayout = Component.getLayout || (page => page)
   const categories = blogCollection.categories
 

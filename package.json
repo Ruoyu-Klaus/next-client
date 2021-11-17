@@ -6,8 +6,7 @@
     "dev": "next dev -p 8000",
     "build": "next build",
     "build:export": "next build && next export",
-    "start": "next start",
-    "server": "json-server --watch --port=7001 --routes json-server/routes.json json-server/v1.json"
+    "start": "next start"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.16",
