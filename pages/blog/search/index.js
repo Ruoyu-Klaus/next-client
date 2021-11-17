@@ -1,37 +1,35 @@
-import { useState, useCallback } from 'react';
-import Head from 'next/head';
+import { useState, useCallback } from 'react'
+import Head from 'next/head'
 
-import SearchBar from '../../../components/SearchBar';
-import PostCardGridList from '../../../components/PostCardGridList';
-import CustomDivider from '../../../components/CustomDivider';
-import usePostFetch from '../../../hooks/usePostFetch';
+import SearchBar from '../../../components/SearchBar'
+import PostCardGridList from '../../../components/PostCardGridList'
+import CustomDivider from '../../../components/CustomDivider'
+import usePostFetch from '../../../hooks/usePostFetch'
 
-import { debounce } from 'lodash';
-import { Container, Flex } from '@chakra-ui/react';
+import { debounce } from 'lodash'
+import { Container, Flex } from '@chakra-ui/react'
 function Search({ keywords }) {
-  const [pageNum, setPageNum] = useState(1);
+  const [pageNum, setPageNum] = useState(1)
   const getCurrentPageNum = page => {
-    setPageNum(page);
-  };
+    setPageNum(page)
+  }
 
-  const [hasClickedSearch, setHasClickedSearch] = useState(false);
-  const [searchString, setSearchSting] = useState(null);
+  const [hasClickedSearch, setHasClickedSearch] = useState(false)
+  const [searchString, setSearchSting] = useState(null)
 
   const onInputSearch = useCallback(
     debounce(str => {
-      let sanitizedText = str
-        .trim()
-        .replace(/[^\u4e00-\u9fa5a-zA-Z0-9]+/gi, '');
-      sanitizedText && setSearchSting(sanitizedText);
-      setHasClickedSearch(true);
+      let sanitizedText = str.trim().replace(/[^\u4e00-\u9fa5a-zA-Z0-9]+/gi, '')
+      sanitizedText && setSearchSting(sanitizedText)
+      setHasClickedSearch(true)
     }, 1000)
-  );
+  )
   const { isLoading, hasMore, posts } = usePostFetch({
     query: searchString,
     initialLoad: false,
     pageNum,
     limit: 6,
-  });
+  })
 
   return (
     <>
@@ -54,32 +52,30 @@ function Search({ keywords }) {
         )}
       </Container>
     </>
-  );
+  )
 }
-
-import { getArticleList } from '../../../request';
 
 export async function getStaticProps() {
   try {
-    const posts = await getArticleList();
-    const keywords = posts.keywords;
+    // const posts = await getArticleList();
+    // const keywords = posts.keywords;
     return {
       props: {
-        keywords: keywords || [],
+        keywords: [],
       },
-    };
+    }
   } catch (e) {
     return {
       props: {
         msg: 'server error',
         posts: [],
       },
-    };
+    }
   }
 }
 
-import BlogLayout from '../../../layout/BlogLayout';
+import BlogLayout from '../../../layout/BlogLayout'
 Search.getLayout = function getLayout(page, categories) {
-  return <BlogLayout categories={categories}>{page}</BlogLayout>;
-};
-export default Search;
+  return <BlogLayout categories={categories}>{page}</BlogLayout>
+}
+export default Search

@@ -13,25 +13,29 @@ import dynamic from 'next/dynamic'
 const CustomCursor = dynamic(() => import('../components/CustomCursor'), {
   ssr: false,
 })
-function MyApp({ Component, pageProps, categories }) {
+function MyApp({ Component, pageProps, blogCollection }) {
   const getLayout = Component.getLayout || (page => page)
+  const categories = blogCollection.categories
+
   return (
     <ChakraProvider>
       <CursorContextProvider>
-        {getLayout(<Component {...pageProps} />, categories)}
+        {getLayout(
+          <Component {...pageProps} blogCollection={blogCollection} />,
+          categories
+        )}
         <CustomCursor />
       </CursorContextProvider>
     </ChakraProvider>
   )
 }
 
-import { Blog } from '../helpers/index'
+import { BlogCollection } from '../helpers/index'
 MyApp.getInitialProps = async appContext => {
   try {
-    const blog = new Blog()
-    const categories = blog.findAllCategories()
+    const blogCollection = new BlogCollection()
 
-    return { categories: categories || [] }
+    return { blogCollection }
   } catch (e) {
     return { categories: [] }
   }

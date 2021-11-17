@@ -1,19 +1,14 @@
 import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Head from 'next/head'
 
 import PostCardGridList from '../../../../components/PostCardGridList'
 import usePostFetch from '../../../../hooks/usePostFetch'
-function Category({ posts: pagePosts }) {
+function Category({ posts: postsByCategory }) {
   const router = useRouter()
   const { cname } = router.query
 
   const [pageNum, setPageNum] = useState(1)
-  const [fetchPosts, setFetchPosts] = useState(() => pagePosts)
-
-  useEffect(() => {
-    setFetchPosts(pagePosts)
-  }, [pagePosts])
 
   const getCurrentPageNum = page => {
     setPageNum(page)
@@ -22,7 +17,7 @@ function Category({ posts: pagePosts }) {
   const { isLoading, hasMore, posts } = usePostFetch({
     pageNum,
     clientSidePagination: true,
-    originalPosts: fetchPosts,
+    originalPosts: postsByCategory,
     limit: 6,
   })
 
@@ -42,14 +37,14 @@ function Category({ posts: pagePosts }) {
   )
 }
 
-import { Blog } from '../../../../helpers/'
+import { BlogCollection } from '../../../../helpers/'
 
 export async function getStaticProps(context) {
   const { params } = context
   const category_name = params.cname
   try {
-    const blog = new Blog()
-    const posts = blog.getBlogsByCategory(category_name)
+    const blogCollection = new BlogCollection()
+    const posts = blogCollection.getBlogsByCategory(category_name)
     return {
       props: {
         posts,
@@ -70,8 +65,8 @@ export async function getStaticProps(context) {
 }
 export async function getStaticPaths() {
   try {
-    const blog = new Blog()
-    const categories = blog.findAllCategories()
+    const blogCollection = new BlogCollection()
+    const categories = blogCollection.categories
 
     const paths = categories.map(category => ({
       params: {

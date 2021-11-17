@@ -10,16 +10,17 @@ const ThreejsCanvas = dynamic(() => import('../../components/ThreejsCanvas'), {
   ssr: false,
   loading: () => <FarmModalLoadingSpinner />,
 })
-function Index({ posts: pagePosts }) {
+function Index({ blogCollection }) {
   const [pageNum, setPageNum] = useState(1)
   const getCurrentPageNum = page => {
     setPageNum(page)
   }
+  const originalPosts = blogCollection.blogs
 
   const { isLoading, hasMore, posts } = usePostFetch({
     pageNum,
     clientSidePagination: true,
-    originalPosts: pagePosts,
+    originalPosts,
     limit: 6,
   })
 
@@ -40,24 +41,9 @@ function Index({ posts: pagePosts }) {
   )
 }
 
-import { Blog } from '../../helpers/index'
 export async function getStaticProps() {
-  try {
-    const blog = new Blog()
-    const posts = blog.getAllBlogs()
-
-    return {
-      props: {
-        posts: posts || [],
-      },
-    }
-  } catch (e) {
-    return {
-      props: {
-        msg: 'server error',
-        posts: [],
-      },
-    }
+  return {
+    props: {},
   }
 }
 

@@ -28,6 +28,9 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
   const router = useRouter()
   const [emoji] = useState(randomEmoji())
 
+  // const { cname, slug } = router.query
+  // const id = slug[0]
+
   useEffect(() => {
     !post.id && router.push('/blog')
   }, [])
@@ -71,7 +74,7 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
   return (
     <>
       <Head>
-        <title>{post?.post_title} | Ruoyu</title>
+        <title>{post?.title} | Ruoyu</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
@@ -79,14 +82,14 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
         <CustomDivider my={4} text={emoji} dividerWidth='full' />
         <VStack spacing='4'>
           <AspectRatio w={['90%', '80vw', '60vw']} maxW='800px' ratio={3 / 2}>
-            <Image objectFit='cover' src={post.post_cover} />
+            <Image objectFit='cover' src={post.coverImage} />
           </AspectRatio>
-          <Heading>{post.post_title}</Heading>
+          <Heading>{post.title}</Heading>
 
           <Flex w='60%' justifyContent='space-between'>
             <Text fontSize='0.8rem'>{post.category}</Text>
             <Text fontSize='0.8rem'>
-              {dayjs(post.post_time).format('MM-DD, YYYY')}
+              {dayjs(post.date).format('MM-DD, YYYY')}
             </Text>
           </Flex>
 
@@ -107,7 +110,7 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
             maxW='1000px'
             className='markdown-body'
             id='content'
-            dangerouslySetInnerHTML={{ __html: post.post_content }}
+            dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
           <Flex
@@ -128,7 +131,7 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
 }
 
 import { getParsedContentWithTocTree } from '../../../../helpers/markDownRenderer'
-import { Blog } from '../../../../helpers'
+import { BlogCollection } from '../../../../helpers'
 
 export async function getStaticProps(context) {
   try {
@@ -136,9 +139,9 @@ export async function getStaticProps(context) {
     const category_name = params.cname
     const [id] = params.slug
 
-    const blog = new Blog()
-    const linkPaths = blog.getAllPostPaths(true)
-    const post = blog.getPostByCategoryAndId(category_name, id)
+    const blogCollection = new BlogCollection()
+    const linkPaths = blogCollection.getAllPostPaths(true)
+    const post = blogCollection.getBlogByCategoryAndId(category_name, id)
 
     if (!post) {
       return {
@@ -147,10 +150,10 @@ export async function getStaticProps(context) {
     }
 
     const { sanitizedContent, tocTree } = await getParsedContentWithTocTree(
-      post.post_content
+      post.content
     )
 
-    post.post_content = sanitizedContent
+    post.content = sanitizedContent
 
     const currentPathIndex = linkPaths.findIndex(path => path.id === post.id)
     let previousPath = null,
@@ -182,8 +185,8 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
   try {
-    const blog = new Blog()
-    const paths = blog.getAllPostPaths()
+    const blogCollection = new BlogCollection()
+    const paths = blogCollection.getAllPostPaths()
     return {
       paths: paths,
       fallback: true,

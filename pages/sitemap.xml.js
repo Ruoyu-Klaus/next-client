@@ -21,12 +21,12 @@ function generateSiteMap(paths) {
 
 function SiteMap() {}
 
-import { Blog } from '../helpers'
+import { BlogCollection } from '../helpers'
 
 export async function getServerSideProps({ res }) {
-  const blog = new Blog()
+  const blog = new BlogCollection()
   const posts = blog.getAllBlogs()
-  const categories = blog.findAllCategories()
+  const categories = blog.categories
   let paths = ['blog']
 
   paths = paths.concat(categories.map(category => `blog/post/${category}`))

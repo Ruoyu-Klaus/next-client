@@ -26,15 +26,7 @@ PostCard.propTypes = {
 }
 
 function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
-  const {
-    id,
-    post_title,
-    post_time,
-    post_introduce,
-    post_cover,
-    category,
-    tags,
-  } = postDetails
+  const { id, title, date, excerpt, coverImage, category, tags } = postDetails
 
   const postCover = useMemo(
     () => (
@@ -49,7 +41,7 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
         as={`/blog/post/${category}/${id}`}
         passHref
       >
-        <a title={post_title}>
+        <a title={title}>
           <Image
             h='100%'
             w='100%'
@@ -60,16 +52,16 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
             }}
             overflow='hidden'
             objectFit='cover'
-            alt={post_title}
+            alt={title}
             src={
-              post_cover ||
+              coverImage ||
               'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
             }
           />
         </a>
       </Link>
     ),
-    [post_cover, post_title]
+    [coverImage, title]
   )
   const description = useMemo(
     () => (
@@ -78,10 +70,10 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
           {category}
         </Text>
         <Heading as='h3' size='md' className={styles.postTitle}>
-          {post_title}
+          {title}
         </Heading>
         <Text fontSize={'16px'} className={styles.postIntroduction}>
-          {post_introduce}
+          {excerpt}
         </Text>
         <Divider />
 
@@ -104,11 +96,11 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
           By <span>Ruoyu</span>
         </Text>
         <Text fontSize={'xs'}>
-          <TimeIcon /> {dayjs(post_time).format('YYYY-MM-DD')}
+          <TimeIcon /> {dayjs(date).format('YYYY-MM-DD')}
         </Text>
       </Flex>
     ),
-    [post_time]
+    [date]
   )
 
   return (
