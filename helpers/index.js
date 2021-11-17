@@ -1,5 +1,5 @@
 import emojiList from './emoji.json'
-
+import { isProduction } from './env'
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
@@ -11,7 +11,12 @@ class Category {
     this.init()
   }
   init() {
-    this.categories = fs.readdirSync(path.join(`${this.blog_path}`))
+    const categories = fs.readdirSync(path.join(`${this.blog_path}`))
+    let index = categories.indexOf('draft')
+    if (index !== -1 && isProduction) {
+      categories.splice(index, 1)
+    }
+    this.categories = categories
   }
 }
 
