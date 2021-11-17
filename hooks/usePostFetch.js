@@ -45,9 +45,14 @@ function usePostFetch(props) {
     if (pageNum >= maxPages) {
       setHasmore(false)
     }
-    let data = rows.splice((pageNum - 1) * (limit * pageNum), limit)
+    let data = rows.splice((pageNum - 1) * (limit * (pageNum - 1)), limit)
+
     setPosts(pre => [...new Set([...pre, ...data])])
   }, [pageNum, limit, originalPosts])
+
+  useEffect(() => {
+    getDataFromLocal()
+  }, [pageNum])
 
   useEffect(() => {
     if (clientSidePagination) {

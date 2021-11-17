@@ -187,9 +187,10 @@ export async function getStaticPaths() {
   try {
     const blogCollection = new BlogCollection()
     const paths = blogCollection.getAllPostPaths()
+    console.log(paths[6])
     return {
       paths: paths,
-      fallback: true,
+      fallback: false,
     }
   } catch (error) {
     return {

@@ -3,6 +3,7 @@ import { isProduction } from './env'
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+import dayjs from 'dayjs'
 
 class Category {
   constructor(blog_path = 'posts') {
@@ -80,9 +81,14 @@ export class BlogCollection {
 
   getAllBlogs() {
     const files = this.getAllBlogFiles()
-    const posts = files.map(({ fileName, category }) =>
-      this.parseMDFile(fileName, category)
-    )
+    const posts = files
+      .map(({ fileName, category }) => this.parseMDFile(fileName, category))
+      .sort((a, b) => {
+        const aDate = dayjs(a.date)
+        const bDate = dayjs(b.date)
+
+        return aDate.isBefore(bDate) ? 1 : -1
+      })
     return posts
   }
 
@@ -103,8 +109,8 @@ export class BlogCollection {
     }
     return this.blogs.map(post => ({
       params: {
-        cname: encodeURIComponent(post.category),
-        slug: [encodeURIComponent(post.id)],
+        cname: post.category,
+        slug: [post.id],
       },
     }))
   }
