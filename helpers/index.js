@@ -17,7 +17,6 @@ class Category {
     if (index !== -1 && isProduction) {
       categories.splice(index, 1)
     }
-    fs.writeFileSync('helpers/categories.json', JSON.stringify(categories))
     this.categories = categories
   }
 }
@@ -49,6 +48,22 @@ export class BlogCollection {
     this.blog_path = blog_path
     this.categories = new Category(blog_path).categories
     this.blogs = this.getAllBlogs().map(blog => new Blog(blog))
+    this.initCache()
+  }
+  initCache() {
+    try {
+      fs.readdirSync('_cachePosts')
+    } catch (error) {
+      fs.mkdirSync('_cachePosts')
+    }
+
+    fs.writeFile(
+      '_cachePosts/blogs.json',
+      JSON.stringify(this.blogs),
+      function (err) {
+        if (err) return console.error(err)
+      }
+    )
   }
 
   serialize(content) {
