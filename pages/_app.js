@@ -12,8 +12,14 @@ import { CursorContextProvider } from '../context/cursor/CursorContext'
 const CustomCursor = dynamic(() => import('../components/CustomCursor'), {
   ssr: false,
 })
+import CanvasLoadingSpinner from '../components/CanvasContainer'
+const ThreeCanvas = dynamic(() => import('../components/ThreejsCanvas'), {
+  ssr: false,
+  loading: () => <CanvasLoadingSpinner />,
+})
 function MyApp({ Component, pageProps, blogCollection = {} }) {
   const getLayout = Component.getLayout || (page => page)
+
   const categories = blogCollection.categories
 
   return (
@@ -21,7 +27,8 @@ function MyApp({ Component, pageProps, blogCollection = {} }) {
       <CursorContextProvider>
         {getLayout(
           <Component {...pageProps} blogCollection={blogCollection} />,
-          categories
+          categories,
+          <ThreeCanvas />
         )}
         <CustomCursor />
       </CursorContextProvider>

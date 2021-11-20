@@ -11,9 +11,8 @@ const markdedOptions = {
   smartLists: true,
   smartypants: false,
   langPrefix: 'hljs language-',
-  highlight: function (code, lang) {
-    const language = hljs.getLanguage(lang) ? lang : 'plaintext'
-    return hljs.highlight(language, code).value
+  highlight: function (code, { language }) {
+    return hljs.highlightAuto(code).value
   },
 }
 

@@ -4,12 +4,13 @@ import Head from 'next/head'
 import PostCardGridList from '../../components/PostCardGridList'
 import usePostFetch from '../../hooks/usePostFetch'
 
-import dynamic from 'next/dynamic'
-import FarmModalLoadingSpinner from '../../components/FarmModalContainer'
-const ThreejsCanvas = dynamic(() => import('../../components/ThreejsCanvas'), {
-  ssr: false,
-  loading: () => <FarmModalLoadingSpinner />,
-})
+// import dynamic from 'next/dynamic'
+// import CanvasLoadingSpinner from '../../components/CanvasContainer'
+// const ThreeCanvas = dynamic(() => import('../../components/ThreejsCanvas'), {
+//   ssr: false,
+//   loading: () => <CanvasLoadingSpinner />,
+// })
+
 function Index({ blogCollection }) {
   const [pageNum, setPageNum] = useState(1)
   const getCurrentPageNum = page => {
@@ -30,7 +31,7 @@ function Index({ blogCollection }) {
         <title>博客 | Ruoyu</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <ThreejsCanvas />
+      {/* <ThreeCanvas /> */}
       <PostCardGridList
         posts={posts}
         isLoading={isLoading}
@@ -48,8 +49,13 @@ export async function getStaticProps() {
 }
 
 import BlogLayout from '../../layout/BlogLayout'
-Index.getLayout = function getLayout(page, categories) {
-  return <BlogLayout categories={categories}>{page}</BlogLayout>
+
+Index.getLayout = function getLayout(page, categories, model) {
+  return (
+    <BlogLayout categories={categories} model={model}>
+      {page}
+    </BlogLayout>
+  )
 }
 
 export default Index

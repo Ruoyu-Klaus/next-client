@@ -1,22 +1,35 @@
-import { Suspense, useRef } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import Modal from './ThreeModal'
-import { OrbitControls, Stats, PerspectiveCamera } from '@react-three/drei'
-import { FarmModalContainer } from './FarmModalContainer'
+import { OrbitControls, Stats } from '@react-three/drei'
+import { CanvasContainer } from './CanvasContainer'
 
 function ThreejsCanvas() {
+  const [autoRotateSpeed, setAutoRotateSpeed] = useState(-200)
+
+  useEffect(() => {
+    if (autoRotateSpeed === -1) return
+    setTimeout(() => {
+      setAutoRotateSpeed(pre => pre + 1)
+    }, 10)
+  }, [autoRotateSpeed])
+
   return (
-    <FarmModalContainer>
+    <CanvasContainer>
       <Canvas camera={{ fov: 65, position: [0, 0, 5] }}>
-        <PerspectiveCamera />
         <ambientLight intensity={0.2} />
         <Suspense fallback={null}>
           <Modal url='/farmhouse2.0.glb' />
         </Suspense>
-        <OrbitControls />
+        <OrbitControls
+          autoRotate
+          autoRotateSpeed={autoRotateSpeed}
+          enableDamping
+          target={[0, -1, 1]}
+        />
         {/* <Stats /> */}
       </Canvas>
-    </FarmModalContainer>
+    </CanvasContainer>
   )
 }
 

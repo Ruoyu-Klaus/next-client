@@ -1,8 +1,14 @@
 import { Box, Spinner } from '@chakra-ui/react'
 
-export const FarmModalContainer = ({ children }) => {
+export const CanvasContainer = ({ children }) => {
   return (
-    <Box m='auto' w={[280, 380, 440]} h={[220, 240, 240]} position='relative'>
+    <Box
+      m='auto'
+      my={8}
+      w={[280, 380, 440]}
+      h={[220, 240, 240]}
+      position='relative'
+    >
       {children}
     </Box>
   )
@@ -19,12 +25,12 @@ export const LoadingSpinner = () => (
   />
 )
 
-function FarmModalLoadingSpinner() {
+function CanvasLoadingSpinner() {
   return (
-    <FarmModalContainer>
+    <CanvasContainer>
       <LoadingSpinner />
-    </FarmModalContainer>
+    </CanvasContainer>
   )
 }
 
-export default FarmModalLoadingSpinner
+export default CanvasLoadingSpinner

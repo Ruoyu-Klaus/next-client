@@ -78,9 +78,12 @@ body {
         color: #060606;
       }
       pre {
-        background-color: aliceblue !important;
+        background-color: #161b22 !important;
         code {
-          color: #61737d;
+          color: #d5d9db;
+        }
+        .hljs-keyword {
+          color: #8eb5ff;
         }
       }
     }

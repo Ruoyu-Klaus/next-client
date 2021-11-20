@@ -6,14 +6,7 @@ import { Flex } from '@chakra-ui/react'
 
 import styles from '../styles/Layout/bloglayout.module.scss'
 
-// import dynamic from 'next/dynamic'
-// import FarmModalLoadingSpinner from '../components/FarmModalContainer'
-// const ThreejsCanvas = dynamic(() => import('../components/ThreejsCanvas'), {
-//   ssr: false,
-//   loading: () => <FarmModalLoadingSpinner />,
-// })
-
-function BlogLayout({ categories = [], children }) {
+function BlogLayout({ categories = [], model, children }) {
   const [displayChildren, setDisplayChildren] = useState(children)
   const [transitionStage, setTransitionStage] = useState('fadeOut')
 
@@ -28,7 +21,6 @@ function BlogLayout({ categories = [], children }) {
   return (
     <Flex flexDir='column' minH='100vh'>
       <NavBar navArray={categories} />
-      {/* <ThreejsCanvas /> */}
       <main
         onTransitionEnd={e => {
           if (transitionStage === 'fadeOut') {
@@ -38,6 +30,7 @@ function BlogLayout({ categories = [], children }) {
         }}
         className={`${styles.root} ${styles[transitionStage]}`}
       >
+        {model && model}
         {displayChildren}
       </main>
       <Footer mb={4} />

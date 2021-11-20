@@ -7,7 +7,7 @@ export default function Model({ url, ...props }) {
   const myScene = React.useRef()
 
   useFrame(({ clock, camera }) => {
-    myScene.current.rotation.y = -clock.getElapsedTime() * 0.3
+    // myScene.current.rotation.y = -clock.getElapsedTime() * 0.3
   })
 
   return (
@@ -15,8 +15,8 @@ export default function Model({ url, ...props }) {
       <primitive
         ref={myScene}
         object={scene}
-        position={[0, -1, 1]}
-        rotation={[0.4, -0.8, 0]}
+        position={[0, -2, 1]}
+        // rotation={[0.4, -0.8, 0]}
         scale={[1, 1, 1]}
         {...props}
         dispose={null}

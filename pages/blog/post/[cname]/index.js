@@ -86,7 +86,11 @@ export async function getStaticPaths() {
 }
 
 import BlogLayout from '../../../../layout/BlogLayout'
-Category.getLayout = function getLayout(page, categories) {
-  return <BlogLayout categories={categories}>{page}</BlogLayout>
+Category.getLayout = function getLayout(page, categories, model) {
+  return (
+    <BlogLayout categories={categories} model={model}>
+      {page}
+    </BlogLayout>
+  )
 }
 export default Category
