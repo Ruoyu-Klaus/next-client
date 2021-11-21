@@ -25,15 +25,19 @@ function usePostFetch(props) {
   const [posts, setPosts] = useState([])
 
   // used for local search
-  function getCountAndRows() {
-    const copyPosts = cloneDeep(originalPosts)
+  function getCountAndRows(query) {
+    if (query === null) return { count: 0, rows: {} }
+    // const copyPosts = cloneDeep(originalPosts)
+    const copyPosts = query
+      ? originalPosts.filter(post => post.title.toLowerCase().includes(query))
+      : cloneDeep(originalPosts)
     let count = copyPosts.length
     let rows = copyPosts
     return { count, rows }
   }
 
   const getDataFromLocal = useCallback(() => {
-    let { count, rows } = getCountAndRows()
+    let { count, rows } = getCountAndRows(query)
     const maxPages = count / limit
     if (!rows || !rows.length) return
     if (pageNum >= maxPages) {
@@ -42,11 +46,11 @@ function usePostFetch(props) {
     let data = rows.splice((pageNum - 1) * (limit * (pageNum - 1)), limit)
 
     setPosts(pre => [...new Set([...pre, ...data])])
-  }, [pageNum, limit, originalPosts])
+  }, [pageNum, limit, originalPosts, query])
 
   useEffect(() => {
     getDataFromLocal()
-  }, [pageNum])
+  }, [pageNum, query])
 
   useEffect(() => {
     if (clientSidePagination) {

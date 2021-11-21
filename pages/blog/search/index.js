@@ -8,7 +8,7 @@ import usePostFetch from '../../../hooks/usePostFetch'
 
 import { debounce } from 'lodash'
 import { Container, Flex } from '@chakra-ui/react'
-function Search({ keywords }) {
+function Search({ keywords, blogCollection }) {
   const [pageNum, setPageNum] = useState(1)
   const getCurrentPageNum = page => {
     setPageNum(page)
@@ -24,10 +24,14 @@ function Search({ keywords }) {
       setHasClickedSearch(true)
     }, 1000)
   )
+
+  const originalPosts = blogCollection.blogs
+
   const { isLoading, hasMore, posts } = usePostFetch({
     query: searchString,
     initialLoad: false,
     pageNum,
+    originalPosts,
     limit: 6,
   })
 
