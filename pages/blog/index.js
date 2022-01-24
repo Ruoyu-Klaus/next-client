@@ -1,37 +1,29 @@
-import { useState } from 'react'
-import Head from 'next/head'
+import { useState } from "react";
+import Head from "next/head";
 
-import PostCardGridList from '../../components/PostCardGridList'
-import usePostFetch from '../../hooks/usePostFetch'
-
-// import dynamic from 'next/dynamic'
-// import CanvasLoadingSpinner from '../../components/CanvasContainer'
-// const ThreeCanvas = dynamic(() => import('../../components/ThreejsCanvas'), {
-//   ssr: false,
-//   loading: () => <CanvasLoadingSpinner />,
-// })
+import PostCardGridList from "../../components/PostCardGridList";
+import usePostFetch from "../../hooks/usePostFetch";
 
 function Index({ blogCollection }) {
-  const [pageNum, setPageNum] = useState(1)
-  const getCurrentPageNum = page => {
-    setPageNum(page)
-  }
-  const originalPosts = blogCollection.blogs
+  const [pageNum, setPageNum] = useState(1);
+  const getCurrentPageNum = (page) => {
+    setPageNum(page);
+  };
+  const originalPosts = blogCollection.blogs;
 
   const { isLoading, hasMore, posts } = usePostFetch({
     pageNum,
     clientSidePagination: true,
     originalPosts,
     limit: 6,
-  })
+  });
 
   return (
     <>
       <Head>
         <title>博客 | Ruoyu</title>
-        <link rel='icon' href='/favicon.ico' />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <ThreeCanvas /> */}
       <PostCardGridList
         posts={posts}
         isLoading={isLoading}
@@ -39,23 +31,23 @@ function Index({ blogCollection }) {
         getCurrentPageNum={getCurrentPageNum}
       />
     </>
-  )
+  );
 }
 
 export async function getStaticProps() {
   return {
     props: {},
-  }
+  };
 }
 
-import BlogLayout from '../../layout/BlogLayout'
+import BlogLayout from "../../layout/BlogLayout";
 
 Index.getLayout = function getLayout(page, categories, model) {
   return (
     <BlogLayout categories={categories} model={model}>
       {page}
     </BlogLayout>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;
