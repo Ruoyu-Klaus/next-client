@@ -1,9 +1,10 @@
+import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 
 export default function Model({ url, ...props }) {
   const { scene } = useGLTF(url);
-  const myScene = React.useRef();
+  const myScene = useRef();
 
   // const [ratio, setRatio] = useState(-20);
   // useEffect(() => {
