@@ -2,5 +2,3 @@
     NPM_FLAGS="--version"
 [[plugins]]
     package = "./prebuild/pnpm-installer"
-[[plugins]]
-    package = "@netlify/plugin-nextjs@3.9.2"

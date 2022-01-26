@@ -35,7 +35,6 @@
     "three": "0.134.0"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "3.9.2",
     "babel-plugin-import": "1.13.3",
     "next-compose-plugins": "2.2.1",
     "next-transpile-modules": "6.4.1",
