@@ -26,7 +26,7 @@ function Search({ blogCollection }) {
     sanitizedText ? setHasClickedSearch(true) : setHasClickedSearch(false);
   }, 500);
 
-  const { blogs: originalPosts, keywords } = blogCollection;
+  const { blogs: originalPosts, tags: keywords } = blogCollection;
 
   const { isLoading, hasMore, posts } = usePostFetch({
     useSearch: true,
