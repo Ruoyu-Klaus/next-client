@@ -9,7 +9,7 @@ import usePostFetch from "../../../hooks/usePostFetch";
 import { debounce } from "lodash";
 import { Container, Flex } from "@chakra-ui/react";
 
-function Search({ keywords, blogCollection }) {
+function Search({ blogCollection }) {
   const [pageNum, setPageNum] = useState(1);
   const getCurrentPageNum = (page) => {
     setPageNum(page);
@@ -26,7 +26,7 @@ function Search({ keywords, blogCollection }) {
     sanitizedText ? setHasClickedSearch(true) : setHasClickedSearch(false);
   }, 500);
 
-  const originalPosts = blogCollection.blogs;
+  const { blogs: originalPosts, keywords } = blogCollection;
 
   const { isLoading, hasMore, posts } = usePostFetch({
     useSearch: true,
@@ -41,7 +41,7 @@ function Search({ keywords, blogCollection }) {
     <>
       <Head>
         <title>搜索 | Ruoyu</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="./favicon.ico" />
       </Head>
       <Container maxW="container.xl" mt={8}>
         <Flex flexDir="column" justify="center">
@@ -59,24 +59,6 @@ function Search({ keywords, blogCollection }) {
       </Container>
     </>
   );
-}
-import tags from "../../../_cachePosts/tags.json";
-
-export async function getStaticProps() {
-  try {
-    return {
-      props: {
-        keywords: [...tags],
-      },
-    };
-  } catch (e) {
-    return {
-      props: {
-        msg: "server error",
-        keywords: [],
-      },
-    };
-  }
 }
 
 import BlogLayout from "../../../layout/BlogLayout";
