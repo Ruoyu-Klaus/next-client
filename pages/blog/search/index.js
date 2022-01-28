@@ -1,48 +1,50 @@
-import { useState, useCallback } from 'react'
-import Head from 'next/head'
+import { useState } from "react";
+import Head from "next/head";
 
-import SearchBar from '../../../components/SearchBar'
-import PostCardGridList from '../../../components/PostCardGridList'
-import CustomDivider from '../../../components/CustomDivider'
-import usePostFetch from '../../../hooks/usePostFetch'
+import SearchBar from "../../../components/SearchBar";
+import PostCardGridList from "../../../components/PostCardGridList";
+import CustomDivider from "../../../components/CustomDivider";
+import usePostFetch from "../../../hooks/usePostFetch";
 
-import { debounce } from 'lodash'
-import { Container, Flex } from '@chakra-ui/react'
+import { debounce } from "lodash";
+import { Container, Flex } from "@chakra-ui/react";
+
 function Search({ keywords, blogCollection }) {
-  const [pageNum, setPageNum] = useState(1)
-  const getCurrentPageNum = page => {
-    setPageNum(page)
-  }
+  const [pageNum, setPageNum] = useState(1);
+  const getCurrentPageNum = (page) => {
+    setPageNum(page);
+  };
 
-  const [hasClickedSearch, setHasClickedSearch] = useState(false)
-  const [searchString, setSearchSting] = useState(null)
+  const [hasClickedSearch, setHasClickedSearch] = useState(false);
+  const [searchString, setSearchSting] = useState("");
 
-  const onInputSearch = useCallback(
-    debounce(str => {
-      let sanitizedText = str.trim().replace(/[^\u4e00-\u9fa5a-zA-Z0-9]+/gi, '')
-      sanitizedText && setSearchSting(sanitizedText)
-      setHasClickedSearch(true)
-    }, 1000)
-  )
+  const onInputSearch = debounce((str) => {
+    const sanitizedText = str
+      .trim()
+      .replace(/[^\u4e00-\u9fa5a-zA-Z0-9\\.]+/gi, "");
+    setSearchSting(sanitizedText);
+    sanitizedText ? setHasClickedSearch(true) : setHasClickedSearch(false);
+  }, 500);
 
-  const originalPosts = blogCollection.blogs
+  const originalPosts = blogCollection.blogs;
 
   const { isLoading, hasMore, posts } = usePostFetch({
+    useSearch: true,
     query: searchString,
     initialLoad: false,
     pageNum,
     originalPosts,
     limit: 6,
-  })
+  });
 
   return (
     <>
       <Head>
         <title>搜索 | Ruoyu</title>
-        <link rel='icon' href='/favicon.ico' />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container maxW='container.xl' mt={8}>
-        <Flex flexDir='column' justify='center'>
+      <Container maxW="container.xl" mt={8}>
+        <Flex flexDir="column" justify="center">
           <SearchBar keywords={keywords} onInputSearch={onInputSearch} />
         </Flex>
         <PostCardGridList
@@ -52,34 +54,33 @@ function Search({ keywords, blogCollection }) {
           getCurrentPageNum={getCurrentPageNum}
         />
         {(!posts || posts.length === 0) && hasClickedSearch && !isLoading && (
-          <CustomDivider text={'没有找到结果'} dividerWidth={'25%'} />
+          <CustomDivider text={"没有找到结果"} dividerWidth={"25%"} />
         )}
       </Container>
     </>
-  )
+  );
 }
+import tags from "../../../_cachePosts/tags.json";
 
 export async function getStaticProps() {
   try {
-    // const posts = await getArticleList();
-    // const keywords = posts.keywords;
     return {
       props: {
-        keywords: [],
+        keywords: [...tags],
       },
-    }
+    };
   } catch (e) {
     return {
       props: {
-        msg: 'server error',
-        posts: [],
+        msg: "server error",
+        keywords: [],
       },
-    }
+    };
   }
 }
 
-import BlogLayout from '../../../layout/BlogLayout'
+import BlogLayout from "../../../layout/BlogLayout";
 Search.getLayout = function getLayout(page, categories) {
-  return <BlogLayout categories={categories}>{page}</BlogLayout>
-}
-export default Search
+  return <BlogLayout categories={categories}>{page}</BlogLayout>;
+};
+export default Search;

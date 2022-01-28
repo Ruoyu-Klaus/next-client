@@ -1,9 +1,10 @@
 import emojiList from "./emoji.json";
-import {isProduction} from "./env";
+import { isProduction } from "./env";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import dayjs from "dayjs";
+import _ from "lodash";
 
 class Category {
   constructor(blog_path = "posts") {
@@ -44,10 +45,12 @@ class Blog {
 }
 
 export class BlogCollection {
+  tags = [];
   constructor(blog_path = "posts") {
     this.blog_path = blog_path;
     this.categories = new Category(blog_path).categories;
     this.blogs = this.getAllBlogs().map((blog) => new Blog(blog));
+    this.tags = this.getTagsWithWeight();
     this.initCache();
   }
   initCache() {
@@ -60,6 +63,13 @@ export class BlogCollection {
     fs.writeFile(
       "_cachePosts/blogs.json",
       JSON.stringify(this.blogs),
+      function (err) {
+        if (err) return console.error(err);
+      }
+    );
+    fs.writeFile(
+      "_cachePosts/tags.json",
+      JSON.stringify(this.tags),
       function (err) {
         if (err) return console.error(err);
       }
@@ -102,13 +112,13 @@ export class BlogCollection {
   getAllBlogs() {
     const files = this.getAllBlogFiles();
     return files
-        .map(({fileName, category}) => this.parseMDFile(fileName, category))
-        .sort((a, b) => {
-          const aDate = dayjs(a.date);
-          const bDate = dayjs(b.date);
+      .map(({ fileName, category }) => this.parseMDFile(fileName, category))
+      .sort((a, b) => {
+        const aDate = dayjs(a.date);
+        const bDate = dayjs(b.date);
 
-          return aDate.isBefore(bDate) ? 1 : -1;
-        });
+        return aDate.isBefore(bDate) ? 1 : -1;
+      });
   }
 
   getAllPostPaths(isLinkPath = false) {
@@ -131,6 +141,14 @@ export class BlogCollection {
         cname: post.category,
         slug: [post.id],
       },
+    }));
+  }
+
+  getTagsWithWeight() {
+    const tags = _.map(this.blogs, "tags").flat(1);
+    return _.values(_.groupBy(tags)).map((d) => ({
+      text: d[0],
+      value: d.length,
     }));
   }
 
@@ -171,3 +189,5 @@ export function randomEmoji() {
   const randomIndex = Math.floor(Math.random() * keys.length);
   return emojiList[keys[randomIndex]];
 }
+
+export function getExistingTags(blogs) {}

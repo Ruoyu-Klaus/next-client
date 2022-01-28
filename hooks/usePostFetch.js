@@ -1,6 +1,6 @@
-import { useEffect, useState, useCallback, useRef } from 'react'
-import { cloneDeep } from 'lodash'
-import PropTypes from 'prop-types'
+import { useCallback, useEffect, useState } from "react";
+import { cloneDeep } from "lodash";
+import PropTypes from "prop-types";
 
 usePostFetch.propTypes = {
   pageNum: PropTypes.number,
@@ -9,61 +9,75 @@ usePostFetch.propTypes = {
   initialLoad: PropTypes.bool,
   clientSidePagination: PropTypes.bool,
   originalPosts: PropTypes.object,
-}
+};
+
+const filterPost = (post, query) => {
+  const _query = query.toLowerCase();
+
+  return post.filter((post) => {
+    return (
+      post.title.toLowerCase().includes(_query) ||
+      post.tags.join(" ").toLowerCase().includes(_query) ||
+      post.excerpt.toLowerCase().includes(_query) ||
+      post.category.toLowerCase().includes(_query)
+    );
+  });
+};
 
 function usePostFetch(props) {
   const {
     pageNum = 1,
     limit = 6,
-    query = '',
+    query = "",
+    useSearch = false,
     clientSidePagination = false,
     originalPosts = [],
-  } = props
+  } = props;
 
-  const [hasMore, setHasmore] = useState(true)
-  const [isLoading, setIsLoading] = useState(false)
-  const [posts, setPosts] = useState([])
+  const [hasMore, setHasMore] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [posts, setPosts] = useState([]);
 
-  // used for local search
-  function getCountAndRows(query) {
-    if (query === null) return { count: 0, rows: {} }
-    // const copyPosts = cloneDeep(originalPosts)
+  const getCountAndData = useCallback(() => {
+    if (useSearch && !query) {
+      return { count: 0, rows: [] };
+    }
     const copyPosts = query
-      ? originalPosts.filter(post => post.title.toLowerCase().includes(query))
-      : cloneDeep(originalPosts)
-    let count = copyPosts.length
-    let rows = copyPosts
-    return { count, rows }
-  }
+      ? filterPost(originalPosts, query)
+      : cloneDeep(originalPosts);
+    console.log({ query, copyPosts });
+    return { count: copyPosts.length, rows: copyPosts };
+  }, [query, useSearch, originalPosts]);
 
-  const getDataFromLocal = useCallback(() => {
-    let { count, rows } = getCountAndRows(query)
-    const maxPages = count / limit
-    if (!rows || !rows.length) return
+  const getPostsByPage = () => {
+    const { count, rows } = getCountAndData();
+    if (count === 0) {
+      setPosts([]);
+      return;
+    }
+    const maxPages = count / limit;
     if (pageNum >= maxPages) {
-      setHasmore(false)
+      setHasMore(false);
     }
-    let data = rows.splice((pageNum - 1) * (limit * (pageNum - 1)), limit)
-
-    setPosts(pre => [...new Set([...pre, ...data])])
-  }, [pageNum, limit, originalPosts, query])
+    let data = rows.splice((pageNum - 1) * (limit * (pageNum - 1)), limit);
+    setPosts((pre) => [...new Set([...pre, ...data])]);
+  };
 
   useEffect(() => {
-    getDataFromLocal()
-  }, [pageNum, query])
+    setPosts([]);
+    setHasMore(true);
+    setIsLoading(false);
+  }, [query]);
 
   useEffect(() => {
-    if (clientSidePagination) {
-      setPosts([])
-      getDataFromLocal()
-    }
-  }, [originalPosts, query, clientSidePagination])
+    getPostsByPage();
+  }, [pageNum, query]);
 
   return {
     isLoading,
     posts,
     hasMore,
-  }
+  };
 }
 
-export default usePostFetch
+export default usePostFetch;
