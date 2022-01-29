@@ -2,7 +2,7 @@ import { useState } from "react";
 import Head from "next/head";
 
 import PostCardGridList from "../../components/PostCardGridList";
-import usePostFetch from "../../hooks/usePostFetch";
+import usePaginationPost from "../../hooks/usePaginationPost";
 
 function Index({ blogCollection }) {
   const [pageNum, setPageNum] = useState(1);
@@ -11,11 +11,10 @@ function Index({ blogCollection }) {
   };
   const originalPosts = blogCollection.blogs;
 
-  const { isLoading, hasMore, posts } = usePostFetch({
+  const { isLoading, hasMore, posts } = usePaginationPost({
     pageNum,
-    clientSidePagination: true,
     originalPosts,
-    limit: 6,
+    limit: 9,
   });
 
   return (

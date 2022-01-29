@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import ReactWordcloud from "react-wordcloud";
 
 import useBreakpoint from "../hooks/useBreakPoint";
 import { Box, useColorMode } from "@chakra-ui/react";
 
-function WordCloud({ keywords = [], setSearchTerm }) {
+function WordCloud({ keywords = [], setSearchTerm = () => {} }) {
   const [renderKeywords, setRenderKeywords] = useState(null);
   const bp = useBreakpoint();
 
@@ -18,11 +18,14 @@ function WordCloud({ keywords = [], setSearchTerm }) {
     }
   }, [keywords, bp]);
 
-  const callbacks = {
-    getWordColor: (_) => (colorMode === "light" ? "black" : "white"),
-    onWordClick: (word) => setSearchTerm(word.text),
-    getWordTooltip: (word) => `${word.text}`,
-  };
+  const callbacks = useMemo(
+    () => ({
+      getWordColor: (_) => (colorMode === "light" ? "black" : "white"),
+      onWordClick: (word) => setSearchTerm(word.text),
+      getWordTooltip: (word) => `${word.text}`,
+    }),
+    [setSearchTerm, colorMode]
+  );
 
   const options = {
     deterministic: true,

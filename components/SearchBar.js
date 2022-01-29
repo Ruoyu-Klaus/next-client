@@ -16,11 +16,14 @@ function SearchBar(props) {
   const { keywords = [], onInputSearch } = props;
   const [searchValue, setSearchValue] = useState("");
 
-  useEffect(() => onInputSearch(searchValue), [searchValue]);
-
   const onInputChange = (event) => {
     setSearchValue(event.target.value);
   };
+
+  useEffect(() => {
+    onInputSearch(searchValue);
+  }, [searchValue]);
+
   return (
     <>
       <CloudWords keywords={keywords} setSearchTerm={setSearchValue} />
@@ -35,20 +38,16 @@ function SearchBar(props) {
             placeholder="Try to click words above or enter keywords..."
             autoComplete="off"
             type="text"
-            title="Search"
+            title="Index"
             name="Search"
             onChange={onInputChange}
             value={searchValue}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                onInputSearch.call(null, searchValue);
-              }
-            }}
+            onKeyPress={(e) => e.key === "Enter" && onInputSearch(searchValue)}
           />
           <InputRightElement
             children={
               <Button
-                onClick={onInputSearch.bind(null, searchValue)}
+                onClick={() => onInputSearch(searchValue)}
                 variant="ghost"
               >
                 <SearchIcon />

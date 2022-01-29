@@ -51,7 +51,7 @@ export class BlogCollection {
     this.categories = new Category(blog_path).categories;
     this.blogs = this.getAllBlogs().map((blog) => new Blog(blog));
     this.tags = this.getTagsWithWeight();
-    this.initCache();
+    // this.initCache();
   }
   initCache() {
     try {
@@ -183,6 +183,26 @@ export class BlogCollection {
     };
   }
 }
+
+export const filterPost = (posts, query) => {
+  if (!query) return posts;
+  const _query = query.toLowerCase();
+  return posts.filter((post) => {
+    return (
+      post.title.toLowerCase().includes(_query) ||
+      post.tags.join(" ").toLowerCase().includes(_query) ||
+      post.excerpt.toLowerCase().includes(_query) ||
+      post.category.toLowerCase().includes(_query)
+    );
+  });
+};
+
+export const getFilteredData = (posts, enableSearch, query) => {
+  if (enableSearch && !query) {
+    return [];
+  }
+  return filterPost(posts, query);
+};
 
 export function randomEmoji() {
   const keys = Object.keys(emojiList);

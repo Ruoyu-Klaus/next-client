@@ -28,7 +28,7 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
   const router = useRouter();
   const [emoji] = useState(randomEmoji());
 
-  // const { cname, slug } = router.query
+  // const { cname, slug } = router.searchValue
   // const id = slug[0]
 
   useEffect(() => {
@@ -58,7 +58,7 @@ function Post({ post = {}, tocTree = [], previousPath, nextPath }) {
 
   const renderPostLink = (path, isNext) => {
     if (!path) {
-      return <div></div>;
+      return <div />;
     }
     return (
       <NextLink href={path.href} as={path.as}>
