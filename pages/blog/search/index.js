@@ -26,14 +26,14 @@ function Index({ blogCollection }) {
     [pageNum]
   );
 
-  const { isLoading, hasMore, posts, changSearchValue } =
+  const { isLoading, hasMore, posts, changeSearchValue } =
     usePaginationPost(hookConfig);
 
   const searchHandler = useCallback((str) => {
     const sanitizedText = str
       .trim()
       .replace(/[^\u4e00-\u9fa5a-zA-Z0-9\\.]+/gi, "");
-    changSearchValue(sanitizedText);
+    changeSearchValue(sanitizedText);
     sanitizedText ? setHasClickedSearch(true) : setHasClickedSearch(false);
   }, []);
 

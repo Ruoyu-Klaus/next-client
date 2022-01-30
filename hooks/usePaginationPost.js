@@ -52,7 +52,7 @@ function usePaginationPost(props) {
     getPostsByPage();
   }, [pageNum, query]);
 
-  return { posts, isLoading, hasMore, changSearchValue };
+  return { posts, isLoading, hasMore, changeSearchValue: changSearchValue };
 }
 
 export default usePaginationPost;
