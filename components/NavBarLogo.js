@@ -1,23 +1,17 @@
-import { useContext } from 'react';
-import Link from 'next/link';
-import { Center, useColorMode, Image } from '@chakra-ui/react';
-import { CursorContext } from '../context/cursor/CursorContext';
+import Link from "next/link";
+import {Center, Image, useColorMode} from "@chakra-ui/react";
 
-function NavBarLogo({ to = '/', ...rest }) {
+function NavBarLogo({ to = "/", ...rest }) {
   const { colorMode } = useColorMode();
-  const { setCursorType } = useContext(CursorContext);
 
   return (
     <Center {...rest}>
       <Link href={{ pathname: to }}>
-        <a
-          onMouseEnter={e => setCursorType('link')}
-          onMouseLeave={e => setCursorType('default')}
-        >
+        <a>
           <Image
-            objectFit='cover'
+            objectFit="cover"
             src={
-              colorMode === 'light' ? '/klauswang.png' : '/klauswang-white.png'
+              colorMode === "light" ? "/klauswang.png" : "/klauswang-white.png"
             }
           />
         </a>
