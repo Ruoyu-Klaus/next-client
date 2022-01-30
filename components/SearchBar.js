@@ -1,24 +1,21 @@
-import { useEffect, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import CloudWords from "./Cloudwords";
 
-import {
-  Button,
-  Center,
-  Flex,
-  Heading,
-  Input,
-  InputGroup,
-  InputRightElement,
-} from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
+import {Button, Center, Flex, Heading, Input, InputGroup, InputRightElement,} from "@chakra-ui/react";
+import {SearchIcon} from "@chakra-ui/icons";
 
 function SearchBar(props) {
   const { keywords = [], onInputSearch } = props;
   const [searchValue, setSearchValue] = useState("");
+  const inputRef = useRef();
 
   const onInputChange = (event) => {
     setSearchValue(event.target.value);
   };
+
+  useEffect(() => {
+    inputRef.current && inputRef.current.focus();
+  }, [inputRef.current, searchValue]);
 
   useEffect(() => {
     onInputSearch(searchValue);
@@ -35,6 +32,7 @@ function SearchBar(props) {
       <Flex my={4} w="60%" m={"0 auto"}>
         <InputGroup>
           <Input
+            ref={inputRef}
             placeholder="Try to click words above or enter keywords..."
             autoComplete="off"
             type="text"
