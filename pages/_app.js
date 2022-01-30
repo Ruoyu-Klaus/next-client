@@ -1,43 +1,51 @@
-import '../styles/comm.scss';
-import '../styles/markdown.scss';
-import 'highlight.js/styles/github.css';
-import '../styles/Components/CustomCursor.scss';
-import 'tippy.js/dist/tippy.css';
-import 'tippy.js/animations/scale.css';
+import "../styles/comm.scss";
+import "../styles/markdown.scss";
+import "highlight.js/styles/github.css";
+import "../styles/Components/CustomCursor.scss";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/animations/scale.css";
 
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider } from "@chakra-ui/react";
 
-import { CursorContextProvider } from '../context/cursor/CursorContext';
-import { ThemeContextProvider } from '../context/theme/ThemeContext';
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
+import App from "next/app";
+import { CursorContextProvider } from "../context/cursor/CursorContext";
+import CanvasLoadingSpinner from "../components/CanvasContainer";
 
-import { getArticleCategories } from '../request';
-
-const CustomCorsor = dynamic(() => import('../components/CustomCursor'), {
+const CustomCursor = dynamic(() => import("../components/CustomCursor"), {
   ssr: false,
 });
+const ThreeCanvas = dynamic(() => import("../components/ThreejsCanvas"), {
+  ssr: false,
+  loading: () => <CanvasLoadingSpinner />,
+});
 
-function MyApp({ Component, pageProps, categories }) {
-  const getLayout = Component.getLayout || (page => page);
+function MyApp({ Component, pageProps, blogCollection = {} }) {
+  const getLayout = Component.getLayout || ((page) => page);
+  const categories = blogCollection.categories;
+
   return (
     <ChakraProvider>
-      <ThemeContextProvider>
-        <CursorContextProvider>
-          {getLayout(<Component {...pageProps} />, categories)}
-          <CustomCorsor />
-        </CursorContextProvider>
-      </ThemeContextProvider>
+      <CursorContextProvider>
+        {getLayout(
+          <Component {...pageProps} blogCollection={blogCollection} />,
+          categories,
+          <ThreeCanvas />
+        )}
+        <CustomCursor />
+      </CursorContextProvider>
     </ChakraProvider>
   );
 }
 
-// This function gets called at build time
-MyApp.getInitialProps = async () => {
+MyApp.getInitialProps = async (appContext) => {
+  const pageProps = await App.getInitialProps(appContext);
   try {
-    const categories = await getArticleCategories();
-    return { categories: categories || [] };
+    const { BlogCollection } = await import("../helpers/index");
+    const blogCollection = new BlogCollection();
+    return { ...pageProps, blogCollection };
   } catch (e) {
-    return { categories: [] };
+    return { ...pageProps, blogCollection: {} };
   }
 };
 

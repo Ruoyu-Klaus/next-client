@@ -12,6 +12,9 @@
 /.next/
 /out/
 
+# post cache
+_cachePosts
+
 # production
 /build
 
@@ -32,3 +35,5 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+.idea

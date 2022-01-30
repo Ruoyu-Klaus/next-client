@@ -1,34 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import NavBar from '../components/NavBar';
-import Footer from '../components/Footer';
-import { Flex } from '@chakra-ui/react';
+import React, { useState, useEffect } from "react";
 
-import styles from '../styles/Layout/bloglayout.module.scss';
+import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
+import { Flex } from "@chakra-ui/react";
 
-function BlogLayout({ categories = [], children }) {
+import styles from "../styles/Layout/bloglayout.module.scss";
+
+function BlogLayout({ categories = [], model, children }) {
   const [displayChildren, setDisplayChildren] = useState(children);
-  const [transitionStage, setTransitionStage] = useState('fadeOut');
-
+  const [transitionStage, setTransitionStage] = useState("fadeOut");
   useEffect(() => {
-    setTransitionStage('fadeIn');
+    setTransitionStage("fadeIn");
   }, []);
 
   useEffect(() => {
-    if (children !== displayChildren) setTransitionStage('fadeOut');
+    if (children !== displayChildren) setTransitionStage("fadeOut");
   }, [children, setTransitionStage, displayChildren]);
 
   return (
-    <Flex flexDir='column' minH='100vh'>
+    <Flex flexDir="column" minH="100vh">
       <NavBar navArray={categories} />
       <main
-        onTransitionEnd={e => {
-          if (transitionStage === 'fadeOut') {
-            setTransitionStage('fadeIn');
+        onTransitionEnd={() => {
+          if (transitionStage === "fadeOut") {
+            setTransitionStage("fadeIn");
             setDisplayChildren(children);
           }
         }}
         className={`${styles.root} ${styles[transitionStage]}`}
       >
+        {model && model}
         {displayChildren}
       </main>
       <Footer mb={4} />

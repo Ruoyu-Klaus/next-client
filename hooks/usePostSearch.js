@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
-import { getArticleList } from '../pages/api/request';
+// import { getArticleList } from '../pages/api/request';
 
 function usePostSearch(query) {
   useEffect(() => {

@@ -6,11 +6,11 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 
-function NoSearchResult({ text }) {
+function CustomDivider({ text, dividerWidth = '30%', ...rest }) {
   return (
     <HStack w='full'>
       <Center w='full'>
-        <Divider w='200px' />
+        <Divider w={dividerWidth} {...rest} />
         <Text
           mx={4}
           color={useColorModeValue('gray.500', 'gray.300')}
@@ -18,10 +18,10 @@ function NoSearchResult({ text }) {
         >
           {text}
         </Text>
-        <Divider w='200px' />
+        <Divider w={dividerWidth} {...rest} />
       </Center>
     </HStack>
   );
 }
 
-export default NoSearchResult;
+export default CustomDivider;

@@ -1,29 +1,28 @@
-import { useState } from 'react';
-import Head from 'next/head';
+import { useMemo, useState } from "react";
+import Head from "next/head";
 
-import PostCardGridList from '../../components/PostCardGridList';
+import PostCardGridList from "../../components/PostCardGridList";
+import usePaginationPost from "../../hooks/usePaginationPost";
 
-import usePostFetch from '../../hooks/usePostFetch';
-
-function Blog({ posts: pagePosts }) {
+function Index({ blogCollection }) {
   const [pageNum, setPageNum] = useState(1);
-  const [fetchPosts] = useState(pagePosts);
-  const getCurrentPageNum = page => {
+  const getCurrentPageNum = (page) => {
     setPageNum(page);
   };
+  const originalPosts = blogCollection.blogs;
 
-  const { isLoading, hasMore, posts } = usePostFetch({
-    pageNum,
-    clientSidePagination: true,
-    originalPosts: fetchPosts,
-    limit: 6,
-  });
+  const hookConfig = useMemo(
+    () => ({ pageNum, originalPosts, limit: 9 }),
+    [pageNum]
+  );
+
+  const { isLoading, hasMore, posts } = usePaginationPost(hookConfig);
 
   return (
     <>
       <Head>
         <title>博客 | Ruoyu</title>
-        <link rel='icon' href='/favicon.ico' />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <PostCardGridList
         posts={posts}
@@ -35,30 +34,20 @@ function Blog({ posts: pagePosts }) {
   );
 }
 
-import { getArticleList } from '../../request';
-
-// This function gets called at build time
 export async function getStaticProps() {
-  try {
-    const posts = await getArticleList();
-    return {
-      props: {
-        posts: posts || [],
-      },
-    };
-  } catch (e) {
-    return {
-      props: {
-        msg: 'server error',
-        posts: [],
-      },
-    };
-  }
+  return {
+    props: {},
+  };
 }
 
-import BlogLayout from '../../layout/BlogLayout';
-Blog.getLayout = function getLayout(page, categories) {
-  return <BlogLayout categories={categories}>{page}</BlogLayout>;
+import BlogLayout from "../../layout/BlogLayout";
+
+Index.getLayout = function getLayout(page, categories, model) {
+  return (
+    <BlogLayout categories={categories} model={model}>
+      {page}
+    </BlogLayout>
+  );
 };
 
-export default Blog;
+export default Index;
