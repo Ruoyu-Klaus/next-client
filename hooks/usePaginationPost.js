@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import {useCallback, useEffect, useState} from "react";
 import PropTypes from "prop-types";
-import { getFilteredData } from "../helpers";
+import {getFilteredData} from "../helpers";
 
 usePaginationPost.propTypes = {
   pageNum: PropTypes.number,
@@ -16,8 +16,6 @@ function usePaginationPost(props) {
     enableSearch = false,
     originalPosts = [],
   } = props;
-
-  console.log("hooks");
 
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +34,6 @@ function usePaginationPost(props) {
   const getPostsByPage = useCallback(() => {
     const filteredPosts = getFilteredData(originalPosts, enableSearch, query);
     if (filteredPosts.length === 0) {
-      setPosts([]);
       return;
     }
     const data = calculatePagination(filteredPosts);

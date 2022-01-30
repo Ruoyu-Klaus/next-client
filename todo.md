@@ -3,12 +3,12 @@
 - [x] cloud words for search pages
 - [x] routes for post name
 - [x] use dynamic slug routes for post id and title
-- [ ] implement search filter like category and tags
 - [x] post cover position
 - [x] post MD parse highlight not right
 - [x] strange post transition-in
 - [x] previous post & next post
-
+- [ ] extract constant to replace hard code content
+- [ ] image pre-loading
 * Responsiveness
 
 - [x] remove cursor decoration for mobile

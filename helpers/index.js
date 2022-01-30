@@ -1,10 +1,10 @@
 import emojiList from "./emoji.json";
-import { isProduction } from "./env";
+import {isProduction} from "./env";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import dayjs from "dayjs";
-import _ from "lodash";
+import _, {cloneDeep} from "lodash";
 
 class Category {
   constructor(blog_path = "posts") {
@@ -198,10 +198,11 @@ export const filterPost = (posts, query) => {
 };
 
 export const getFilteredData = (posts, enableSearch, query) => {
+  const _posts = cloneDeep(posts);
   if (enableSearch && !query) {
     return [];
   }
-  return filterPost(posts, query);
+  return filterPost(_posts, query);
 };
 
 export function randomEmoji() {

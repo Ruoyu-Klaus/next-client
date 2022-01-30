@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import {useCallback, useMemo, useState} from "react";
 import Head from "next/head";
 
 import SearchBar from "../../../components/SearchBar";
@@ -6,8 +6,10 @@ import PostCardGridList from "../../../components/PostCardGridList";
 import CustomDivider from "../../../components/CustomDivider";
 import usePaginationPost from "../../../hooks/usePaginationPost";
 
-import { debounce } from "lodash";
-import { Container, Flex } from "@chakra-ui/react";
+import {debounce} from "lodash";
+import {Container, Flex} from "@chakra-ui/react";
+import BlogLayout from "../../../layout/BlogLayout";
+import {SEARCH_NOT_FOUND} from "../../../utils/content";
 
 const debouncedChangeHandler = (fn) => debounce(fn, 200);
 
@@ -19,12 +21,13 @@ function Index({ blogCollection }) {
 
   const [hasClickedSearch, setHasClickedSearch] = useState(false);
 
-  const { isLoading, hasMore, posts, changSearchValue } = usePaginationPost({
-    enableSearch: true,
-    pageNum,
-    originalPosts,
-    limit: 9,
-  });
+  const hookConfig = useMemo(
+    () => ({ enableSearch: true, pageNum, originalPosts, limit: 9 }),
+    [pageNum]
+  );
+
+  const { isLoading, hasMore, posts, changSearchValue } =
+    usePaginationPost(hookConfig);
 
   const searchHandler = useCallback((str) => {
     const sanitizedText = str
@@ -46,7 +49,7 @@ function Index({ blogCollection }) {
       (!posts || posts.length === 0) &&
       hasClickedSearch &&
       !isLoading && (
-        <CustomDivider text={"没有找到结果"} dividerWidth={"25%"} />
+        <CustomDivider text={SEARCH_NOT_FOUND} dividerWidth={"25%"} />
       ),
     [isLoading, hasClickedSearch, posts.length]
   );
@@ -78,8 +81,6 @@ export async function getStaticProps() {
     props: {},
   };
 }
-
-import BlogLayout from "../../../layout/BlogLayout";
 
 Index.getLayout = function getLayout(page, categories) {
   return <BlogLayout categories={categories}>{page}</BlogLayout>;

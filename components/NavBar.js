@@ -10,6 +10,7 @@ import {SearchIcon} from "@chakra-ui/icons";
 
 import {CursorContext} from "../context/cursor/CursorContext";
 import useRouterScroll from "../hooks/useRouterScroll";
+import {DARK_MODE_ICON, LIGHT_MODE_ICON, NAVIGATION_HOMEPAGE,} from "../utils/content";
 
 Header.propTypes = {
   navArray: PropTypes.array,
@@ -66,7 +67,7 @@ function Header({ navArray = [] }) {
               onMouseEnter={(e) => hoverMouseHandler(e, "moon")}
               onMouseLeave={(e) => hoverMouseHandler(e, "default")}
             >
-              🌙
+              {DARK_MODE_ICON}
             </Text>
           ) : (
             <Text
@@ -74,7 +75,7 @@ function Header({ navArray = [] }) {
               onMouseEnter={(e) => hoverMouseHandler(e, "sun")}
               onMouseLeave={(e) => hoverMouseHandler(e, "default")}
             >
-              🌤️
+              {LIGHT_MODE_ICON}
             </Text>
           )}
         </Button>
@@ -118,7 +119,7 @@ function Header({ navArray = [] }) {
             direction={["column", "column", "row"]}
           >
             <MenuItemLink to="/blog">
-              <Button variant="link">首页</Button>
+              <Button variant="link">{NAVIGATION_HOMEPAGE}</Button>
             </MenuItemLink>
             {navArray.map((item) => (
               <MenuItemLink
