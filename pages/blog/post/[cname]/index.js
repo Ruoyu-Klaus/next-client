@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Head from "next/head";
 
 import PostCardGridList from "../../../../components/PostCardGridList";
@@ -14,12 +14,12 @@ function Category({ posts: postsByCategory }) {
     setPageNum(page);
   };
 
-  const { isLoading, hasMore, posts } = usePaginationPost({
-    pageNum,
-    clientSidePagination: true,
-    originalPosts: postsByCategory,
-    limit: 6,
-  });
+  const hookConfig = useMemo(
+    () => ({ pageNum, originalPosts: postsByCategory, limit: 9 }),
+    [pageNum]
+  );
+
+  const { isLoading, hasMore, posts } = usePaginationPost(hookConfig);
 
   return (
     <>

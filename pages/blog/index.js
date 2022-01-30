@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Head from "next/head";
 
 import PostCardGridList from "../../components/PostCardGridList";
@@ -11,11 +11,12 @@ function Index({ blogCollection }) {
   };
   const originalPosts = blogCollection.blogs;
 
-  const { isLoading, hasMore, posts } = usePaginationPost({
-    pageNum,
-    originalPosts,
-    limit: 9,
-  });
+  const hookConfig = useMemo(
+    () => ({ pageNum, originalPosts, limit: 9 }),
+    [pageNum]
+  );
+
+  const { isLoading, hasMore, posts } = usePaginationPost(hookConfig);
 
   return (
     <>
