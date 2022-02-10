@@ -1,48 +1,11 @@
 import emojiList from "./emoji.json";
-import {isProduction} from "./env";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import dayjs from "dayjs";
-import _, {cloneDeep} from "lodash";
-
-class Category {
-  constructor(blog_path = "posts") {
-    this.blog_path = blog_path;
-    this.categories;
-    this.init();
-  }
-  init() {
-    const categories = fs.readdirSync(path.join(`${this.blog_path}`));
-    let index = categories.indexOf("draft");
-    if (index !== -1 && isProduction) {
-      categories.splice(index, 1);
-    }
-    this.categories = categories;
-  }
-}
-
-class Blog {
-  constructor({
-    id,
-    category,
-    date,
-    excerpt,
-    title,
-    content,
-    coverImage,
-    tags,
-  }) {
-    this.id = id;
-    this.date = date;
-    this.category = category;
-    this.excerpt = excerpt;
-    this.title = title;
-    this.content = content;
-    this.coverImage = coverImage;
-    this.tags = tags;
-  }
-}
+import _, { cloneDeep } from "lodash";
+import Category from "./entity/Category";
+import { Blog } from "./entity/Blog";
 
 export class BlogCollection {
   tags = [];
@@ -53,47 +16,39 @@ export class BlogCollection {
     this.tags = this.getTagsWithWeight();
     // this.initCache();
   }
-  initCache() {
-    try {
-      fs.readdirSync("_cachePosts");
-    } catch (error) {
-      fs.mkdirSync("_cachePosts");
-    }
+  // initCache() {
+  //   try {
+  //     fs.readdirSync("_cachePosts");
+  //   } catch (error) {
+  //     fs.mkdirSync("_cachePosts");
+  //   }
 
-    fs.writeFile(
-      "_cachePosts/blogs.json",
-      JSON.stringify(this.blogs),
-      function (err) {
-        if (err) return console.error(err);
-      }
-    );
-    fs.writeFile(
-      "_cachePosts/tags.json",
-      JSON.stringify(this.tags),
-      function (err) {
-        if (err) return console.error(err);
-      }
-    );
-  }
-
-  serialize(content) {
-    try {
-      return JSON.parse(JSON.stringify(content));
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
+  // fs.writeFile(
+  //   "_cachePosts/blogs.json",
+  //   JSON.stringify(this.blogs),
+  //   function (err) {
+  //     if (err) return console.error(err);
+  //   }
+  // );
+  // fs.writeFile(
+  //   "_cachePosts/tags.json",
+  //   JSON.stringify(this.tags),
+  //   function (err) {
+  //     if (err) return console.error(err);
+  //   }
+  // );
+  // }
 
   getBlogsByCategory(category) {
     const blogs = this.blogs.filter((blog) => blog.category === category);
-    return this.serialize(blogs);
+    return serializeContent(blogs);
   }
 
   getBlogByCategoryAndId(category, id) {
     const blog = this.getBlogsByCategory(category).find(
       (post) => post.id === id
     );
-    return this.serialize(blog);
+    return serializeContent(blog);
   }
 
   getBlogFilesByCategory(category) {
@@ -184,6 +139,14 @@ export class BlogCollection {
   }
 }
 
+export const serializeContent = (content) => {
+  try {
+    return JSON.parse(JSON.stringify(content));
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 export const filterPost = (posts, query) => {
   if (!query) return posts;
   const _query = query.toLowerCase();
@@ -210,5 +173,3 @@ export function randomEmoji() {
   const randomIndex = Math.floor(Math.random() * keys.length);
   return emojiList[keys[randomIndex]];
 }
-
-export function getExistingTags(blogs) {}
