@@ -18,6 +18,8 @@ function Index({ blogCollection }) {
 
   const { isLoading, hasMore, posts } = usePaginationPost(hookConfig);
 
+  console.log(posts);
+
   return (
     <>
       <Head>
