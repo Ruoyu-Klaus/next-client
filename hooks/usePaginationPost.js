@@ -1,6 +1,6 @@
-import {useCallback, useEffect, useState} from "react";
+import { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import {getFilteredData} from "../helpers";
+import { getFilteredData } from "../helpers";
 
 usePaginationPost.propTypes = {
   pageNum: PropTypes.number,
@@ -37,7 +37,7 @@ function usePaginationPost(props) {
       return;
     }
     const data = calculatePagination(filteredPosts);
-    setPosts(data);
+    setPosts((pre) => [...pre, ...data]);
   }, [pageNum, originalPosts, query, enableSearch]);
 
   const clearDataOnQueryChange = () => {
