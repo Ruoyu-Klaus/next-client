@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import _, { cloneDeep } from "lodash";
 import Category from "./entity/Category";
 import { Blog } from "./entity/Blog";
+import { getParsedContentWithTocTree } from "./markDownRenderer";
 
 export class BlogCollection {
   tags = [];
@@ -16,28 +17,6 @@ export class BlogCollection {
     this.tags = this.getTagsWithWeight();
     // this.initCache();
   }
-  // initCache() {
-  //   try {
-  //     fs.readdirSync("_cachePosts");
-  //   } catch (error) {
-  //     fs.mkdirSync("_cachePosts");
-  //   }
-
-  // fs.writeFile(
-  //   "_cachePosts/blogs.json",
-  //   JSON.stringify(this.blogs),
-  //   function (err) {
-  //     if (err) return console.error(err);
-  //   }
-  // );
-  // fs.writeFile(
-  //   "_cachePosts/tags.json",
-  //   JSON.stringify(this.tags),
-  //   function (err) {
-  //     if (err) return console.error(err);
-  //   }
-  // );
-  // }
 
   getBlogsByCategory(category) {
     const blogs = this.blogs.filter((blog) => blog.category === category);
@@ -48,7 +27,7 @@ export class BlogCollection {
     const blog = this.getBlogsByCategory(category).find(
       (post) => post.id === id
     );
-    return serializeContent(blog);
+    return serializeContent(parseBlogMarkdownContent(blog));
   }
 
   getBlogFilesByCategory(category) {
@@ -57,7 +36,8 @@ export class BlogCollection {
     );
     return fileNames.map((fileName) => ({ fileName, category }));
   }
-  getAllBlogFiles() {
+
+  getAllBlogFileNamesWithCategory() {
     const categories = this.categories;
     return categories
       .map((category) => this.getBlogFilesByCategory(category))
@@ -65,14 +45,10 @@ export class BlogCollection {
   }
 
   getAllBlogs() {
-    const files = this.getAllBlogFiles();
-    return files
-      .map(({ fileName, category }) => this.parseMDFile(fileName, category))
+    return this.getAllBlogFileNamesWithCategory()
+      .map(({ fileName, category }) => this.parseMarkDown(fileName, category))
       .sort((a, b) => {
-        const aDate = dayjs(a.date);
-        const bDate = dayjs(b.date);
-
-        return aDate.isBefore(bDate) ? 1 : -1;
+        return dayjs(a.date).isBefore(dayjs(b.date)) ? 1 : -1;
       });
   }
 
@@ -101,33 +77,29 @@ export class BlogCollection {
 
   getTagsWithWeight() {
     const tags = _.map(this.blogs, "tags").flat(1);
-    return _.values(_.groupBy(tags)).map((d) => ({
-      text: d[0],
-      value: d.length,
+    return _.values(_.groupBy(tags)).map((tag) => ({
+      text: tag[0],
+      value: tag.length,
     }));
   }
 
-  parseMDFile(fileName, category) {
+  parseMarkDown(fileName, category) {
     const slug = fileName.replace(/\.md$/, "");
-
     const markdownWithMeta = fs.readFileSync(
       path.join(`${this.blog_path}/${category}/${fileName}`),
       "utf-8"
     );
     const { data: frontMatter, content } = matter(markdownWithMeta);
-
     const {
       title,
       date,
       excerpt,
-      cover = "https://picsum.photos/400/500",
+      cover = "../cover_placeholder.png",
       tags = [],
     } = frontMatter;
-
     const coverImage = cover;
-    const id = slug;
     return {
-      id,
+      id: slug,
       title,
       date,
       excerpt,
@@ -137,7 +109,36 @@ export class BlogCollection {
       tags,
     };
   }
+  // initCache() {
+  //   try {
+  //     fs.readdirSync("_cachePosts");
+  //   } catch (error) {
+  //     fs.mkdirSync("_cachePosts");
+  //   }
+
+  // fs.writeFile(
+  //   "_cachePosts/blogs.json",
+  //   JSON.stringify(this.blogs),
+  //   function (err) {
+  //     if (err) return console.error(err);
+  //   }
+  // );
+  // fs.writeFile(
+  //   "_cachePosts/tags.json",
+  //   JSON.stringify(this.tags),
+  //   function (err) {
+  //     if (err) return console.error(err);
+  //   }
+  // );
+  // }
 }
+
+const parseBlogMarkdownContent = (blog) => {
+  const { parsedContent, tocTree } = getParsedContentWithTocTree(blog.content);
+  blog.content = parsedContent;
+  blog.tocTree = tocTree;
+  return blog;
+};
 
 export const serializeContent = (content) => {
   try {

@@ -1,4 +1,5 @@
 export class Blog {
+  tocTree = [];
   constructor({
     id,
     category,
