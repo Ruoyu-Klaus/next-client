@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const Toc = ({tocTree}) => (
     <ul>
@@ -7,18 +7,18 @@ const Toc = ({tocTree}) => (
                 <a
                     href={`#${item.anchor}`}
                     onClick={(e) => {
-                        e.preventDefault();
+                        e.preventDefault()
                         document.getElementById(`${item.anchor}`).scrollIntoView({
-                            behavior: "smooth",
-                        });
+                            behavior: 'smooth',
+                        })
                     }}
                 >
                     {item.text}
                 </a>
-                {item.children && <Toc tocTree={item.children}/>}
+                {item.children && <Toc tocTree={item.children} />}
             </li>
         ))}
     </ul>
 )
 
-export default Toc;
+export default Toc
