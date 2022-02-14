@@ -1,4 +1,4 @@
 [build.environment]
-    NPM_FLAGS="--version"
+    NPM_FLAGS="--prefix=/dev/null"
 [[plugins]]
     package = "./prebuild/pnpm-installer"
