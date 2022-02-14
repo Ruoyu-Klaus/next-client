@@ -1,7 +1,7 @@
 ---
 title: 'JavaScript之闭包'
 date: '2021-07-06'
-excerpt: 'Test is the except'
+excerpt: '本次了解一下JS中闭包'
 cover: 'https://i.loli.net/2021/09/14/p2ouw8QqIBxJgcU.png'
 tags:
   - JavaScript
