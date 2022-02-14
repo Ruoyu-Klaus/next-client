@@ -1,34 +1,33 @@
-import marked from "marked";
-import highlightSyntax from "highlight.js";
-import MarkDownTOC from "./MarkDownTOC";
+import marked from 'marked'
+import highlightSyntax from 'highlight.js'
+import MarkDownTOC from './MarkDownTOC'
 
 const markedOptions = {
   tables: true,
   breaks: false,
   smartLists: true,
   smartypants: false,
-  langPrefix: "hljs language-",
+  langPrefix: 'hljs language-',
   highlight: function (code, { language }) {
-    return highlightSyntax.highlightAuto(code).value;
+    return highlightSyntax.highlightAuto(code).value
   },
-};
+}
 
 export function getParsedContentWithTocTree(content) {
-  const renderer = new marked.Renderer();
+  const renderer = new marked.Renderer()
 
-  const tocRenderer = new MarkDownTOC();
+  const tocRenderer = new MarkDownTOC()
   renderer.heading = function (text, level) {
-    return tocRenderer.renderHTML(text, level);
-  };
-  marked.setOptions(markedOptions);
-  marked.use({ renderer });
-  return { parsedContent: marked(content), tocTree: getTocTree(tocRenderer) };
+    return tocRenderer.renderHTML(text, level)
+  }
+  marked.setOptions(markedOptions)
+  marked.use({ renderer })
+  return { parsedContent: marked(content), tocTree: getTocTree(tocRenderer) }
 }
 
 export function getTocTree(tocRenderer) {
   if (tocRenderer && tocRenderer instanceof MarkDownTOC) {
-    console.log(tocRenderer.getTocItems());
-    return tocRenderer.getTocItems();
+    return tocRenderer.getTocItems()
   }
-  return null;
+  return null
 }
