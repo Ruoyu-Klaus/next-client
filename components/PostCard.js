@@ -1,9 +1,9 @@
-import React, { useMemo } from "react";
-import PropTypes from "prop-types";
-import Link from "next/link";
+import React, { useMemo } from 'react'
+import PropTypes from 'prop-types'
+import Link from 'next/link'
 
-import dayjs from "dayjs";
-import styles from "../styles/Components/PostCard.module.scss";
+import dayjs from 'dayjs'
+import styles from '../styles/Components/PostCard.module.scss'
 
 import {
   Box,
@@ -16,14 +16,14 @@ import {
   Tag,
   Flex,
   Skeleton,
-} from "@chakra-ui/react";
-import { TimeIcon } from "@chakra-ui/icons";
+} from '@chakra-ui/react'
+import { TimeIcon } from '@chakra-ui/icons'
 
 PostCard.propTypes = {
   postDetails: PropTypes.object,
   isLoading: PropTypes.bool,
   LoadingComp: PropTypes.elementType,
-};
+}
 
 function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
   const {
@@ -34,8 +34,8 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
     coverImage,
     category,
     tags = [],
-  } = postDetails;
-  if (!id) return <></>;
+  } = postDetails
+  if (!id) return <></>
 
   const postCover = useMemo(
     () => (
@@ -52,43 +52,43 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
       >
         <a title={title}>
           <Image
-            h="100%"
-            w="100%"
-            transition="all 0.3s ease-in-out"
+            h='100%'
+            w='100%'
+            transition='all 0.3s ease-in-out'
             _hover={{
-              transform: "scale(1.05)",
-              opacity: "0.5",
+              transform: 'scale(1.05)',
+              opacity: '0.5',
             }}
-            overflow="hidden"
-            objectFit="cover"
+            overflow='hidden'
+            objectFit='fill'
             alt={title}
             src={
               coverImage ||
-              "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+              'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
             }
           />
         </a>
       </Link>
     ),
     [coverImage, title]
-  );
+  )
   const description = useMemo(
     () => (
-      <VStack h="full" spacing={3} alignItems="flex-start">
-        <Text mt={1} fontSize={"16px"} color="gray.500">
+      <VStack h='full' spacing={3} alignItems='flex-start'>
+        <Text mt={1} fontSize={'16px'} color='gray.500'>
           {category}
         </Text>
-        <Heading as="h3" size="md" className={styles.postTitle}>
+        <Heading as='h3' size='md' className={styles.postTitle}>
           {title}
         </Heading>
-        <Text fontSize={"16px"} className={styles.postIntroduction}>
+        <Text fontSize={'16px'} className={styles.postIntroduction}>
           {excerpt}
         </Text>
         <Divider />
 
-        <HStack className={styles.postTag} w={"full"} spacing={4}>
-          {tags.map((tag) => (
-            <Tag size="sm" key={tag}>
+        <HStack className={styles.postTag} w={'full'} spacing={4}>
+          {tags.map(tag => (
+            <Tag size='sm' key={tag}>
               {tag}
             </Tag>
           ))}
@@ -96,44 +96,44 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
       </VStack>
     ),
     [category]
-  );
+  )
 
   const meta = useMemo(
     () => (
-      <Flex w={"full"} justifyContent="space-between">
-        <Text fontSize={"xs"}>
+      <Flex w={'full'} justifyContent='space-between'>
+        <Text fontSize={'xs'}>
           By <span>Ruoyu</span>
         </Text>
-        <HStack fontSize={"xs"}>
+        <HStack fontSize={'xs'}>
           <TimeIcon />
-          <Text>{dayjs(date).format("YYYY-MM-DD")}</Text>
+          <Text>{dayjs(date).format('YYYY-MM-DD')}</Text>
         </HStack>
       </Flex>
     ),
     [date]
-  );
+  )
 
   return (
     <Box
-      w="350px"
-      minW="250px"
-      maxW="350px"
-      h="480px"
-      borderWidth="1px"
-      borderRadius="6"
-      display="flex"
-      flexDir="column"
+      w='350px'
+      minW='250px'
+      maxW='350px'
+      h='480px'
+      borderWidth='1px'
+      borderRadius='6'
+      display='flex'
+      flexDir='column'
       className={styles.postCard}
     >
       {isLoading ? (
-        <LoadingComp w="full" h="full" />
+        <LoadingComp w='full' h='full' />
       ) : (
         <>
-          <Box w="full" h="240px" minH="240px" overflow="hidden">
+          <Box w='full' h='240px' minH='240px' overflow='hidden'>
             {postCover}
           </Box>
 
-          <Box flex="1" p={4} py={1}>
+          <Box flex='1' p={4} py={1}>
             {description}
           </Box>
 
@@ -141,7 +141,7 @@ function PostCard({ postDetails, isLoading = false, LoadingComp = Skeleton }) {
         </>
       )}
     </Box>
-  );
+  )
 }
 
-export default PostCard;
+export default PostCard
