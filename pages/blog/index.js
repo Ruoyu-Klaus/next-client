@@ -4,12 +4,11 @@ import Head from 'next/head'
 import PostCardGridList from '../../components/PostCardGridList'
 import usePaginationPost from '../../hooks/usePaginationPost'
 
-function Index({blogCollection}) {
+function Index({posts: originalPosts}) {
     const [pageNum, setPageNum] = useState(1)
     const getCurrentPageNum = (page) => {
         setPageNum(page)
     }
-    const originalPosts = blogCollection.blogs
 
     const hookConfig = useMemo(() => ({pageNum, originalPosts, limit: 9}), [pageNum])
 
@@ -26,9 +25,13 @@ function Index({blogCollection}) {
     )
 }
 
+import {getPosts} from '../../services'
 export async function getStaticProps() {
+    const posts = await getPosts()
     return {
-        props: {},
+        props: {
+            posts,
+        },
     }
 }
 

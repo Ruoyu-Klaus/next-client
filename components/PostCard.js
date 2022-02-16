@@ -5,7 +5,7 @@ import Link from 'next/link'
 import dayjs from 'dayjs'
 import styles from '../styles/Components/PostCard.module.scss'
 
-import {Box, VStack, HStack, Image, Heading, Text, Divider, Tag, Flex, Skeleton} from '@chakra-ui/react'
+import {Box, Divider, Flex, Heading, HStack, Image, Skeleton, Tag, Text, VStack} from '@chakra-ui/react'
 import {TimeIcon} from '@chakra-ui/icons'
 
 PostCard.propTypes = {
@@ -15,7 +15,8 @@ PostCard.propTypes = {
 }
 
 function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
-    const {id, title, date, excerpt, coverImage, category, tags = []} = postDetails
+    const {id, author, title, date, excerpt, coverImage, categories = [], tags = [], slug} = postDetails
+    const category = categories.unshift()
     if (!id) return <></>
 
     const postCover = useMemo(
@@ -24,11 +25,11 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
                 href={{
                     pathname: `/blog/post/[cname]/[...slug]`,
                     query: {
-                        cname: category,
-                        slug: [id],
+                        cname: category.slug,
+                        slug: [slug],
                     },
                 }}
-                as={`/blog/post/${category}/${id}`}
+                as={`/blog/post/${category.slug}/${slug}`}
                 passHref
             >
                 <a title={title}>
@@ -43,7 +44,7 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
                         overflow="hidden"
                         objectFit="fill"
                         alt={title}
-                        src={coverImage || 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'}
+                        src={coverImage.url || 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'}
                     />
                 </a>
             </Link>
@@ -54,7 +55,7 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
         () => (
             <VStack h="full" spacing={3} alignItems="flex-start">
                 <Text mt={1} fontSize={'16px'} color="gray.500">
-                    {category}
+                    {category.name}
                 </Text>
                 <Heading as="h3" size="md" className={styles.postTitle}>
                     {title}
@@ -73,14 +74,14 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
                 </HStack>
             </VStack>
         ),
-        [category],
+        [categories],
     )
 
     const meta = useMemo(
         () => (
             <Flex w={'full'} justifyContent="space-between">
                 <Text fontSize={'xs'}>
-                    By <span>Ruoyu</span>
+                    By <span>{author.name}</span>
                 </Text>
                 <HStack fontSize={'xs'}>
                     <TimeIcon />
