@@ -4,7 +4,10 @@ import Head from 'next/head'
 
 import PostCardGridList from '../../../../components/PostCardGridList'
 import usePaginationPost from '../../../../hooks/usePaginationPost'
-function Category({posts: postsByCategory}) {
+import {getCategories, getPostsByCategoryId} from '../../../../services'
+import BlogLayout from '../../../../layout/BlogLayout'
+
+function Category({posts: originalPosts}) {
     const router = useRouter()
     const {cname} = router.query
 
@@ -13,8 +16,7 @@ function Category({posts: postsByCategory}) {
     const getCurrentPageNum = (page) => {
         setPageNum(page)
     }
-
-    const hookConfig = useMemo(() => ({pageNum, originalPosts: postsByCategory, limit: 9}), [pageNum])
+    const hookConfig = useMemo(() => ({pageNum, originalPosts, limit: 9}), [pageNum, originalPosts])
 
     const {isLoading, hasMore, posts} = usePaginationPost(hookConfig)
 
@@ -29,23 +31,14 @@ function Category({posts: postsByCategory}) {
     )
 }
 
-import {BlogCollection} from '../../../../helpers/'
-
 export async function getStaticProps(context) {
     const {params} = context
-    const category_name = params.cname
-    try {
-        const blogCollection = new BlogCollection()
-        const posts = blogCollection.getBlogsByCategory(category_name)
+    const category_slug = params.cname
+    const categories = await getCategories()
+    const _category = categories.find((c) => c.slug === category_slug)
+    if (!_category) {
         return {
             props: {
-                posts,
-            },
-        }
-    } catch (e) {
-        return {
-            props: {
-                msg: 'server error',
                 posts: [],
             },
             redirect: {
@@ -54,17 +47,18 @@ export async function getStaticProps(context) {
             },
         }
     }
+    const {id} = _category
+    const posts = await getPostsByCategoryId(id)
+    return {
+        props: {
+            posts,
+        },
+    }
 }
 export async function getStaticPaths() {
     try {
-        const blogCollection = new BlogCollection()
-        const categories = blogCollection.categories
-
-        const paths = categories.map((category) => ({
-            params: {
-                cname: encodeURIComponent(category),
-            },
-        }))
+        const categories = await getCategories()
+        const paths = categories.map((category) => ({params: {cname: encodeURIComponent(category.slug)}}))
         return {
             paths: paths,
             fallback: false,
@@ -77,7 +71,6 @@ export async function getStaticPaths() {
     }
 }
 
-import BlogLayout from '../../../../layout/BlogLayout'
 Category.getLayout = function getLayout(page, categories, model) {
     return (
         <BlogLayout categories={categories} model={model}>

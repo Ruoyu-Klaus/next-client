@@ -10,7 +10,7 @@ function Index({posts: originalPosts}) {
         setPageNum(page)
     }
 
-    const hookConfig = useMemo(() => ({pageNum, originalPosts, limit: 9}), [pageNum])
+    const hookConfig = useMemo(() => ({pageNum, originalPosts, limit: 9}), [pageNum, originalPosts])
 
     const {isLoading, hasMore, posts} = usePaginationPost(hookConfig)
 

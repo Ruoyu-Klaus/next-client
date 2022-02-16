@@ -41,11 +41,11 @@ function usePaginationPost(props) {
         setIsLoading(false)
     }
 
-    useEffect(clearDataOnQueryChange, [query])
+    useEffect(clearDataOnQueryChange, [query, originalPosts])
 
     useEffect(() => {
         getPostsByPage()
-    }, [pageNum, query])
+    }, [pageNum, query, originalPosts])
 
     return {posts, isLoading, hasMore, changeSearchValue}
 }
