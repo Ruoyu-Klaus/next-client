@@ -35,6 +35,19 @@ function Header({navArray = []}) {
         [colorMode],
     )
 
+    const renderCategoriesLink = useCallback(
+        () =>
+            navArray.map((item) => {
+                const {id, name, slug} = item
+                return (
+                    <MenuItemLink to={`/blog/post/${encodeURIComponent(slug)}`} key={id}>
+                        <Button variant="link">{name.toUpperCase()}</Button>
+                    </MenuItemLink>
+                )
+            }),
+        [navArray],
+    )
+
     return (
         <Grid
             className="header"
@@ -80,11 +93,7 @@ function Header({navArray = []}) {
                         <MenuItemLink to="/blog">
                             <Button variant="link">{NAVIGATION_HOMEPAGE}</Button>
                         </MenuItemLink>
-                        {navArray.map((item) => (
-                            <MenuItemLink to={`/blog/post/${encodeURIComponent(item)}`} key={item}>
-                                <Button variant="link">{item.toUpperCase()}</Button>
-                            </MenuItemLink>
-                        ))}
+                        {renderCategoriesLink()}
                     </Stack>
                 </Box>
             </GridItem>

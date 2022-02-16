@@ -11,6 +11,7 @@ import dynamic from 'next/dynamic'
 import App from 'next/app'
 import {CursorContextProvider} from '../context/cursor/CursorContext'
 import CanvasLoadingSpinner from '../components/CanvasContainer'
+import {getCategories} from '../services'
 
 const CustomCursor = dynamic(() => import('../components/CustomCursor'), {
     ssr: false,
@@ -20,10 +21,8 @@ const ThreeCanvas = dynamic(() => import('../components/ThreejsCanvas'), {
     loading: () => <CanvasLoadingSpinner />,
 })
 
-function MyApp({Component, pageProps, blogCollection = {}}) {
+function MyApp({Component, pageProps, categories, blogCollection = {}}) {
     const getLayout = Component.getLayout || ((page) => page)
-    const categories = blogCollection.categories
-
     return (
         <ChakraProvider>
             <CursorContextProvider>
@@ -36,10 +35,11 @@ function MyApp({Component, pageProps, blogCollection = {}}) {
 
 MyApp.getInitialProps = async (appContext) => {
     const pageProps = await App.getInitialProps(appContext)
+    const categories = await getCategories()
     try {
         const {BlogCollection} = await import('../helpers/index')
         const blogCollection = new BlogCollection()
-        return {...pageProps, blogCollection}
+        return {...pageProps, blogCollection, categories}
     } catch (e) {
         return {...pageProps, blogCollection: {}}
     }
