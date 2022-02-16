@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import dayjs from 'dayjs'
-import _, {cloneDeep} from 'lodash'
+import _ from 'lodash'
 import Category from './entity/Category'
 import {Blog} from './entity/Blog'
 import {getParsedContentWithTocTree} from './markDownRenderer'
@@ -151,7 +151,7 @@ export const filterPost = (posts, query) => {
 }
 
 export const getFilteredData = (posts, enableSearch, query) => {
-    const _posts = cloneDeep(posts)
+    const _posts = _.cloneDeep(posts)
     if (enableSearch && !query) {
         return []
     }

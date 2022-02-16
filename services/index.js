@@ -4,7 +4,7 @@ const graphqlAPI = process.env.GRAPHCMS_ENDPOINT
 
 export const getPosts = async () => {
     const query = gql`
-        query MyQuery {
+        query GetPosts {
             postsConnection {
                 edges {
                     node {
@@ -39,7 +39,7 @@ export const getPosts = async () => {
 }
 export const getCategories = async () => {
     const query = gql`
-        query MyQuery {
+        query GetCategories {
             categories {
                 id
                 name
@@ -49,4 +49,40 @@ export const getCategories = async () => {
     `
     const result = await request(graphqlAPI, query)
     return result?.categories || []
+}
+
+export const getPostsByCategoryId = async (id) => {
+    const query = gql`
+        query GetPostsByCategory {
+            postsConnection(where: {categories_some: {id: "${id}"}}) {
+                edges {
+                    node {
+                        id
+                        author {
+                            name
+                            picture {
+                                url
+                            }
+                        }
+                        date
+                        excerpt
+                        featured
+                        slug
+                        tags
+                        title
+                        published
+                        categories {
+                            name
+                            slug
+                        }
+                        coverImage {
+                            url
+                        }
+                    }
+                }
+            }
+        }
+    `
+    const result = await request(graphqlAPI, query)
+    return result?.postsConnection?.edges?.map((item) => item.node) || []
 }
