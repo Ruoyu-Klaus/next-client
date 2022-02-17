@@ -144,3 +144,15 @@ export const getPostsByCategoryId = async (id) => {
     const result = await request(graphqlAPI, query, {id})
     return result?.postsConnection?.edges?.map((item) => item.node) || []
 }
+
+export const getTags = async () => {
+    const query = gql`
+        query getTags {
+            posts {
+                tags
+            }
+        }
+    `
+    const result = await request(graphqlAPI, query)
+    return result?.posts || []
+}
