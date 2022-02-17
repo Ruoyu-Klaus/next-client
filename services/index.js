@@ -145,14 +145,43 @@ export const getPostsByCategoryId = async (id) => {
     return result?.postsConnection?.edges?.map((item) => item.node) || []
 }
 
-export const getTags = async () => {
+export const getAdjacentPosts = async (date, slug) => {
     const query = gql`
-        query getTags {
-            posts {
-                tags
+        query GetAdjacentPosts($date: DateTime!, $slug: String!) {
+            next: posts(first: 1, orderBy: date_ASC, where: {slug_not: $slug, AND: {date_gte: $date}}) {
+                title
+                featuredImage {
+                    url
+                }
+                createdAt
+                slug
+                id
+                published
+                featured
+                date
+                categories {
+                    name
+                    slug
+                }
+            }
+            previous: posts(first: 1, orderBy: date_DESC, where: {slug_not: $slug, AND: {date_lte: $date}}) {
+                title
+                featuredImage {
+                    url
+                }
+                createdAt
+                slug
+                id
+                published
+                featured
+                date
+                categories {
+                    name
+                    slug
+                }
             }
         }
     `
-    const result = await request(graphqlAPI, query)
-    return result?.posts || []
+    const result = await request(graphqlAPI, query, {slug, date})
+    return {next: result.next[0], previous: result.previous[0]}
 }
