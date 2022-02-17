@@ -11,6 +11,7 @@ import {Container, Flex} from '@chakra-ui/react'
 import BlogLayout from '../../../layout/BlogLayout'
 import {SEARCH_NOT_FOUND} from '../../../utils/content'
 import {getPosts} from '../../../services'
+import {isProduction} from '../../../helpers/env'
 
 const debouncedChangeHandler = (fn) => _.debounce(fn, 200)
 
@@ -66,7 +67,7 @@ export async function getStaticProps() {
 
     return {
         props: {
-            posts,
+            posts: isProduction ? posts.filter((post) => post.published === true) : posts,
             keywords,
         },
     }

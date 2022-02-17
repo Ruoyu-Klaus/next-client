@@ -3,6 +3,9 @@ import Head from 'next/head'
 
 import PostCardGridList from '../../components/PostCardGridList'
 import usePaginationPost from '../../hooks/usePaginationPost'
+import {getPosts} from '../../services'
+import {isProduction} from '../../helpers/env'
+import BlogLayout from '../../layout/BlogLayout'
 
 function Index({posts: originalPosts}) {
     const [pageNum, setPageNum] = useState(1)
@@ -25,17 +28,14 @@ function Index({posts: originalPosts}) {
     )
 }
 
-import {getPosts} from '../../services'
 export async function getStaticProps() {
     const posts = await getPosts()
     return {
         props: {
-            posts,
+            posts: isProduction ? posts.filter((post) => post.published === true) : posts,
         },
     }
 }
-
-import BlogLayout from '../../layout/BlogLayout'
 
 Index.getLayout = function getLayout(page, categories, model) {
     return (

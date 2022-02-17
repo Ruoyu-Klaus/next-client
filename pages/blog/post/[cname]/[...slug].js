@@ -12,15 +12,11 @@ import BlogLayout from '../../../../layout/BlogLayout'
 import {getPostDetailsBySlug, getPosts, getTagRelatedPosts} from '../../../../services'
 import {getParsedContentWithTocTree} from '../../../../helpers/markDownRenderer'
 import {RELATED_POST_LABEL} from '../../../../utils/content'
+import {isProduction} from '../../../../helpers/env'
 
 const emoji = randomEmoji()
-function Post({post = {}, relatedPosts}) {
-    const router = useRouter()
-
-    const {id, title, coverImage, tags, categories = [], parsedContent, tocTree, date} = post
-    const category = categories[0] || {}
-
-    const relatedPostLink = relatedPosts.map((relatedPost) => {
+const getRelatedPostLink = (relatedPosts) =>
+    relatedPosts.map((relatedPost) => {
         const {categories, slug, id, title, date} = relatedPost
         const category = categories[0]
         return {
@@ -38,9 +34,16 @@ function Post({post = {}, relatedPosts}) {
         }
     })
 
+function Post({post = {}, relatedPosts}) {
+    const router = useRouter()
+    const {id, title, coverImage, tags, categories = [], parsedContent, tocTree, date} = post
+
     useEffect(() => {
         !id && router.push('/blog')
     }, [])
+    const category = categories[0] || {}
+
+    const relatedPostLink = getRelatedPostLink(relatedPosts)
 
     return (
         <>
@@ -80,7 +83,7 @@ function Post({post = {}, relatedPosts}) {
                     />
                     <CustomDivider my={4} text={emoji} dividerWidth="full" />
 
-                    <VStack w={['90%', '80vw', '60vw']} justifyItems={'end'}>
+                    <VStack w={'full'} alignItems={'end'}>
                         <Text>{RELATED_POST_LABEL}</Text>
                         {relatedPostLink.map((payload) => (
                             <LinkToPost payload={payload} key={payload.id} />
@@ -98,6 +101,11 @@ export async function getStaticProps(context) {
         const {params} = context
         const [slug] = params.slug
         const post = await getPostDetailsBySlug(slug)
+        if (isProduction && post.published === false) {
+            return {
+                props: {},
+            }
+        }
         const relatedPosts = await getTagRelatedPosts(slug, post.tags)
         const {parsedContent, tocTree} = getParsedContentWithTocTree(post?.contentMarkdown)
         return {
@@ -115,7 +123,8 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
     try {
-        const posts = await getPosts()
+        let posts = await getPosts()
+        posts = isProduction ? posts.filter((post) => post.published === true) : posts
         const paths = posts.map(({slug, categories}) => ({
             params: {
                 cname: categories[0]?.slug,
