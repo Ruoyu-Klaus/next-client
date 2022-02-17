@@ -37,24 +37,22 @@ function CustomCursor() {
             document.removeEventListener('mouseup', mouseUpHandler)
         }
     }, [])
+
+    useEffect(() => {
+        if (ringRef.current) {
+            ringRef.current.style.transform = `translate(${x - ringWidth / 2}px, ${y - ringHeight / 2}px) scale(${isActive ? 1.5 : 1})`
+        }
+        if (dotRef.current) {
+            dotRef.current.style.transform = `translate(${x - dotWidth / 2}px, ${y - dotHeight / 2}px)`
+        }
+    }, [x, y, isActive])
+
     return (
         <>
-            <div
-                ref={ringRef}
-                style={{
-                    transform: `translate(${x - ringWidth / 2}px, ${y - ringHeight / 2}px) scale(${isActive ? 1.5 : 1})`,
-                }}
-                className="ringContainer"
-            >
+            <div ref={ringRef} className="ringContainer">
                 <div className="ring" />
             </div>
-            <div
-                ref={dotRef}
-                style={{
-                    transform: `translate(${x - dotWidth / 2}px, ${y - dotHeight / 2}px)`,
-                }}
-                className={'dot ' + cursorType}
-            />
+            <div ref={dotRef} className={'dot ' + cursorType} />
         </>
     )
 }

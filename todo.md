@@ -9,7 +9,13 @@
 - [x] previous post & next post
 - [ ] extract constant to replace hard code content
 - [ ] image pre-loading
+- [ ] comments
+- [ ] author page
 * Responsiveness
 
 - [x] remove cursor decoration for mobile
 - [x] adjust theme mode position for mobile
+
+* Performance
+
+- [ ] custom cursor translate CSS delays while rendering 3d modal 
