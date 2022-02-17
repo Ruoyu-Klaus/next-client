@@ -21,12 +21,12 @@ const ThreeCanvas = dynamic(() => import('../components/ThreejsCanvas'), {
     loading: () => <CanvasLoadingSpinner />,
 })
 
-function MyApp({Component, pageProps, categories, blogCollection = {}}) {
+function MyApp({Component, pageProps, categories}) {
     const getLayout = Component.getLayout || ((page) => page)
     return (
         <ChakraProvider>
             <CursorContextProvider>
-                {getLayout(<Component {...pageProps} blogCollection={blogCollection} />, categories, <ThreeCanvas />)}
+                {getLayout(<Component {...pageProps} />, categories, <ThreeCanvas />)}
                 <CustomCursor />
             </CursorContextProvider>
         </ChakraProvider>
@@ -37,11 +37,9 @@ MyApp.getInitialProps = async (appContext) => {
     const pageProps = await App.getInitialProps(appContext)
     const categories = await getCategories()
     try {
-        const {BlogCollection} = await import('../helpers/index')
-        const blogCollection = new BlogCollection()
-        return {...pageProps, blogCollection, categories}
+        return {...pageProps, categories}
     } catch (e) {
-        return {...pageProps, blogCollection: {}}
+        return {...pageProps}
     }
 }
 

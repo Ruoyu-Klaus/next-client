@@ -6,16 +6,15 @@ import PostCardGridList from '../../../components/PostCardGridList'
 import CustomDivider from '../../../components/CustomDivider'
 import usePaginationPost from '../../../hooks/usePaginationPost'
 
-import {debounce} from 'lodash'
+import _ from 'lodash'
 import {Container, Flex} from '@chakra-ui/react'
 import BlogLayout from '../../../layout/BlogLayout'
 import {SEARCH_NOT_FOUND} from '../../../utils/content'
+import {getPosts} from '../../../services'
 
-const debouncedChangeHandler = (fn) => debounce(fn, 200)
+const debouncedChangeHandler = (fn) => _.debounce(fn, 200)
 
-function Index({blogCollection}) {
-    const {blogs: originalPosts, tags: keywords} = blogCollection
-
+function Index({posts: originalPosts, keywords}) {
     const [pageNum, setPageNum] = useState(1)
     const getCurrentPageNum = useCallback((page) => setPageNum(page), [])
 
@@ -58,8 +57,18 @@ function Index({blogCollection}) {
 }
 
 export async function getStaticProps() {
+    const posts = await getPosts()
+    const tags = _.map(posts, 'tags').flat(1)
+    const keywords = _.values(_.groupBy(tags)).map((tag) => ({
+        text: tag[0],
+        value: tag.length,
+    }))
+
     return {
-        props: {},
+        props: {
+            posts,
+            keywords,
+        },
     }
 }
 

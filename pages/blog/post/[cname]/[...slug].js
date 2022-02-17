@@ -2,7 +2,7 @@ import {Box, Container, Flex, Heading, HStack, Image, Tag, Text, VStack} from '@
 import dayjs from 'dayjs'
 import Head from 'next/head'
 import {useRouter} from 'next/router'
-import {useEffect, useState} from 'react'
+import {useEffect} from 'react'
 import BackToTop from '../../../../components/BackToTop'
 import CustomDivider from '../../../../components/CustomDivider'
 import LinkToPost from '../../../../components/LinkToPost'
@@ -13,9 +13,9 @@ import {getPostDetailsBySlug, getPosts, getTagRelatedPosts} from '../../../../se
 import {getParsedContentWithTocTree} from '../../../../helpers/markDownRenderer'
 import {RELATED_POST_LABEL} from '../../../../utils/content'
 
+const emoji = randomEmoji()
 function Post({post = {}, relatedPosts}) {
     const router = useRouter()
-    const [emoji] = useState(randomEmoji())
 
     const {id, title, coverImage, tags, categories = [], parsedContent, tocTree, date} = post
     const category = categories[0] || {}
