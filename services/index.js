@@ -5,7 +5,7 @@ const graphqlAPI = process.env.GRAPHCMS_ENDPOINT
 export const getPosts = async () => {
     const query = gql`
         query GetPosts {
-            postsConnection {
+            postsConnection(orderBy: date_DESC) {
                 edges {
                     node {
                         date
@@ -37,6 +37,64 @@ export const getPosts = async () => {
     const result = await request(graphqlAPI, query)
     return result?.postsConnection?.edges?.map((item) => item.node) || []
 }
+
+export const getTagRelatedPosts = async (slug, tags) => {
+    const query = gql`
+        query getTagRelatedPosts($slug: String!, $tags: [String!]) {
+            posts(where: {slug_not: $slug, AND: {tags_contains_some: $tags}}, last: 3) {
+                id
+                title
+                slug
+                published
+                featured
+                date
+                coverImage {
+                    url
+                }
+                categories {
+                    name
+                    slug
+                }
+            }
+        }
+    `
+    const result = await request(graphqlAPI, query, {slug, tags})
+    return result?.posts || []
+}
+
+export const getPostDetailsBySlug = async (slug) => {
+    const query = gql`
+        query getPostDetailsBySlug($slug: String!) {
+            post(where: {slug: $slug}) {
+                date
+                excerpt
+                id
+                published
+                slug
+                tags
+                title
+                author {
+                    name
+                    picture {
+                        url
+                    }
+                }
+                featured
+                categories {
+                    name
+                    slug
+                }
+                coverImage {
+                    url
+                }
+                contentMarkdown
+            }
+        }
+    `
+    const result = await request(graphqlAPI, query, {slug})
+    return result?.post || {}
+}
+
 export const getCategories = async () => {
     const query = gql`
         query GetCategories {
@@ -53,8 +111,8 @@ export const getCategories = async () => {
 
 export const getPostsByCategoryId = async (id) => {
     const query = gql`
-        query GetPostsByCategory {
-            postsConnection(where: {categories_some: {id: "${id}"}}) {
+        query GetPostsByCategory($id: ID!) {
+            postsConnection(where: {categories_some: {id: $id}}) {
                 edges {
                     node {
                         id
@@ -83,6 +141,6 @@ export const getPostsByCategoryId = async (id) => {
             }
         }
     `
-    const result = await request(graphqlAPI, query)
+    const result = await request(graphqlAPI, query, {id})
     return result?.postsConnection?.edges?.map((item) => item.node) || []
 }

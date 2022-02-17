@@ -7,17 +7,37 @@ import BackToTop from '../../../../components/BackToTop'
 import CustomDivider from '../../../../components/CustomDivider'
 import LinkToPost from '../../../../components/LinkToPost'
 import Toc from '../../../../components/Toc'
-import {BlogCollection, randomEmoji} from '../../../../helpers'
+import {randomEmoji} from '../../../../helpers'
 import BlogLayout from '../../../../layout/BlogLayout'
-import {NEXT_POST_LABEL, PREVIOUS_POST_LABEL} from '../../../../utils/content'
+import {getPostDetailsBySlug, getPosts, getTagRelatedPosts} from '../../../../services'
+import {getParsedContentWithTocTree} from '../../../../helpers/markDownRenderer'
+import {RELATED_POST_LABEL} from '../../../../utils/content'
 
-function Post({post = {}, previousPath, nextPath}) {
+function Post({post = {}, relatedPosts}) {
     const router = useRouter()
     const [emoji] = useState(randomEmoji())
 
-    const {id, title, coverImage, tags, category, content, date, tocTree} = post
-    // const { cname, slug } = router.searchValue
-    // const id = slug[0]
+    const {id, title, coverImage, tags, categories = [], parsedContent, tocTree, date} = post
+    const category = categories[0] || {}
+
+    const relatedPostLink = relatedPosts.map((relatedPost) => {
+        const {categories, slug, id, title, date} = relatedPost
+        const category = categories[0]
+        return {
+            href: {
+                pathname: `/blog/post/[cname]/[...slug]`,
+                query: {
+                    cname: category.slug,
+                    slug: [slug],
+                },
+            },
+            id: id,
+            title: title,
+            as: `/blog/post/${category.slug}/${slug}`,
+            date: date,
+        }
+    })
+
     useEffect(() => {
         !id && router.push('/blog')
     }, [])
@@ -32,7 +52,7 @@ function Post({post = {}, previousPath, nextPath}) {
             <Container maxW="container.xl" my={8}>
                 <CustomDivider my={4} text={emoji} dividerWidth="full" />
                 <VStack spacing="4">
-                    <Image w={['90%', '80vw', '60vw']} maxW="600px" objectFit="contain" src={coverImage} />
+                    <Image w={['90%', '80vw', '60vw']} maxW="600px" objectFit="contain" src={coverImage?.url} />
                     <HStack spacing={4}>
                         {tags?.map((tag) => (
                             <Tag key={tag}>{tag}</Tag>
@@ -43,8 +63,8 @@ function Post({post = {}, previousPath, nextPath}) {
                     </Box>
 
                     <Flex w={['90%', '80vw', '60vw']} maxW="1000px" gap={4}>
-                        <Text fontSize="0.8rem">{category}</Text>
-                        <Text fontSize="0.8rem">{dayjs(date).format('MM-DD, YYYY')}</Text>
+                        <Text fontSize="0.8rem">{category.name}</Text>
+                        <Text fontSize="0.8rem">{date && dayjs(date).format('MM-DD, YYYY')}</Text>
                     </Flex>
 
                     <Box w={['90%', '80vw', '60vw']} maxW="1000px" className="markdown-body">
@@ -56,14 +76,16 @@ function Post({post = {}, previousPath, nextPath}) {
                         maxW="1000px"
                         className="markdown-body"
                         id="content"
-                        dangerouslySetInnerHTML={{__html: content}}
+                        dangerouslySetInnerHTML={{__html: parsedContent}}
                     />
                     <CustomDivider my={4} text={emoji} dividerWidth="full" />
 
-                    <Flex w={['auto', 'full']} justifyContent={['center', 'space-between']} flexDir={['column', 'row']}>
-                        <LinkToPost payload={previousPath} />
-                        <LinkToPost payload={nextPath} />
-                    </Flex>
+                    <VStack w={['90%', '80vw', '60vw']} justifyItems={'end'}>
+                        <Text>{RELATED_POST_LABEL}</Text>
+                        {relatedPostLink.map((payload) => (
+                            <LinkToPost payload={payload} key={payload.id} />
+                        ))}
+                    </VStack>
                 </VStack>
                 <BackToTop />
             </Container>
@@ -74,37 +96,12 @@ function Post({post = {}, previousPath, nextPath}) {
 export async function getStaticProps(context) {
     try {
         const {params} = context
-        const category_name = params.cname
-        const [id] = params.slug
-
-        const blogCollection = new BlogCollection()
-        const linkPaths = blogCollection.getAllPostPaths(true)
-        const post = blogCollection.getBlogByCategoryAndId(category_name, id)
-
-        if (!post) {
-            return {
-                props: {post: {}},
-            }
-        }
-
-        const currentPathIndex = linkPaths.findIndex((path) => path.id === post.id)
-        let previousPath = null,
-            nextPath = null
-        if (currentPathIndex !== 0) {
-            previousPath = linkPaths[currentPathIndex - 1]
-            previousPath.label = PREVIOUS_POST_LABEL
-        }
-        if (currentPathIndex !== linkPaths.length - 1) {
-            nextPath = linkPaths[currentPathIndex + 1]
-            nextPath.label = NEXT_POST_LABEL
-        }
-
+        const [slug] = params.slug
+        const post = await getPostDetailsBySlug(slug)
+        const relatedPosts = await getTagRelatedPosts(slug, post.tags)
+        const {parsedContent, tocTree} = getParsedContentWithTocTree(post?.contentMarkdown)
         return {
-            props: {
-                post,
-                previousPath,
-                nextPath,
-            },
+            props: {post: {...post, parsedContent, tocTree}, relatedPosts},
         }
     } catch (error) {
         return {
@@ -118,8 +115,14 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
     try {
-        const blogCollection = new BlogCollection()
-        const paths = blogCollection.getAllPostPaths()
+        const posts = await getPosts()
+        const paths = posts.map(({slug, categories}) => ({
+            params: {
+                cname: categories[0]?.slug,
+                slug: [slug],
+            },
+        }))
+
         return {
             paths: paths,
             fallback: false,
