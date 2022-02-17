@@ -5,6 +5,7 @@ import Head from 'next/head'
 import PostCardGridList from '../../../../components/PostCardGridList'
 import usePaginationPost from '../../../../hooks/usePaginationPost'
 import {getCategories, getPostsByCategoryId} from '../../../../services'
+import {isProduction} from '../../../../helpers/env'
 import BlogLayout from '../../../../layout/BlogLayout'
 
 function Category({posts: originalPosts}) {
@@ -51,10 +52,11 @@ export async function getStaticProps(context) {
     const posts = await getPostsByCategoryId(id)
     return {
         props: {
-            posts,
+            posts: isProduction ? posts.filter((post) => post.published === true) : posts,
         },
     }
 }
+
 export async function getStaticPaths() {
     try {
         const categories = await getCategories()
