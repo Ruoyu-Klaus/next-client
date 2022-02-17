@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Toc = ({tocTree}) => (
+const Toc = ({tocTree = []}) => (
     <ul>
         {tocTree.map((item) => (
             <li key={item.anchor}>

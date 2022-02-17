@@ -16,7 +16,7 @@ PostCard.propTypes = {
 
 function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
     const {id, author, title, date, excerpt, coverImage, categories = [], tags = [], slug} = postDetails
-    const category = categories.unshift()
+    const category = categories[0]
     if (!id) return <></>
 
     const postCover = useMemo(

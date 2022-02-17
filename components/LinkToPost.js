@@ -9,8 +9,8 @@ const LinkToPost = ({payload}) => {
     return (
         <NextLink href={payload.href} as={payload.as}>
             <Link>
-                <Text fontSize="0.8rem">
-                    {payload.label}: {payload.title}
+                <Text fontSize="1rem">
+                    {payload.title}--{payload.date}
                 </Text>
             </Link>
         </NextLink>
