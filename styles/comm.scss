@@ -32,15 +32,11 @@ html body {
   blockquote:after,
   q:before,
   q:after {
-    content: '';
     content: none;
   }
   table {
     border-collapse: collapse;
     border-spacing: 0;
-  }
-  a {
-    cursor: none !important;
   }
   iframe {
     margin: 0 auto;
@@ -48,7 +44,6 @@ html body {
   .noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
-    -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;

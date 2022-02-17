@@ -18,19 +18,14 @@ function CustomCursor() {
     const {cursorType} = useContext(CursorContext)
     const [isActive, setIsActive] = useState(false)
 
-    let ringWidth
-    let ringHeight
-    let dotWidth
-    let dotHeight
-    ;[ringWidth, ringHeight] = ringRef.current
-        ? getDomWidthAndHeight(ringRef.current)
-        : ([0, 0][(dotWidth, dotHeight)] = dotRef.current ? getDomWidthAndHeight(dotRef.current) : [0, 0])
+    const [ringWidth, ringHeight] = ringRef.current ? getDomWidthAndHeight(ringRef.current) : [0, 0]
+    const [dotWidth, dotHeight] = dotRef.current ? getDomWidthAndHeight(dotRef.current) : [0, 0]
 
-    const mouseDownHandler = (e) => {
+    const mouseDownHandler = () => {
         setIsActive(true)
     }
 
-    const mouseUpHandler = (e) => {
+    const mouseUpHandler = () => {
         setIsActive(false)
     }
 
