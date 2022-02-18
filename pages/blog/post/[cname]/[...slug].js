@@ -84,10 +84,14 @@ function Post({post = {}, relatedPosts}) {
                     <CustomDivider my={4} text={emoji} dividerWidth="full" />
 
                     <VStack w={'full'} alignItems={'end'}>
-                        <Text>{RELATED_POST_LABEL}</Text>
-                        {relatedPostLink.map((payload) => (
-                            <LinkToPost payload={payload} key={payload.id} />
-                        ))}
+                        {relatedPostLink.length && (
+                            <>
+                                <Text>{RELATED_POST_LABEL}</Text>
+                                {relatedPostLink.map((payload) => (
+                                    <LinkToPost payload={payload} key={payload.id} />
+                                ))}
+                            </>
+                        )}
                     </VStack>
                 </VStack>
                 <BackToTop />

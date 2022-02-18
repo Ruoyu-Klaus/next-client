@@ -7,7 +7,7 @@
 - [x] post MD parse highlight not right
 - [x] strange post transition-in
 - [x] previous post & next post
-- [ ] extract constant to replace hard code content
+- [x] extract constant to replace hard code content
 - [ ] image pre-loading
 - [ ] comments
 - [ ] author page

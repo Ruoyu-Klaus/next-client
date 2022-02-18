@@ -3,7 +3,7 @@ import useMousePosition from '../hooks/useMousePosition'
 import {CursorContext} from '../context/cursor/CursorContext'
 import {isMobile} from 'react-device-detect'
 
-const getDomWidthAndHeight = (dom) => {
+const getWindowSize = (dom) => {
     return [dom.offsetWidth, dom.offsetHeight]
 }
 
@@ -18,8 +18,8 @@ function CustomCursor() {
     const {cursorType} = useContext(CursorContext)
     const [isActive, setIsActive] = useState(false)
 
-    const [ringWidth, ringHeight] = ringRef.current ? getDomWidthAndHeight(ringRef.current) : [0, 0]
-    const [dotWidth, dotHeight] = dotRef.current ? getDomWidthAndHeight(dotRef.current) : [0, 0]
+    const [ringWidth, ringHeight] = ringRef.current ? getWindowSize(ringRef.current) : [0, 0]
+    const [dotWidth, dotHeight] = dotRef.current ? getWindowSize(dotRef.current) : [0, 0]
 
     const mouseDownHandler = () => {
         setIsActive(true)
