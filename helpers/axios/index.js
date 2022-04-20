@@ -1,12 +1,10 @@
 import axios from 'axios'
-import { API } from '../../config/default.json'
-import { isProduction } from '../env'
+import {BASE_API_URL} from '../env'
 
-const baseURL = isProduction ? process.env.BASE_URL : API.baseUrl
 const Axios = axios.create({
-  baseURL: baseURL,
-  timeout: 10000,
-  withCredentials: true,
+    baseURL: BASE_API_URL,
+    timeout: 10000,
+    withCredentials: true,
 })
 
 /*
@@ -14,18 +12,18 @@ const Axios = axios.create({
  * TOKEN校验（JWT）：接收服务器返回的token
  */
 Axios.interceptors.request.use(
-  config => {
-    try {
-      // config.headers.Authorization = getToken();
-    } catch (err) {
-      return Promise.reject(error)
-    } finally {
-      return config
-    }
-  },
-  error => {
-    return Promise.reject(error)
-  }
+    (config) => {
+        try {
+            // config.headers.Authorization = getToken();
+        } catch (err) {
+            return Promise.reject(error)
+        } finally {
+            return config
+        }
+    },
+    (error) => {
+        return Promise.reject(error)
+    },
 )
 
 /*
@@ -33,12 +31,12 @@ Axios.interceptors.request.use(
  */
 
 Axios.interceptors.response.use(
-  response => {
-    return response.data
-  },
-  error => {
-    return Promise.reject(error)
-  }
+    (response) => {
+        return response.data
+    },
+    (error) => {
+        return Promise.reject(error)
+    },
 )
 
 export default Axios
