@@ -1,6 +1,5 @@
 import {Box, Container, Flex, Heading, HStack, Image, Tag, Text, VStack} from '@chakra-ui/react'
 import dayjs from 'dayjs'
-import Head from 'next/head'
 import {useRouter} from 'next/router'
 import {useEffect} from 'react'
 import BackToTop from '../../../../components/BackToTop'
@@ -13,6 +12,7 @@ import {getPostDetailsBySlug, getPosts, getTagRelatedPosts} from '../../../../se
 import {getParsedContentWithTocTree} from '../../../../helpers/markDownRenderer'
 import {RELATED_POST_LABEL} from '../../../../utils/content'
 import {isProduction} from '../../../../helpers/env'
+import HTML_Head from '../../../../components/HTML_Head'
 
 const emoji = randomEmoji()
 const getRelatedPostLink = (relatedPosts) =>
@@ -47,11 +47,7 @@ function Post({post = {}, relatedPosts}) {
 
     return (
         <>
-            <Head>
-                <title>{title} | Ruoyu</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-
+            <HTML_Head title={title} />
             <Container maxW="container.xl" my={8}>
                 <CustomDivider my={4} text={emoji} dividerWidth="full" />
                 <VStack spacing="4">

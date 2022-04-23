@@ -1,12 +1,12 @@
 import {useRouter} from 'next/router'
 import {useMemo, useState} from 'react'
-import Head from 'next/head'
 
 import PostCardGridList from '../../../../components/PostCardGridList'
 import usePaginationPost from '../../../../hooks/usePaginationPost'
 import {getCategories, getPostsByCategoryId} from '../../../../services'
 import {isProduction} from '../../../../helpers/env'
 import BlogLayout from '../../../../layout/BlogLayout'
+import HTML_Head from '../../../../components/HTML_Head'
 
 function Category({posts: originalPosts}) {
     const router = useRouter()
@@ -23,10 +23,7 @@ function Category({posts: originalPosts}) {
 
     return (
         <>
-            <Head>
-                <title>{cname} | Ruoyu</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+            <HTML_Head title={cname} />
             <PostCardGridList posts={posts} isLoading={isLoading} hasMore={hasMore} getCurrentPageNum={getCurrentPageNum} />
         </>
     )

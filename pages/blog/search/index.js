@@ -1,5 +1,4 @@
 import {useCallback, useMemo, useState} from 'react'
-import Head from 'next/head'
 
 import SearchBar from '../../../components/SearchBar'
 import PostCardGridList from '../../../components/PostCardGridList'
@@ -12,6 +11,7 @@ import BlogLayout from '../../../layout/BlogLayout'
 import {SEARCH_NOT_FOUND} from '../../../utils/content'
 import {getPosts} from '../../../services'
 import {isProduction} from '../../../helpers/env'
+import HTML_Head from '../../../components/HTML_Head'
 
 const debouncedChangeHandler = (fn) => _.debounce(fn, 200)
 
@@ -42,10 +42,7 @@ function Index({posts: originalPosts, keywords}) {
 
     return (
         <>
-            <Head>
-                <title>搜索 | Ruoyu</title>
-                <link rel="icon" href="./favicon.ico" />
-            </Head>
+            <HTML_Head title={'搜索'} />
             <Container maxW="container.xl" mt={8}>
                 <Flex flexDir="column" justify="center">
                     {searchBar}

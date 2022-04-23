@@ -1,30 +1,30 @@
-import Head from 'next/head'
 import NextLink from 'next/link'
-import {useRef, useContext} from 'react'
+import {useContext, useRef} from 'react'
 import {CursorContext} from '../context/cursor/CursorContext'
 
 import styles from '../styles/Pages/index.module.scss'
 
 import {
-    Container,
     Center,
-    HStack,
-    VStack,
+    Container,
     Drawer,
-    DrawerOverlay,
+    DrawerBody,
     DrawerCloseButton,
     DrawerContent,
-    DrawerBody,
     DrawerFooter,
-    useDisclosure,
-    Text,
+    DrawerOverlay,
+    HStack,
     Icon,
     Link,
+    Text,
+    useDisclosure,
+    VStack,
 } from '@chakra-ui/react'
 
 import {VscGithubAlt, VscMail} from 'react-icons/vsc'
+import HTML_Head from '../components/HTML_Head'
 
-function Cover() {
+function Index() {
     const {setCursorType} = useContext(CursorContext)
     const rightMenuRef = useRef()
 
@@ -32,11 +32,7 @@ function Cover() {
 
     return (
         <>
-            <Head>
-                <title>首页 | Ruoyu</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-
+            <HTML_Head title={'首页'} />
             <Container maxW={'100vw'} p={0}>
                 <Center w="100vw" h="100vh" bgPosition="center" bgRepeat="no-repeat" bgSize="cover" bgImage={'url(./SaoPaulo.jpg)'}>
                     <VStack className="noselect">
@@ -98,4 +94,4 @@ function Cover() {
     )
 }
 
-export default Cover
+export default Index

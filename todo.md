@@ -8,7 +8,6 @@
 - [x] strange post transition-in
 - [x] previous post & next post
 - [x] extract constant to replace hard code content
-- [ ] image pre-loading
 - [ ] comments
 - [ ] author page
 * Responsiveness
