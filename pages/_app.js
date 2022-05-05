@@ -8,10 +8,10 @@ import 'tippy.js/animations/scale.css'
 import {ChakraProvider} from '@chakra-ui/react'
 
 import dynamic from 'next/dynamic'
-import App from 'next/app'
 import {CursorContextProvider} from '../context/cursor/CursorContext'
 import CanvasLoadingSpinner from '../components/CanvasContainer'
-import {getCategories} from '../services'
+
+import App from 'next/app'
 
 const CustomCursor = dynamic(() => import('../components/CustomCursor'), {
     ssr: false,
@@ -21,12 +21,13 @@ const ThreeCanvas = dynamic(() => import('../components/ThreejsCanvas'), {
     loading: () => <CanvasLoadingSpinner />,
 })
 
-function MyApp({Component, pageProps, categories}) {
+function MyApp({Component, pageProps, blogCollection = {}}) {
     const getLayout = Component.getLayout || ((page) => page)
+    const categories = blogCollection.categories
     return (
         <ChakraProvider>
             <CursorContextProvider>
-                {getLayout(<Component {...pageProps} />, categories, <ThreeCanvas />)}
+                {getLayout(<Component {...pageProps} blogCollection={blogCollection} />, categories, <ThreeCanvas />)}
                 <CustomCursor />
             </CursorContextProvider>
         </ChakraProvider>
@@ -35,11 +36,12 @@ function MyApp({Component, pageProps, categories}) {
 
 MyApp.getInitialProps = async (appContext) => {
     const pageProps = await App.getInitialProps(appContext)
-    const categories = await getCategories()
     try {
-        return {...pageProps, categories}
+        const {BlogCollection} = await import('../helpers/index')
+        const blogCollection = new BlogCollection()
+        return {...pageProps, blogCollection}
     } catch (e) {
-        return {...pageProps}
+        return {...pageProps, blogCollection: {}}
     }
 }
 
