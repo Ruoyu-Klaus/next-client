@@ -12,8 +12,10 @@ export class BlogCollection {
     rootPath = ''
     categories = []
     tags = []
+    _tags = []
     blogs = []
     blogsTree = []
+    tagWithCount = []
 
     constructor(rootPath = 'posts') {
         if (BlogCollection._instance) {
@@ -24,8 +26,9 @@ export class BlogCollection {
         this.categories = new Category(rootPath).categories
         this.blogs = this.getBlogsSortedByDate(rootPath).map((blog) => new Blog(blog))
         this.tags = this.getTagsWithWeight()
-        this.getBlogsTree()
-        console.log(this.blogsTree)
+        this.blogsTree = this.getBlogsTree()
+        this.tagWithCount = this.countTags(this._tags.flat(1))
+        console.log(this.tagWithCount)
     }
 
     getBlogsByCategory(category) {
@@ -45,20 +48,23 @@ export class BlogCollection {
     }
 
     getBlogsTree() {
-        this.categories.forEach((category) => {
+        return this.categories.map((category) => {
             let dirPath = `${this.rootPath}/${category}`
-            const recursion = (p) => {
-                const fileNames = fs.readdirSync(path.join(p))
-                return fileNames.map((fileName) => {
+            const recursion = (subTree, absPath) => {
+                const fileNames = fs.readdirSync(path.join(absPath))
+
+                fileNames.forEach((fileName) => {
                     if (fileName.includes('.md')) {
-                        return fileName
+                        subTree.push(this.parsedFrontMatter(fileName, absPath))
+                        // subTree.push(fileName)
                     } else {
-                        dirPath = `${p}/${fileName}`
-                        return {children: recursion(dirPath)}
+                        dirPath = `${absPath}/${fileName}`
+                        subTree.push({[fileName]: recursion([], dirPath)})
                     }
                 })
+                return subTree
             }
-            this.blogsTree.push({[category]: recursion(dirPath)})
+            return {[category]: recursion([], dirPath)}
         })
     }
 
@@ -99,6 +105,28 @@ export class BlogCollection {
 
     getTagsWithWeight() {
         const tags = _.map(this.blogs, 'tags').flat(1)
+        return _.values(_.groupBy(tags)).map((tag) => ({
+            text: tag[0],
+            value: tag.length,
+        }))
+    }
+
+    parsedFrontMatter(fileName, dirPath) {
+        const slug = fileName.replace(/\.md$/, '')
+        const markdownWithMeta = fs.readFileSync(path.join(`${dirPath}/${fileName}`), 'utf-8')
+        const {data: frontMatter, content} = matter(markdownWithMeta)
+        const coverImage = frontMatter.cover ?? '../cover_placeholder.png'
+        frontMatter.tags && this._tags.push(frontMatter.tags)
+        return {
+            id: slug,
+            content,
+            dirPath,
+            coverImage,
+            ...frontMatter,
+        }
+    }
+
+    countTags(tags) {
         return _.values(_.groupBy(tags)).map((tag) => ({
             text: tag[0],
             value: tag.length,
