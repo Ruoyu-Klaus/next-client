@@ -12,6 +12,7 @@ import {CursorContextProvider} from '../context/cursor/CursorContext'
 import CanvasLoadingSpinner from '../components/CanvasContainer'
 
 import App from 'next/app'
+import categories from '../_posts/categories.json'
 
 const CustomCursor = dynamic(() => import('../components/CustomCursor'), {
     ssr: false,
@@ -23,7 +24,6 @@ const ThreeCanvas = dynamic(() => import('../components/ThreejsCanvas'), {
 
 function MyApp({Component, pageProps, blogCollection = {}}) {
     const getLayout = Component.getLayout || ((page) => page)
-    const categories = blogCollection.categories
     return (
         <ChakraProvider>
             <CursorContextProvider>
