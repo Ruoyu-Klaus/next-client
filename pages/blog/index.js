@@ -4,13 +4,14 @@ import Head from 'next/head'
 import PostCardGridList from '../../components/PostCardGridList'
 import usePaginationPost from '../../hooks/usePaginationPost'
 import BlogLayout from '../../layout/BlogLayout'
+import {getAllBlogs} from '../../helpers'
 
-function Index({blogCollection}) {
+function Index() {
     const [pageNum, setPageNum] = useState(1)
     const getCurrentPageNum = (page) => {
         setPageNum(page)
     }
-    const originalPosts = blogCollection.blogs
+    const originalPosts = getAllBlogs()
 
     const hookConfig = useMemo(() => ({pageNum, originalPosts, limit: 12}), [pageNum])
 

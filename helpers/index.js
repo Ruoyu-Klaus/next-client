@@ -8,6 +8,25 @@ import Category from './entity/Category'
 import {Blog} from './entity/Blog'
 import {getParsedContentWithTocTree} from './markDownRenderer'
 
+import blogCollection from '../_posts/blogCollection.json'
+
+export const getAllBlogs = () => {
+    const blogs = []
+    const recursion = (arr) => {
+        arr.forEach((item) => {
+            if (item.id) {
+                blogs.push(parseMarkdownContent(item))
+            } else {
+                const category = Object.keys(item)[0]
+                recursion(item[category])
+            }
+        })
+    }
+    recursion(blogCollection)
+    console.log(blogs)
+    return blogs
+}
+
 export class BlogCollection {
     rootPath = ''
     categories = []
