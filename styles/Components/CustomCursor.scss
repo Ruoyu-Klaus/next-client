@@ -2,10 +2,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 80px;
-  height: 80px;
   z-index: 9999;
-
   transition: .2s ease-out;
   pointer-events: none;
   .ring {
@@ -15,6 +12,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
     border: 3px solid rgba(31, 30, 30, 0.808);
     border-radius: 50%;
     will-change: width, height, transform, border;
@@ -105,16 +103,4 @@
     }
     
   }
-  &.pointup{
-    width: fit-content;
-    height: fit-content;
-    &::after{
-      font-size:1rem;
-      content:'👆';
-      pointer-events: none;
-    }
-    
-  }
-  
-  
 }
