@@ -13,7 +13,7 @@
 /out/
 
 # post cache
-_cachePosts
+_posts
 
 # production
 /build
