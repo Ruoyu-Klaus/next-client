@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import dayjs from 'dayjs'
-import _, {cloneDeep} from 'lodash'
+import _ from 'lodash'
 import Category from './entity/Category'
 import {Blog} from './entity/Blog'
 import {getParsedContentWithTocTree} from './markDownRenderer'
@@ -23,7 +23,6 @@ export const getAllBlogs = () => {
         })
     }
     recursion(blogCollection)
-    console.log(blogs)
     return blogs
 }
 
@@ -133,27 +132,6 @@ export const serializeContent = (content) => {
     } catch (error) {
         throw new Error(error)
     }
-}
-
-export const filterPost = (posts, query) => {
-    if (!query) return posts
-    const _query = query.toLowerCase()
-    return posts.filter((post) => {
-        return (
-            post.title.toLowerCase().includes(_query) ||
-            post.tags.join(' ').toLowerCase().includes(_query) ||
-            post.excerpt.toLowerCase().includes(_query) ||
-            post.category.toLowerCase().includes(_query)
-        )
-    })
-}
-
-export const getFilteredData = (posts, enableSearch, query) => {
-    const _posts = cloneDeep(posts)
-    if (enableSearch && !query) {
-        return []
-    }
-    return filterPost(_posts, query)
 }
 
 export function randomEmoji() {

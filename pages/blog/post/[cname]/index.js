@@ -4,8 +4,8 @@ import Head from 'next/head'
 
 import PostCardGridList from '../../../../components/PostCardGridList'
 import usePaginationPost from '../../../../hooks/usePaginationPost'
-import {getCategories, getPostsByCategoryId} from '../../../../services'
-import {isProduction} from '../../../../helpers/env'
+import categories from '../../../../_posts/categories.json'
+import {getAllBlogs} from '../../../../helpers/'
 import BlogLayout from '../../../../layout/BlogLayout'
 
 function Category({posts: originalPosts}) {
@@ -17,9 +17,8 @@ function Category({posts: originalPosts}) {
     const getCurrentPageNum = (page) => {
         setPageNum(page)
     }
-    const hookConfig = useMemo(() => ({pageNum, originalPosts, limit: 9}), [pageNum, originalPosts])
-
-    const {isLoading, hasMore, posts} = usePaginationPost(hookConfig)
+    const hookConfig = useMemo(() => ({pageNum, limit: 9}), [pageNum])
+    const {isLoading, hasMore, posts} = usePaginationPost({...hookConfig, originalPosts})
 
     return (
         <>
@@ -34,12 +33,18 @@ function Category({posts: originalPosts}) {
 
 export async function getStaticProps(context) {
     const {params} = context
-    const category_slug = params.cname
-    const categories = await getCategories()
-    const _category = categories.find((c) => c.slug === category_slug)
-    if (!_category) {
+    const category_name = params.cname
+    try {
+        const posts = getAllBlogs().filter((blog) => blog.category === category_name)
         return {
             props: {
+                posts,
+            },
+        }
+    } catch (e) {
+        return {
+            props: {
+                msg: 'server error',
                 posts: [],
             },
             redirect: {
@@ -48,19 +53,15 @@ export async function getStaticProps(context) {
             },
         }
     }
-    const {id} = _category
-    const posts = await getPostsByCategoryId(id)
-    return {
-        props: {
-            posts: isProduction ? posts.filter((post) => post.published === true) : posts,
-        },
-    }
 }
 
 export async function getStaticPaths() {
     try {
-        const categories = await getCategories()
-        const paths = categories.map((category) => ({params: {cname: encodeURIComponent(category.slug)}}))
+        const paths = categories.map((category) => ({
+            params: {
+                cname: encodeURIComponent(category),
+            },
+        }))
         return {
             paths: paths,
             fallback: false,
@@ -68,7 +69,7 @@ export async function getStaticPaths() {
     } catch (error) {
         return {
             paths: [],
-            fallback: false,
+            fallback: true,
         }
     }
 }

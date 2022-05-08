@@ -1,25 +1,25 @@
 import Head from 'next/head'
 import NextLink from 'next/link'
-import {useRef, useContext} from 'react'
+import {useContext, useRef} from 'react'
 import {CursorContext} from '../context/cursor/CursorContext'
 
 import styles from '../styles/Pages/index.module.scss'
 
 import {
-    Container,
     Center,
-    HStack,
-    VStack,
+    Container,
     Drawer,
-    DrawerOverlay,
+    DrawerBody,
     DrawerCloseButton,
     DrawerContent,
-    DrawerBody,
     DrawerFooter,
-    useDisclosure,
-    Text,
+    DrawerOverlay,
+    HStack,
     Icon,
     Link,
+    Text,
+    useDisclosure,
+    VStack,
 } from '@chakra-ui/react'
 
 import {VscGithubAlt, VscMail} from 'react-icons/vsc'

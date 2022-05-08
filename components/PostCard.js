@@ -48,7 +48,7 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
                 </a>
             </Link>
         ),
-        [coverImage, title],
+        [coverImage, title, category, id],
     )
     const description = useMemo(
         () => (

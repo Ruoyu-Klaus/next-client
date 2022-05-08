@@ -45,8 +45,7 @@ class BlogCollection {
 
                 fileNames.forEach((fileName) => {
                     if (fileName.includes('.md')) {
-                        subTree.push(this.parsedFrontMatter(fileName, absPath))
-                        // subTree.push(fileName)
+                        subTree.push({...this.parsedFrontMatter(fileName, absPath), category})
                     } else {
                         dirPath = `${absPath}/${fileName}`
                         subTree.push({[fileName]: recursion([], dirPath)})
@@ -63,7 +62,7 @@ class BlogCollection {
             const slug = fileName.replace(/\.md$/, '')
             const markdownWithMeta = fs.readFileSync(path.join(`${dirPath}/${fileName}`), 'utf-8')
             const {data: frontMatter, content} = matter(markdownWithMeta)
-            const coverImage = frontMatter.cover ?? '../cover_placeholder.png'
+            const coverImage = frontMatter.cover ?? '/cover_placeholder.png'
             frontMatter.tags && this._tags.push(frontMatter.tags)
             return {
                 id: slug,
@@ -76,7 +75,6 @@ class BlogCollection {
             console.log(e)
         }
     }
-
     countTags(tags) {
         return _.values(_.groupBy(tags)).map((tag) => ({
             text: tag[0],
