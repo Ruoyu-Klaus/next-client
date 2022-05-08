@@ -38,10 +38,9 @@ function Header({navArray = []}) {
     const renderCategoriesLink = useCallback(
         () =>
             navArray.map((item) => {
-                const {id, name, slug} = item
                 return (
-                    <MenuItemLink to={`/blog/post/${encodeURIComponent(slug)}`} key={id}>
-                        <Button variant="link">{name.toUpperCase()}</Button>
+                    <MenuItemLink to={`/blog/post/${encodeURIComponent(item)}`} key={item}>
+                        <Button variant="link">{item.toUpperCase()}</Button>
                     </MenuItemLink>
                 )
             }),
