@@ -5,7 +5,7 @@ import Link from 'next/link'
 import dayjs from 'dayjs'
 import styles from '../styles/Components/PostCard.module.scss'
 
-import {Box, Divider, Flex, Heading, HStack, Image, Skeleton, Tag, Text, VStack} from '@chakra-ui/react'
+import {Box, Divider, Flex, Heading, HStack, Image, Skeleton, Tag, Text, useImage, VStack} from '@chakra-ui/react'
 import {TimeIcon} from '@chakra-ui/icons'
 
 PostCard.propTypes = {
@@ -15,46 +15,50 @@ PostCard.propTypes = {
 }
 
 function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
-    const {author, title, date, excerpt, coverImage, categories = [], tags = [], slug} = postDetails
-    const category = categories[0]
-
+    const {id, title, date, excerpt, coverImage, category, tags = []} = postDetails
+    if (!id) return <></>
+    const status = useImage({src: coverImage})
     const postCover = useMemo(
         () => (
             <Link
                 href={{
                     pathname: `/blog/post/[cname]/[...slug]`,
                     query: {
-                        cname: category.slug,
-                        slug: [slug],
+                        cname: category,
+                        slug: [id],
                     },
                 }}
-                as={`/blog/post/${category.slug}/${slug}`}
+                as={`/blog/post/${category}/${id}`}
                 passHref
             >
                 <a title={title}>
-                    <Image
-                        h="100%"
-                        w="100%"
-                        transition="all 0.3s ease-in-out"
-                        _hover={{
-                            transform: 'scale(1.05)',
-                            opacity: '0.5',
-                        }}
-                        overflow="hidden"
-                        objectFit="fill"
-                        alt={title}
-                        src={coverImage.url || 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'}
-                    />
+                    {status === 'loading' ? (
+                        <Skeleton w="100%" h="100%" />
+                    ) : (
+                        <Image
+                            h="100%"
+                            w="100%"
+                            transition="all 0.3s ease-in-out"
+                            _hover={{
+                                transform: 'scale(1.05)',
+                                opacity: '0.5',
+                            }}
+                            overflow="hidden"
+                            objectFit="fill"
+                            alt={title}
+                            src={coverImage}
+                        />
+                    )}
                 </a>
             </Link>
         ),
-        [coverImage, title, category, id],
+        [coverImage, title, category, id, status],
     )
     const description = useMemo(
         () => (
             <VStack h="full" spacing={3} alignItems="flex-start">
                 <Text mt={1} fontSize={'16px'} color="gray.500">
-                    {category.name}
+                    {category}
                 </Text>
                 <Heading as="h3" size="md" className={styles.postTitle}>
                     {title}
@@ -73,14 +77,14 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
                 </HStack>
             </VStack>
         ),
-        [categories],
+        [category],
     )
 
     const meta = useMemo(
         () => (
             <Flex w={'full'} justifyContent="space-between">
                 <Text fontSize={'xs'}>
-                    By <span>{author.name}</span>
+                    By <span>Ruoyu</span>
                 </Text>
                 <HStack fontSize={'xs'}>
                     <TimeIcon />
