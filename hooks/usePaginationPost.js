@@ -14,10 +14,10 @@ const filterPost = (posts, query) => {
     const _query = query.toLowerCase()
     return posts.filter((post) => {
         return (
-            post.title.toLowerCase().includes(_query) ||
-            post.tags.join(' ').toLowerCase().includes(_query) ||
-            post.excerpt.toLowerCase().includes(_query) ||
-            post.category.toLowerCase().includes(_query)
+            post.title?.toLowerCase().includes(_query) ||
+            (post.tags && post.tags.join(' ').toLowerCase().includes(_query)) ||
+            post.excerpt?.toLowerCase().includes(_query) ||
+            post.category?.toLowerCase().includes(_query)
         )
     })
 }

@@ -6,16 +6,19 @@ import PostCardGridList from '../../../components/PostCardGridList'
 import CustomDivider from '../../../components/CustomDivider'
 import usePaginationPost from '../../../hooks/usePaginationPost'
 
-import _ from 'lodash'
+import {debounce} from 'lodash'
 import {Container, Flex} from '@chakra-ui/react'
 import BlogLayout from '../../../layout/BlogLayout'
 import {SEARCH_NOT_FOUND} from '../../../utils/content'
-import {getPosts} from '../../../services'
-import {isProduction} from '../../../helpers/env'
 
-const debouncedChangeHandler = (fn) => _.debounce(fn, 200)
+import tags from '../../../_posts/tags.json'
+import {getAllBlogs} from '../../../helpers'
 
-function Index({posts: originalPosts, keywords}) {
+const debouncedChangeHandler = (fn) => debounce(fn, 200)
+
+function Index({posts: originalPosts}) {
+    const keywords = tags
+
     const [pageNum, setPageNum] = useState(1)
     const getCurrentPageNum = useCallback((page) => setPageNum(page), [])
 
@@ -58,17 +61,10 @@ function Index({posts: originalPosts, keywords}) {
 }
 
 export async function getStaticProps() {
-    const posts = await getPosts()
-    const tags = _.map(posts, 'tags').flat(1)
-    const keywords = _.values(_.groupBy(tags)).map((tag) => ({
-        text: tag[0],
-        value: tag.length,
-    }))
-
+    const posts = getAllBlogs() || []
     return {
         props: {
-            posts: isProduction ? posts.filter((post) => post.published === true) : posts,
-            keywords,
+            posts,
         },
     }
 }
