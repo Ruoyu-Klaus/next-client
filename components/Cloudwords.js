@@ -1,6 +1,7 @@
-import {useState, useEffect, useMemo} from 'react'
+import {useEffect, useMemo, useState} from 'react'
 import ReactWordcloud from 'react-wordcloud'
-
+import 'tippy.js/dist/tippy.css'
+import 'tippy.js/animations/scale.css'
 import useBreakpoint from '../hooks/useBreakPoint'
 import {Box, useColorMode} from '@chakra-ui/react'
 

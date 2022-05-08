@@ -2,8 +2,6 @@ import '../styles/comm.scss'
 import '../styles/markdown.scss'
 import 'highlight.js/styles/github.css'
 import '../styles/Components/CustomCursor.scss'
-import 'tippy.js/dist/tippy.css'
-import 'tippy.js/animations/scale.css'
 
 import {ChakraProvider} from '@chakra-ui/react'
 
