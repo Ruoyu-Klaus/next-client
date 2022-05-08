@@ -39,6 +39,7 @@
     "babel-plugin-import": "1.13.3",
     "next-compose-plugins": "2.2.1",
     "next-transpile-modules": "6.4.1",
-    "prettier": "2.5.1"
+    "prettier": "2.5.1",
+    "prop-types": "15.8.1"
   }
 }
