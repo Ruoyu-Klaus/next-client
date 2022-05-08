@@ -1,0 +1,102 @@
+{
+  "main": {
+    "id": "1ac4cf7c05105cec",
+    "type": "split",
+    "children": [
+      {
+        "id": "07c9928b9f9ae20f",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "study/git_alias.md",
+            "mode": "source"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "7bb6b5228d7d117f",
+    "type": "split",
+    "children": [
+      {
+        "id": "0129e304b586ea43",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "50f286cf9256e6d6",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "e1d226d7d7066f7d",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "fbfc5d7249f816d5",
+    "type": "split",
+    "children": [
+      {
+        "id": "ab94b379bde702fd",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4de4effc76e8b1e2",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "study/git_alias.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "07c9928b9f9ae20f",
+  "lastOpenFiles": [
+    "study/git_alias.md",
+    "study/Sequelize分页踩坑记.md",
+    "study/Postgres使用Sequelize-migration的小坑.md",
+    "study/Postgres之命名规范.md",
+    "study/Next.js如何在页面跳转之间做CSS过渡？.md",
+    "study/为什么说immutable很重要.md",
+    "draft/Postgres使用Sequelize-migration的小坑.md",
+    "study/JavaScript中的函数.md",
+    "study/JavaScript之DOM相关.md",
+    "study/Javascript之Promise.md"
+  ]
+}

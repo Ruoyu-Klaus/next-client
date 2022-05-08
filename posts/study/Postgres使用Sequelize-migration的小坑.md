@@ -8,13 +8,51 @@ tags:
   - Postgres
 ---
 
-> 最近在用 Sequelize ORM 来操作 PostgresSQL 数据库，然后就用到了 sequelize-cli 来维护和追踪数据库的初始化。虽然这个工具很早就开发了，但是仍然存在一些坑。
 
-- 利用 Sequelize migration 在创建表时候注意一定不要使用驼峰命名的方式！不然会失败，并且不会报错。
-- 利用 Sequelize seed 创建种子数据的时候，注意不要手动插入自增的主键！不然之后自增主键会出错。
-- 利用 Sequelize seed 创建种子数据的时候，要手动插入 create_at 和 update_at，不然会出错。
+
+> 最近在写个人网站的后端部分，需要操作数据库。在Node社区，Sequelize 无疑是社区中基于promise最流行的ORM（Object–relational mapping）。虽然官方文档可以让你照着葫芦画个瓢，但是有些细枝末节的问题，只有真正实践了才能够发现，并且很可能是文档忽略掉的。
+
+### 分页需要注意
+
+`findAndCountAll`是 Sequelize 模型中一个常见的 Finder 方法，它结合了`findAll`和`count`方法。这对于做分页来说非常的方便。不过在使用过程中，遇到了一个小坑，导致了返回的`count`结果不准确。
+
+如果在查询的语法中，关系表也要引入进来时候，就会导致 Sequezlize 计算数量错误。如
+
+```js
+const posts = Post.findAndCountAll({
+    include: ['bg_admin','bg_tag' ]
+});
+const [rows = [{...},{...}], count = 4] = posts // count wrong number
+
+```
+
+这可能是因为合并查询，Sequelize 在计算合并表的过程中，造成了笛卡尔积。
+
+一种解决方案就是在查询语法中加入`distinct: true` ，主动过滤掉与左联表相同的行数据，这样查出来的行数就和 count 保持一致。
+
+还有一种思路就是给`Sequelize`实例新增一个 Hook。在 Gihub 的 issue 里面就有人提出过这个问题，下面是一个大哥给出的答案。
+
+```js
+// Add a permanent global hook to prevent unknowingly hitting this Sequelize bug:
+//   https://github.com/sequelize/sequelize/issues/10557
+sequelize.addHook('beforeCount', function (options) {
+  if (this._scope.include && this._scope.include.length > 0) {
+    options.distinct = true
+    options.col =
+      this._scope.col || options.col || `"${this.options.name.singular}".id`
+  }
+
+  if (options.include && options.include.length > 0) {
+    options.include = null
+  }
+})
+```
+
+
 
 ### 表名要小写
+
+- 利用 Sequelize migration 在创建表时候注意一定不要使用驼峰命名的方式！不然会失败，并且不会报错。
 
 当使用`npx sequelize-cli migration:generate --name=[name]`时，会在 `database/migrations` 目录下生成一个 migration 文件(`${timestamp}-[name].js`) 。里面内容如下:
 
@@ -81,6 +119,9 @@ Created column...
 
 ### Seed 数据插入
 
+- 利用 Sequelize seed 创建种子数据的时候，注意不要手动插入自增的主键！不然之后自增主键会出错。
+- 利用 Sequelize seed 创建种子数据的时候，要手动插入 create_at 和 update_at，不然会出错。
+
 当使用`npx sequelize-cli seed:generate --name demo-tag`时，会在 `database/migrations` 目录下生成一个 migration 文件(`${timestamp}-[demo-tag].js`) 。
 
 遇到的坑与解决方法如下：
@@ -106,4 +147,7 @@ down: async (queryInterface, Sequelize) => {
 },
 ```
 
-这件事看出来，没有完美的工具，没有完美的技术，要多试错，多学习了解，并随时记录下来，才能够进步。
+总之，Sequelize 是给 JS 提供的一套便利操作数据库的工具，它的特性不仅可以让开发人员少些代码，抽象化数据模型，还能防止 SQL 注入，迁移工具等等。但是其中还是有很多细节上的问题还是需要开发人员灵活处理。
+
+
+

@@ -6,13 +6,12 @@ import usePaginationPost from '../../hooks/usePaginationPost'
 import BlogLayout from '../../layout/BlogLayout'
 import {getAllBlogs} from '../../helpers'
 
-function Index() {
+function Index({posts: originalPosts}) {
     const [pageNum, setPageNum] = useState(1)
     const getCurrentPageNum = (page) => {
         setPageNum(page)
     }
-    const originalPosts = getAllBlogs()
-    const hookConfig = useMemo(() => ({pageNum, originalPosts, limit: 12}), [pageNum])
+    const hookConfig = useMemo(() => ({pageNum, originalPosts, limit: 9}), [pageNum])
 
     const {isLoading, hasMore, posts} = usePaginationPost(hookConfig)
 
@@ -25,6 +24,27 @@ function Index() {
             <PostCardGridList posts={posts} isLoading={isLoading} hasMore={hasMore} getCurrentPageNum={getCurrentPageNum} />
         </>
     )
+}
+export async function getStaticProps() {
+    try {
+        const posts = getAllBlogs()
+        return {
+            props: {
+                posts,
+            },
+        }
+    } catch (e) {
+        return {
+            props: {
+                msg: 'server error',
+                posts: [],
+            },
+            redirect: {
+                destination: '/blog',
+                statusCode: 304,
+            },
+        }
+    }
 }
 
 Index.getLayout = function getLayout(page, categories, model) {

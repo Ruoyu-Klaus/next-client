@@ -1,6 +1,7 @@
 import emojiList from './emoji.json'
 import {getParsedContentWithTocTree} from './markDownRenderer'
 import blogCollection from '../_posts/blogCollection.json'
+import dayjs from 'dayjs'
 
 export const getAllBlogs = () => {
     const blogs = []
@@ -15,6 +16,9 @@ export const getAllBlogs = () => {
         })
     }
     recursion(blogCollection)
+    blogs.sort((a, b) => {
+        return dayjs(a.date).isBefore(dayjs(b.date)) ? 1 : -1
+    })
     return blogs
 }
 

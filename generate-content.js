@@ -10,7 +10,7 @@ class Category {
         this.init()
     }
     init() {
-        const categories = fs.readdirSync(path.join(`${this.blog_path}`))
+        const categories = fs.readdirSync(path.join(`${this.blog_path}`)).filter((dir) => !/(^|\/)\.[^\/\.]/g.test(dir))
         let index = categories.indexOf('draft')
         if (index !== -1 && process.env.NODE_ENV === 'production') {
             categories.splice(index, 1)
@@ -41,7 +41,7 @@ class BlogCollection {
         return this.categories.map((category) => {
             let dirPath = `${this.rootPath}/${category}`
             const recursion = (subTree, absPath) => {
-                const fileNames = fs.readdirSync(path.join(absPath))
+                const fileNames = fs.readdirSync(path.join(absPath)).filter((dir) => !/(^|\/)\.[^\/\.]/g.test(dir))
 
                 fileNames.forEach((fileName) => {
                     if (fileName.includes('.md')) {
