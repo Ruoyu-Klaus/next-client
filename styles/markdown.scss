@@ -80,7 +80,6 @@ code {
   color: #24292e;
   font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
   font-size: 16px;
-  line-height: 1.5;
   word-wrap: break-word;
 }
 
@@ -102,8 +101,6 @@ code {
 }
 
 .markdown-body strong {
-  font-weight: inherit;
-  font-weight: bolder;
 }
 
 .markdown-body h1 {
@@ -737,7 +734,7 @@ code {
 }
 
 .markdown-body li {
-  word-wrap: break-all;
+  word-wrap: break-word;
 }
 
 .markdown-body li>p {
@@ -847,7 +844,7 @@ code {
 
 .markdown-body pre code {
   display: inline;
-  max-width: auto;
+  max-width: fit-content;
   padding: 0;
   margin: 0;
   overflow: visible;
