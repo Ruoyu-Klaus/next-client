@@ -1,4 +1,5 @@
 {
   "showFrontmatter": true,
-  "spellcheck": true
+  "spellcheck": false,
+  "legacyEditor": false
 }
