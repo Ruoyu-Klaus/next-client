@@ -10,6 +10,7 @@ import Toc from '../../../../components/Toc'
 import {getAllBlogs, getAllPostPaths, randomEmoji} from '../../../../helpers'
 import BlogLayout from '../../../../layout/BlogLayout'
 import {NEXT_POST_LABEL, PREVIOUS_POST_LABEL} from '../../../../utils/content'
+import Comments from '../../../../components/Comments'
 
 function Post({post = {}, previousPath, nextPath}) {
     const router = useRouter()
@@ -66,7 +67,9 @@ function Post({post = {}, previousPath, nextPath}) {
                         <LinkToPost payload={previousPath} />
                         <LinkToPost payload={nextPath} />
                     </Flex>
+                    <Comments />
                 </VStack>
+
                 <BackToTop />
             </Container>
         </>

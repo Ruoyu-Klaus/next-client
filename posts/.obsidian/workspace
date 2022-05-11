@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "study/JavaScript中的函数.md",
+            "file": "draft/test/test.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "study/JavaScript中的函数.md",
+                "file": "draft/test/test.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,12 +100,12 @@
   },
   "active": "07c9928b9f9ae20f",
   "lastOpenFiles": [
+    "draft/test/test.md",
     "study/JavaScript中的函数.md",
     "study/JavaScript之DOM相关.md",
     "study/Javascript之Promise.md",
     "draft/templates/front-matter-template.md",
     "study/git_alias.md",
-    "draft/test/test.md",
     "Untitled.md",
     "study/Sequelize分页踩坑记.md",
     "study/Postgres使用Sequelize-migration的小坑.md",
