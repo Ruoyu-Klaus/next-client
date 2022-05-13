@@ -102,12 +102,12 @@ console.log(renamedCat === cat) // false
 - 数组高级方法map/filter/reduce
 
 ```js
-const vector3 = [1,1,1]
-const copiedVector3 = vector3.map(item=>item+1)
+const vector_3 = [1,1,1]
+const copied_vector_3 = vector3.map(item=>item+1)
 
-console.log(vector3) // [1,1,1]
-console.log(copiedVector3) // [2,2,2]
-console.log(vector3 === copiedVector3) // false
+console.log(vector_3) // [1,1,1]
+console.log(copied_vector_3) // [2,2,2]
+console.log(vector_3 === copied_vector_3) // false
 
 ```
 

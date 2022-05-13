@@ -4,12 +4,12 @@
     "type": "split",
     "children": [
       {
-        "id": "07c9928b9f9ae20f",
+        "id": "4ccb614e775b0532",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "draft/test/test.md",
+            "file": "draft/如何利用TS的装饰器来实现单例模式.md",
             "mode": "source",
             "source": false
           }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "draft/test/test.md",
+                "file": "draft/如何利用TS的装饰器来实现单例模式.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -98,17 +98,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "07c9928b9f9ae20f",
+  "active": "4ccb614e775b0532",
   "lastOpenFiles": [
-    "draft/test/test.md",
+    "draft/如何利用TS的装饰器来实现单例模式.md",
+    "draft/templates/front-matter-template.md",
+    "study/JavaScript之类相关.md",
+    "study/JavaScript之原型相关.md",
+    "study/Javascript之Promise.md",
     "study/JavaScript中的函数.md",
     "study/JavaScript之DOM相关.md",
-    "study/Javascript之Promise.md",
-    "draft/templates/front-matter-template.md",
+    "draft/test/test.md",
     "study/git_alias.md",
-    "Untitled.md",
-    "study/Sequelize分页踩坑记.md",
-    "study/Postgres使用Sequelize-migration的小坑.md",
-    "study/Postgres之命名规范.md"
+    "study/Sequelize分页踩坑记.md"
   ]
 }
