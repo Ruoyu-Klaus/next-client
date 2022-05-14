@@ -5,7 +5,7 @@ import Link from 'next/link'
 import dayjs from 'dayjs'
 import styles from '../styles/Components/PostCard.module.scss'
 
-import {Box, Divider, Flex, Heading, HStack, Image, SimpleGrid, Skeleton, Tag, Text, useImage, VStack} from '@chakra-ui/react'
+import {Box, Divider, Flex, Heading, HStack, Image, Skeleton, Tag, Text, useImage, VStack} from '@chakra-ui/react'
 import {TimeIcon} from '@chakra-ui/icons'
 
 function LinkToPostDetail(props) {
@@ -82,13 +82,13 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
                 </LinkToPostDetail>
                 <Divider />
 
-                <SimpleGrid className={styles.postTag} w="full" minChildWidth="60px" spacing="6px">
+                <Box className={styles.postTag} w="full">
                     {tags.map((tag) => (
                         <Tag size="sm" key={tag}>
                             {tag}
                         </Tag>
                     ))}
-                </SimpleGrid>
+                </Box>
             </VStack>
         ),
         [category],
