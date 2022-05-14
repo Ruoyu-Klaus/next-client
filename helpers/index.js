@@ -1,4 +1,3 @@
-import emojiList from './emoji.json'
 import {getParsedContentWithTocTree} from './markDownRenderer'
 import blogCollection from '../_posts/blogCollection.json'
 import dayjs from 'dayjs'
@@ -48,10 +47,4 @@ export const getAllPostPaths = (blogs, isLinkPath = false) => {
 const parseMarkdownContent = (blog) => {
     const {parsedContent, tocTree} = getParsedContentWithTocTree(blog.content)
     return {...blog, content: parsedContent, tocTree}
-}
-
-export function randomEmoji() {
-    const keys = Object.keys(emojiList)
-    const randomIndex = Math.floor(Math.random() * keys.length)
-    return emojiList[keys[randomIndex]]
 }

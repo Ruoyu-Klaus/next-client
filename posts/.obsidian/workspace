@@ -4,13 +4,14 @@
     "type": "split",
     "children": [
       {
-        "id": "07c9928b9f9ae20f",
+        "id": "4ccb614e775b0532",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "study/git_alias.md",
-            "mode": "source"
+            "file": "draft/如何利用TS的装饰器来实现单例模式.md",
+            "mode": "source",
+            "source": false
           }
         }
       }
@@ -68,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "study/git_alias.md",
+                "file": "draft/如何利用TS的装饰器来实现单例模式.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -76,6 +77,17 @@
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "ecf0a953bccd294e",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
               }
             }
           }
@@ -86,17 +98,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "07c9928b9f9ae20f",
+  "active": "4ccb614e775b0532",
   "lastOpenFiles": [
-    "study/git_alias.md",
-    "study/Sequelize分页踩坑记.md",
-    "study/Postgres使用Sequelize-migration的小坑.md",
-    "study/Postgres之命名规范.md",
-    "study/Next.js如何在页面跳转之间做CSS过渡？.md",
-    "study/为什么说immutable很重要.md",
-    "draft/Postgres使用Sequelize-migration的小坑.md",
+    "draft/如何利用TS的装饰器来实现单例模式.md",
+    "draft/templates/front-matter-template.md",
+    "study/JavaScript之类相关.md",
+    "study/JavaScript之原型相关.md",
+    "study/Javascript之Promise.md",
     "study/JavaScript中的函数.md",
     "study/JavaScript之DOM相关.md",
-    "study/Javascript之Promise.md"
+    "draft/test/test.md",
+    "study/git_alias.md",
+    "study/Sequelize分页踩坑记.md"
   ]
 }

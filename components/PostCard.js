@@ -8,6 +8,27 @@ import styles from '../styles/Components/PostCard.module.scss'
 import {Box, Divider, Flex, Heading, HStack, Image, Skeleton, Tag, Text, useImage, VStack} from '@chakra-ui/react'
 import {TimeIcon} from '@chakra-ui/icons'
 
+function LinkToPostDetail(props) {
+    const {category, id, title} = props
+    return (
+        <Link
+            href={{
+                pathname: `/blog/post/[cname]/[...slug]`,
+                query: {
+                    cname: category,
+                    slug: [id],
+                },
+            }}
+            as={`/blog/post/${category}/${id}`}
+            passHref
+        >
+            <a title={title}>{props.children}</a>
+        </Link>
+    )
+}
+
+LinkToPostDetail.propTypes = {children: PropTypes.node}
+
 PostCard.propTypes = {
     postDetails: PropTypes.object,
     isLoading: PropTypes.bool,
@@ -18,39 +39,28 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
     const {id, title, date, excerpt, coverImage, category, tags = []} = postDetails
     if (!id) return <></>
     const status = useImage({src: coverImage})
+
     const postCover = useMemo(
         () => (
-            <Link
-                href={{
-                    pathname: `/blog/post/[cname]/[...slug]`,
-                    query: {
-                        cname: category,
-                        slug: [id],
-                    },
-                }}
-                as={`/blog/post/${category}/${id}`}
-                passHref
-            >
-                <a title={title}>
-                    {status === 'loading' ? (
-                        <Skeleton w="100%" h="100%" />
-                    ) : (
-                        <Image
-                            h="100%"
-                            w="100%"
-                            transition="all 0.3s ease-in-out"
-                            _hover={{
-                                transform: 'scale(1.05)',
-                                opacity: '0.5',
-                            }}
-                            overflow="hidden"
-                            objectFit="fill"
-                            alt={title}
-                            src={coverImage}
-                        />
-                    )}
-                </a>
-            </Link>
+            <LinkToPostDetail category={category} id={id} title={title}>
+                {status === 'loading' ? (
+                    <Skeleton w="100%" h="100%" />
+                ) : (
+                    <Image
+                        h="100%"
+                        w="100%"
+                        transition="all 0.3s ease-in-out"
+                        _hover={{
+                            transform: 'scale(1.05)',
+                            opacity: '0.5',
+                        }}
+                        overflow="hidden"
+                        objectFit="fill"
+                        alt={title}
+                        src={coverImage}
+                    />
+                )}
+            </LinkToPostDetail>
         ),
         [coverImage, title, category, id, status],
     )
@@ -60,21 +70,25 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
                 <Text mt={1} fontSize={'16px'} color="gray.500">
                     {category}
                 </Text>
-                <Heading as="h3" size="md" className={styles.postTitle}>
-                    {title}
-                </Heading>
-                <Text fontSize={'16px'} className={styles.postIntroduction}>
-                    {excerpt}
-                </Text>
+                <LinkToPostDetail category={category} id={id} title={title}>
+                    <Heading as="h3" size="md" className={styles.postTitle}>
+                        {title}
+                    </Heading>
+                </LinkToPostDetail>
+                <LinkToPostDetail category={category} id={id} title={title}>
+                    <Text fontSize={'16px'} className={styles.postIntroduction}>
+                        {excerpt}
+                    </Text>
+                </LinkToPostDetail>
                 <Divider />
 
-                <HStack className={styles.postTag} w={'full'} spacing={4}>
+                <Box className={styles.postTag} w="full">
                     {tags.map((tag) => (
                         <Tag size="sm" key={tag}>
                             {tag}
                         </Tag>
                     ))}
-                </HStack>
+                </Box>
             </VStack>
         ),
         [category],

@@ -21,9 +21,12 @@
 
 .postTag{
   margin-top: 24px;
-  white-space: nowrap;
-  overflow: hidden;
+  overflow: scroll;
+  max-height: 50px;
   & > span{
+    margin-right:6px;
+    align-content: center;
+    max-width: fit-content;
     min-width: fit-content;
   }
 }

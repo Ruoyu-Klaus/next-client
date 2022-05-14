@@ -2,23 +2,28 @@ import {Box, Container, Flex, Heading, HStack, Image, Tag, Text, VStack} from '@
 import dayjs from 'dayjs'
 import Head from 'next/head'
 import {useRouter} from 'next/router'
-import {useEffect, useState} from 'react'
+import {useEffect} from 'react'
 import BackToTop from '../../../../components/BackToTop'
 import CustomDivider from '../../../../components/CustomDivider'
 import LinkToPost from '../../../../components/LinkToPost'
 import Toc from '../../../../components/Toc'
-import {getAllBlogs, getAllPostPaths, randomEmoji} from '../../../../helpers'
+import {getAllBlogs, getAllPostPaths} from '../../../../helpers'
 import BlogLayout from '../../../../layout/BlogLayout'
 import {NEXT_POST_LABEL, PREVIOUS_POST_LABEL} from '../../../../utils/content'
+import Comments from '../../../../components/Comments'
+import emojiList from '../../../../helpers/emoji.json'
+
+export function randomEmoji() {
+    const keys = Object.keys(emojiList)
+    const randomIndex = Math.floor(Math.random() * keys.length)
+    return emojiList[keys[randomIndex]]
+}
 
 function Post({post = {}, previousPath, nextPath}) {
     const router = useRouter()
-    const [emoji] = useState(randomEmoji())
+    const emoji = randomEmoji()
 
     const {id, title, coverImage, tags, category, content, date, tocTree} = post
-
-    // const { cname, slug } = router.searchValue
-    // const id = slug[0]
 
     useEffect(() => {
         !id && router.push('/blog')
@@ -66,7 +71,9 @@ function Post({post = {}, previousPath, nextPath}) {
                         <LinkToPost payload={previousPath} />
                         <LinkToPost payload={nextPath} />
                     </Flex>
+                    <Comments />
                 </VStack>
+
                 <BackToTop />
             </Container>
         </>

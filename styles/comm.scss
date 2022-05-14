@@ -1,6 +1,5 @@
 html body {
-  font-family: 'apercu', 'Hiragino Sans GB', 'Microsoft YaHei',
-    'WenQuanYi Micro Hei', serif !important;
+  font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace,sans-serif,Apple Color Emoji,Segoe UI Emoji !important;
   overflow-x: hidden;
   background-color: #f6f6f6;
   font-size: 28px;
@@ -76,9 +75,6 @@ body {
         background-color: #161b22 !important;
         code {
           color: #d5d9db;
-        }
-        .hljs-keyword {
-          color: #8eb5ff;
         }
       }
     }

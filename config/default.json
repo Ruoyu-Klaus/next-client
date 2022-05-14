@@ -1,12 +1,6 @@
 {
   "API": {
-    "baseUrl": "http://127.0.0.1:7001/v1",
-    "servicePath": {
-      "getArticleList": "/client/getPosts/",
-      "getArticleById": "/client/getPostById/",
-      "getArticleCategories": "/client/getCategories/",
-      "getArticleByCategoryId": "/client/getPostsByCategoryId/"
-      }
+    "baseUrl": "http://127.0.0.1:7001/v1"
   },
   "STORAGE_TOKEN_KEY":"STORAGE_TOKEN_KEY",
    "STORAGE_DOMAIN":"STORAGE_DOMAIN", 
