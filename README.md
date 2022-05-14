@@ -1,30 +1,108 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div id="top"></div>
 
-## Getting Started
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/Ruoyu-Klaus">
+    <img src="public/logo192.png" alt="Logo" width="80" height="80">
+  </a>
 
-First, run the development server:
+<a href="https://ruoyu.life"><h3 align="center">Ruoyu.life</h3></a>
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+  <p align="center">
+    A personal website based on Next.js
+    <br />
+    <br />
+    <a href="https://github.com/Ruoyu-Klaus/next-client/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/Ruoyu-Klaus/next-client/issues">Request Feature</a>
+  </p>
+</div>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[![MIT License][license-shield]][license-url]
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-## Learn More
+Hi 👋, I'm ruoyu.
 
-To learn more about Next.js, take a look at the following resources:
+⭐This is my personal website codebase. Please star it if you like the site.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+🙋There are many website generators or frameworks like WordPress, gatsby, Jekyll, Hexo etc. You may be wondering why I build a personal website from the ground.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+👨‍💻As a junior developer, I'd like to utilize what I've leaned to build web applications especially with some cool and new technologies. This personal website is one of them.
 
-## Deploy on Vercel
+☀️I believe that building and maintaining a personal website help me stay creative and active, and it may bring me more opportunities for landing a job or running a business. Another reason is that it drives me to write tech related posts and record colourful life. 
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+❤️I wish you like the site. if you have any question or suggestion, please, do not hesitate, leave a comment.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+### Built With
+
+* [Next.js](https://nextjs.org/)
+* [React.js](https://reactjs.org/)
+* [Three.js](https://threejs.org/)
+* [Chakra-ui](https://chakra-ui.com/)
+
+
+<!-- ROADMAP -->
+## Roadmap
+
+<b>Feat</b>
+- [x] cloud words for search pages
+- [x] routes for post name
+- [x] use dynamic slug routes for post id and title
+- [x] previous post & next post
+- [x] comments
+- [ ] author page
+
+
+<b>Bugs</b>
+
+- [x] post cover position
+- [x] post MD parse highlight not right
+- [x] strange post transition-in
+
+
+<b>Tech</b>
+- [x] extract constant to replace hard code content
+- [x] remove cursor decoration for mobile
+- [x] adjust theme mode position for mobile
+- [ ] image pre-loading
+- [ ] custom cursor translate CSS delays while rendering 3d modal
+
+
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+
+
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
+
+Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
+
+* [Choose an Open Source License](https://choosealicense.com)
+* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
+* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
+* [Malven's Grid Cheatsheet](https://grid.malven.co/)
+* [Img Shields](https://shields.io)
+* [GitHub Pages](https://pages.github.com)
+* [Font Awesome](https://fontawesome.com)
+* [React Icons](https://react-icons.github.io/react-icons/search)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
+[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
