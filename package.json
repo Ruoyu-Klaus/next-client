@@ -6,7 +6,8 @@
     "dev": "next dev -p 8000",
     "build": "next build",
     "build:export": "next build && next export",
-    "start": "next start"
+    "start": "next start",
+    "push": "sh scripts/publish-article.sh"
   },
   "dependencies": {
     "@chakra-ui/icons": "1.1.1",
