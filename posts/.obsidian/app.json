@@ -1,5 +1,6 @@
 {
   "showFrontmatter": true,
   "spellcheck": false,
-  "legacyEditor": false
+  "legacyEditor": false,
+  "livePreview": false
 }

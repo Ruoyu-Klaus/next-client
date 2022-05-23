@@ -20,6 +20,9 @@ const nextConfig = {
         })
         return config
     },
+    images:{
+        domains:["raw.githubusercontent.com","i.loli.net","s2.loli.net"]
+    }
 }
 
 const plugins = []

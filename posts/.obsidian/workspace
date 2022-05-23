@@ -11,7 +11,7 @@
           "state": {
             "file": "study/如何利用TS的装饰器来实现单例模式.md",
             "mode": "source",
-            "source": false
+            "source": true
           }
         }
       }
