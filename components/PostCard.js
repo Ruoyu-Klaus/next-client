@@ -48,7 +48,14 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
                     <Skeleton w="100%" h="100%" />
                 ) : (
                     <Box w="100%" h="100%" pos="relative" transition="all 0.3s ease-in-out" _hover={{transform: 'scale(1.05)', opacity: '0.5'}}>
-                        <NextImage src={coverImage} overflow="hidden" objectFit="cover" alt={title} layout="fill" />
+                        <NextImage
+                            src={coverImage}
+                            blurDataURL="/cover_placeholder.png"
+                            overflow="hidden"
+                            objectFit="cover"
+                            alt={title}
+                            layout="fill"
+                        />
                     </Box>
                 )}
             </LinkToPostDetail>
