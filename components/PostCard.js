@@ -49,7 +49,7 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
                 ) : (
                     <Box w="100%" h="100%" pos="relative" transition="all 0.3s ease-in-out" _hover={{transform: 'scale(1.05)', opacity: '0.5'}}>
                         <NextImage
-                            src={coverImage}
+                            src={status === 'failed' ? '/cover_placeholder.png' : coverImage}
                             blurDataURL="/cover_placeholder.png"
                             overflow="hidden"
                             objectFit="cover"
