@@ -74,9 +74,9 @@ export async function getStaticPaths() {
     }
 }
 
-Category.getLayout = function getLayout(page, categories, model) {
+Category.getLayout = function getLayout(page, categories) {
     return (
-        <BlogLayout categories={categories} model={model}>
+        <BlogLayout categories={categories} showModel>
             {page}
         </BlogLayout>
     )
