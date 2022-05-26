@@ -1,5 +1,6 @@
 const withPlugins = require('next-compose-plugins')
-
+const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
+const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
 const nextConfig = {
     target: 'serverless',
     env: {
@@ -18,7 +19,20 @@ const nextConfig = {
             test: /\.md$/,
             use: 'raw-loader',
         })
+        process.env.ANALYZE &&
+            config.plugins.push(
+                new BundleAnalyzerPlugin({
+                    analyzerMode: 'server',
+                    analyzerPort: isServer ? 8888 : 8889,
+                    openAnalyzer: true,
+                }),
+            ) &&
+            config.plugins.push(new DuplicatePackageCheckerPlugin())
+
         return config
+    },
+    images: {
+        domains: ['raw.githubusercontent.com', 'i.loli.net', 's2.loli.net'],
     },
 }
 

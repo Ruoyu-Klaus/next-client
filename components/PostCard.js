@@ -1,11 +1,12 @@
 import React, {useMemo} from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import NextImage from 'next/image'
 
 import dayjs from 'dayjs'
 import styles from '../styles/Components/PostCard.module.scss'
 
-import {Box, Divider, Flex, Heading, HStack, Image, Skeleton, Tag, Text, useImage, VStack} from '@chakra-ui/react'
+import {Box, Divider, Flex, Heading, HStack, Skeleton, Tag, Text, useImage, VStack} from '@chakra-ui/react'
 import {TimeIcon} from '@chakra-ui/icons'
 
 function LinkToPostDetail(props) {
@@ -46,19 +47,16 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
                 {status === 'loading' ? (
                     <Skeleton w="100%" h="100%" />
                 ) : (
-                    <Image
-                        h="100%"
-                        w="100%"
-                        transition="all 0.3s ease-in-out"
-                        _hover={{
-                            transform: 'scale(1.05)',
-                            opacity: '0.5',
-                        }}
-                        overflow="hidden"
-                        objectFit="fill"
-                        alt={title}
-                        src={coverImage}
-                    />
+                    <Box w="100%" h="100%" pos="relative" transition="all 0.3s ease-in-out" _hover={{transform: 'scale(1.05)', opacity: '0.5'}}>
+                        <NextImage
+                            src={status === 'failed' ? '/cover_placeholder.png' : coverImage}
+                            blurDataURL="/cover_placeholder.png"
+                            overflow="hidden"
+                            objectFit="cover"
+                            alt={title}
+                            layout="fill"
+                        />
+                    </Box>
                 )}
             </LinkToPostDetail>
         ),

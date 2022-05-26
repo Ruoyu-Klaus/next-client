@@ -1,12 +1,19 @@
 import React, {useEffect, useState} from 'react'
+import dynamic from 'next/dynamic'
 
 import NavBar from '../components/NavBar'
 import Footer from '../components/Footer'
+import CanvasLoadingSpinner from '../components/CanvasContainer'
 import {Flex} from '@chakra-ui/react'
 
 import styles from '../styles/Layout/bloglayout.module.scss'
 
-function BlogLayout({categories = [], model, children}) {
+const ThreeCanvas = dynamic(() => import('../components/ThreejsCanvas'), {
+    ssr: false,
+    loading: () => <CanvasLoadingSpinner />,
+})
+
+function BlogLayout({categories = [], children, showModel = false}) {
     const [displayChildren, setDisplayChildren] = useState(children)
     const [transitionStage, setTransitionStage] = useState('fadeOut')
     useEffect(() => {
@@ -29,7 +36,7 @@ function BlogLayout({categories = [], model, children}) {
                 }}
                 className={`${styles.root} ${styles[transitionStage]}`}
             >
-                {model && model}
+                {showModel && <ThreeCanvas />}
                 {displayChildren}
             </main>
             <Footer mb={4} />

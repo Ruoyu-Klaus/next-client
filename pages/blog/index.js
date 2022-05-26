@@ -40,16 +40,16 @@ export async function getStaticProps() {
                 posts: [],
             },
             redirect: {
-                destination: '/blog',
+                destination: '/',
                 statusCode: 304,
             },
         }
     }
 }
 
-Index.getLayout = function getLayout(page, categories, model) {
+Index.getLayout = function getLayout(page, categories) {
     return (
-        <BlogLayout categories={categories} model={model}>
+        <BlogLayout categories={categories} showModel>
             {page}
         </BlogLayout>
     )

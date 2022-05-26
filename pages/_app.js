@@ -8,15 +8,10 @@ import theme from '../styles/chakraTheme'
 
 import dynamic from 'next/dynamic'
 import {CursorContextProvider} from '../context/cursor/CursorContext'
-import CanvasLoadingSpinner from '../components/CanvasContainer'
 import categories from '../_posts/categories.json'
 
 const CustomCursor = dynamic(() => import('../components/CustomCursor'), {
     ssr: false,
-})
-const ThreeCanvas = dynamic(() => import('../components/ThreejsCanvas'), {
-    ssr: false,
-    loading: () => <CanvasLoadingSpinner />,
 })
 
 function MyApp({Component, pageProps}) {
@@ -24,7 +19,7 @@ function MyApp({Component, pageProps}) {
     return (
         <ChakraProvider theme={theme}>
             <CursorContextProvider>
-                {getLayout(<Component {...pageProps} />, categories, <ThreeCanvas />)}
+                {getLayout(<Component {...pageProps} />, categories)}
                 <CustomCursor />
             </CursorContextProvider>
         </ChakraProvider>

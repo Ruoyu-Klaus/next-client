@@ -1,9 +1,9 @@
 import {useCallback, useMemo, useState} from 'react'
 import Head from 'next/head'
+import dynamic from 'next/dynamic'
 
 import SearchBar from '../../../components/SearchBar'
 import PostCardGridList from '../../../components/PostCardGridList'
-import CustomDivider from '../../../components/CustomDivider'
 import usePaginationPost from '../../../hooks/usePaginationPost'
 
 import {debounce} from 'lodash'
@@ -13,6 +13,8 @@ import {SEARCH_NOT_FOUND} from '../../../utils/content'
 
 import tags from '../../../_posts/tags.json'
 import {getAllBlogs} from '../../../helpers'
+
+const CustomDivider = dynamic(() => import('../../../components/CustomDivider'))
 
 const debouncedChangeHandler = (fn) => debounce(fn, 200)
 
@@ -36,8 +38,6 @@ function Index({posts: originalPosts}) {
 
     const onInputSearch = debouncedChangeHandler(searchHandler)
 
-    const searchBar = useMemo(() => <SearchBar keywords={keywords} onInputSearch={onInputSearch} />, [keywords])
-
     const loadingBar = useMemo(
         () => (!posts || posts.length === 0) && hasClickedSearch && !isLoading && <CustomDivider text={SEARCH_NOT_FOUND} dividerWidth={'25%'} />,
         [isLoading, hasClickedSearch, posts.length],
@@ -51,7 +51,7 @@ function Index({posts: originalPosts}) {
             </Head>
             <Container maxW="container.xl" mt={8}>
                 <Flex flexDir="column" justify="center">
-                    {searchBar}
+                    <SearchBar keywords={keywords} onInputSearch={onInputSearch} />
                 </Flex>
                 <PostCardGridList posts={posts} isLoading={isLoading} hasMore={hasMore} getCurrentPageNum={getCurrentPageNum} />
                 {loadingBar}
