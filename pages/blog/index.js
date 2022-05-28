@@ -10,6 +10,7 @@ function Index({posts}) {
             <Head>
                 <title>博客 | Ruoyu</title>
                 <link rel="icon" href="/favicon.ico" />
+                <meta name="description" content="blogs" />
             </Head>
             <PostCardGridList posts={posts} />
         </>

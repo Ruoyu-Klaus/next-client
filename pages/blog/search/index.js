@@ -29,7 +29,8 @@ function Index({posts: originalPosts}) {
         <>
             <Head>
                 <title>搜索 | Ruoyu</title>
-                <link rel="icon" href="./favicon.ico" />
+                <link rel="icon" href="/favicon.ico" />
+                <meta name="description" content="search blogs" />
             </Head>
             <Container maxW="container.xl" mt={8}>
                 <Flex flexDir="column" justify="center">
