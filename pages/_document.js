@@ -4,7 +4,7 @@ const isProduction = process.env.NODE_ENV === 'production'
 class MyDocument extends Document {
     render() {
         return (
-            <Html>
+            <Html lang="zh-CN">
                 <Head>
                     {isProduction && (
                         <>
