@@ -6,13 +6,8 @@ const nextConfig = {
     env: {
         BASE_URL: process.env.BASE_URL || 'http://127.0.0.1:7001/v1/',
     },
-    webpack5: false,
     webpack: (config, {isServer}) => {
-        if (!isServer) {
-            config.node = {
-                fs: 'empty',
-            }
-        } else {
+        if (isServer) {
             require('./generate-content')
         }
         config.module.rules.push({
