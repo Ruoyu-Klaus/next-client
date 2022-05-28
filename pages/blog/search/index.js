@@ -1,47 +1,29 @@
-import {useCallback, useMemo, useState} from 'react'
+import {useCallback} from 'react'
 import Head from 'next/head'
-import dynamic from 'next/dynamic'
 
 import SearchBar from '../../../components/SearchBar'
 import PostCardGridList from '../../../components/PostCardGridList'
-import usePaginationPost from '../../../hooks/usePaginationPost'
+import useSearchPost from '../../../hooks/useSearchPost'
 
 import {debounce} from 'lodash'
 import {Container, Flex} from '@chakra-ui/react'
 import BlogLayout from '../../../layout/BlogLayout'
-import {SEARCH_NOT_FOUND} from '../../../utils/content'
 
 import tags from '../../../_posts/tags.json'
 import {getAllBlogs} from '../../../helpers'
-
-const CustomDivider = dynamic(() => import('../../../components/CustomDivider'))
 
 const debouncedChangeHandler = (fn) => debounce(fn, 200)
 
 function Index({posts: originalPosts}) {
     const keywords = tags
-
-    const [pageNum, setPageNum] = useState(1)
-    const getCurrentPageNum = useCallback((page) => setPageNum(page), [])
-
-    const [hasClickedSearch, setHasClickedSearch] = useState(false)
-
-    const hookConfig = useMemo(() => ({enableSearch: true, pageNum, originalPosts, limit: 9}), [pageNum])
-
-    const {isLoading, hasMore, posts, changeSearchValue} = usePaginationPost(hookConfig)
+    const {posts, setSearchValue} = useSearchPost({originalPosts})
 
     const searchHandler = useCallback((str) => {
         const sanitizedText = str.trim().replace(/[^\u4e00-\u9fa5a-zA-Z0-9\\.]+/gi, '')
-        changeSearchValue(sanitizedText)
-        sanitizedText ? setHasClickedSearch(true) : setHasClickedSearch(false)
+        setSearchValue(sanitizedText)
     }, [])
 
     const onInputSearch = debouncedChangeHandler(searchHandler)
-
-    const loadingBar = useMemo(
-        () => (!posts || posts.length === 0) && hasClickedSearch && !isLoading && <CustomDivider text={SEARCH_NOT_FOUND} dividerWidth={'25%'} />,
-        [isLoading, hasClickedSearch, posts.length],
-    )
 
     return (
         <>
@@ -53,8 +35,7 @@ function Index({posts: originalPosts}) {
                 <Flex flexDir="column" justify="center">
                     <SearchBar keywords={keywords} onInputSearch={onInputSearch} />
                 </Flex>
-                <PostCardGridList posts={posts} isLoading={isLoading} hasMore={hasMore} getCurrentPageNum={getCurrentPageNum} />
-                {loadingBar}
+                <PostCardGridList posts={posts} />
             </Container>
         </>
     )

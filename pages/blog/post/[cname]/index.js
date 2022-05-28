@@ -1,24 +1,14 @@
 import {useRouter} from 'next/router'
-import {useMemo, useState} from 'react'
 import Head from 'next/head'
 
 import PostCardGridList from '../../../../components/PostCardGridList'
-import usePaginationPost from '../../../../hooks/usePaginationPost'
 import categories from '../../../../_posts/categories.json'
 import {getAllBlogs} from '../../../../helpers/'
 import BlogLayout from '../../../../layout/BlogLayout'
 
-function Category({posts: originalPosts}) {
+function Category({posts}) {
     const router = useRouter()
     const {cname} = router.query
-
-    const [pageNum, setPageNum] = useState(1)
-
-    const getCurrentPageNum = (page) => {
-        setPageNum(page)
-    }
-    const hookConfig = useMemo(() => ({pageNum, limit: 9}), [pageNum])
-    const {isLoading, hasMore, posts} = usePaginationPost({...hookConfig, originalPosts})
 
     return (
         <>
@@ -26,7 +16,7 @@ function Category({posts: originalPosts}) {
                 <title>{cname} | Ruoyu</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <PostCardGridList posts={posts} isLoading={isLoading} hasMore={hasMore} getCurrentPageNum={getCurrentPageNum} />
+            <PostCardGridList posts={posts} />
         </>
     )
 }
