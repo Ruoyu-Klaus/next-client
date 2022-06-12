@@ -4,7 +4,7 @@ date: '2021-12-01'
 excerpt: 'zsh的git插件，包含所有缩写别名'
 cover: 'https://raw.githubusercontent.com/Ruoyu-Klaus/pics/main/images/git_alias.jpg'
 tags:
-	- Git
+  - Git
 ---
 
 # git plugin
