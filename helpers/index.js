@@ -2,11 +2,14 @@ import {getParsedContentWithTocTree} from './markDownRenderer'
 import blogCollection from '../_posts/blogCollection.json'
 import dayjs from 'dayjs'
 
-export const getAllBlogs = () => {
+export const getAllBlogs = (withContent = true) => {
     const blogs = []
     const recursion = (arr) => {
         arr.forEach((item) => {
             if (item.id) {
+                if (!withContent) {
+                    item.content = null
+                }
                 blogs.push(parseMarkdownContent(item))
             } else {
                 const category = Object.keys(item)[0]
