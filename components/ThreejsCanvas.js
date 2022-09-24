@@ -1,11 +1,8 @@
 import {Suspense} from 'react'
 import {Canvas} from '@react-three/fiber'
-// import Modal from './ThreeModal'
+import Modal from './ThreeModal'
 import {OrbitControls} from '@react-three/drei'
 import {CanvasContainer, CanvasLoadingSpinner} from './CanvasContainer'
-import dynamic from 'next/dynamic'
-
-const Modal = dynamic(() => import('./ThreeModal'))
 
 function ThreejsCanvas() {
     return (
