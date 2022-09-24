@@ -1,13 +1,10 @@
-/*
- * @Author: Ruoyu
- * @FilePath: \next-client\pages\_document.js
- */
-import Document, {Html, Head, Main, NextScript} from 'next/document'
+import Document, {Head, Html, Main, NextScript} from 'next/document'
+
 const isProduction = process.env.NODE_ENV === 'production'
 class MyDocument extends Document {
     render() {
         return (
-            <Html>
+            <Html lang="zh-CN">
                 <Head>
                     {isProduction && (
                         <>

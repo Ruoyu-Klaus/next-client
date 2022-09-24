@@ -68,13 +68,23 @@ Hi 👋, I'm ruoyu.
 - [x] extract constant to replace hard code content
 - [x] remove cursor decoration for mobile
 - [x] adjust theme mode position for mobile
-- [ ] image pre-loading
+- [x] image pre-loading
+- [x] SEO set HTML language attribute and add page description
+- [x] upgrade next version and adopt webpack5
+- [x] remove useless pagination hook and infinite scrolling component
 - [ ] custom cursor translate CSS delays while rendering 3d modal
 
 
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+I would like to give credit to a list of resources below.
 
+* [Choose an Open Source License](https://choosealicense.com)
+* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
+* [Next.js](https://nextjs.org/)
+* [Chakra UI](https://chakra-ui.com/)
+* [Netlify](https://www.netlify.com/)
 
 
 
@@ -82,19 +92,6 @@ Hi 👋, I'm ruoyu.
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
-
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Next.js](https://nextjs.org/)
-* [Chakra UI](https://chakra-ui.com/)
-* [Netlify](https://www.netlify.com/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

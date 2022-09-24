@@ -8,16 +8,17 @@ const markedOptions = {
     smartLists: true,
     smartypants: false,
     langPrefix: 'hljs language-',
-    highlight: function (code) {
+    highlight: function(code) {
         return highlightSyntax.highlightAuto(code).value
     },
 }
 
 export function getParsedContentWithTocTree(content) {
+    if (!content) return {parsedContent: null, tocTree: null}
     const renderer = new marked.Renderer()
 
     const tocRenderer = new MarkDownTOC()
-    renderer.heading = function (text, level) {
+    renderer.heading = function(text, level) {
         return tocRenderer.renderHTML(text, level)
     }
     marked.setOptions(markedOptions)

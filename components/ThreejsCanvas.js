@@ -1,11 +1,8 @@
 import {Suspense} from 'react'
 import {Canvas} from '@react-three/fiber'
-// import Modal from './ThreeModal'
+import Modal from './ThreeModal'
 import {OrbitControls} from '@react-three/drei'
 import {CanvasContainer, CanvasLoadingSpinner} from './CanvasContainer'
-import dynamic from 'next/dynamic'
-
-const Modal = dynamic(() => import('./ThreeModal'))
 
 function ThreejsCanvas() {
     return (
@@ -13,9 +10,8 @@ function ThreejsCanvas() {
             <CanvasContainer>
                 <Canvas camera={{fov: 65, position: [0, 0, 5]}}>
                     <ambientLight intensity={0.2} />
-                    <Modal url="/farmhouse2.0.glb" />
+                    <Modal url='/farmhouse2.0.glb' />
                     <OrbitControls enableDamping target={[0, -1, 1]} />
-                    {/* <Stats /> */}
                 </Canvas>
             </CanvasContainer>
         </Suspense>

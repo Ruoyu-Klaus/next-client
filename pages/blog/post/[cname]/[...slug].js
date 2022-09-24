@@ -23,7 +23,7 @@ function Post({post = {}, previousPath, nextPath}) {
     const router = useRouter()
     const emoji = randomEmoji()
 
-    const {id, title, coverImage, tags, category, content, date, tocTree} = post
+    const {id, title, excerpt, coverImage, tags, category, content, date, tocTree} = post
 
     useEffect(() => {
         !id && router.push('/blog')
@@ -34,6 +34,7 @@ function Post({post = {}, previousPath, nextPath}) {
             <Head>
                 <title>{title} | Ruoyu</title>
                 <link rel="icon" href="/favicon.ico" />
+                <meta name="description" content={excerpt} />
             </Head>
 
             <Container maxW="container.xl" my={8}>

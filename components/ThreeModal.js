@@ -2,27 +2,27 @@ import {useRef} from 'react'
 import {useFrame} from '@react-three/fiber'
 import {useGLTF} from '@react-three/drei'
 
+useGLTF.preload('/farmhouse2.0.glb')
+
 export default function Model({url, ...props}) {
     const {scene} = useGLTF(url)
     const myScene = useRef()
-
-    // const [ratio, setRatio] = useState(-20);
-    // useEffect(() => {
-    //   const timer = setInterval(() => {
-    //     setRatio((prev) => {
-    //       if (prev > 0) return prev;
-    //       return prev + 1;
-    //     });
-    //   }, 20);
-    //   return () => {
-    //     clearInterval(timer);
-    //   };
-    // }, []);
+    let resetClock = true
 
     useFrame(({clock}) => {
-        myScene.current.rotation.y = Math.sin(clock.getElapsedTime() / 4) * 0.9 + 4.5
+        const endPoint = Math.min(clock.getElapsedTime() / 5, 1)
+        if (endPoint >= 1 || !resetClock) {
+            if (resetClock) {
+                clock.stop()
+                clock.start()
+                resetClock = false
+            }
+            myScene.current.rotation.y = Math.sin(clock.getElapsedTime() / 3) + 4.7
+            return
+        }
+        myScene.current.rotation.y = (1 - Math.pow(1 - endPoint, 4)) * Math.PI * 50 + 4.7
     })
 
-    return <primitive ref={myScene} object={scene} position={[0, -2, 1]} rotation={[0, 4.5, 0]} scale={[1, 1, 1]} {...props} dispose={null} />
+    return <primitive ref={myScene} object={scene} position={[0, -2, 1]} rotation={[0, 0, 0]}
+                      scale={[1, 1, 1]} {...props} dispose={null} />
 }
-useGLTF.preload('/farmhouse2.0.glb')
