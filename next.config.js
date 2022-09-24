@@ -2,7 +2,6 @@ const withPlugins = require('next-compose-plugins')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
 const nextConfig = {
-    target: 'serverless',
     env: {
         BASE_URL: process.env.BASE_URL || 'http://127.0.0.1:7001/v1/',
     },
