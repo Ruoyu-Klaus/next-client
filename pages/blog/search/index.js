@@ -43,7 +43,7 @@ function Index({posts: originalPosts}) {
 }
 
 export async function getStaticProps() {
-    const posts = getAllBlogs() || []
+    const posts = getAllBlogs(false) || []
     return {
         props: {
             posts,

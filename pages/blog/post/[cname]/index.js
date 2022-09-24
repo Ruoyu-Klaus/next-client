@@ -26,7 +26,7 @@ export async function getStaticProps(context) {
     const {params} = context
     const category_name = params.cname
     try {
-        const posts = getAllBlogs().filter((blog) => blog.category === category_name)
+        const posts = getAllBlogs(false).filter((blog) => blog.category === category_name)
         return {
             props: {
                 posts,
