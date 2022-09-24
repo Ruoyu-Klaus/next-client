@@ -15,6 +15,7 @@ function NavBarLogo({to = '/', ...rest}) {
                             alt="klauswang"
                             layout="fill"
                             objectFit="scale-down"
+                            priority={true}
                             src={colorMode === 'light' ? '/klauswang.png' : '/klauswang-white.png'}
                         />
                     </Box>

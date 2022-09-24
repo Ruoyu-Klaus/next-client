@@ -55,6 +55,7 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
                             objectFit="cover"
                             alt={title}
                             layout="fill"
+                            priority={true}
                         />
                     </Box>
                 )}
