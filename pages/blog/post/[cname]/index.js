@@ -14,8 +14,8 @@ function Category({posts}) {
         <>
             <Head>
                 <title>{cname} | Ruoyu</title>
-                <link rel="icon" href="/favicon.ico" />
-                <meta name="description" content={`${cname} blogs`} />
+                <link rel='icon' href='/favicon.ico' />
+                <meta name='description' content={`${cname} blogs`} />
             </Head>
             <PostCardGridList posts={posts} />
         </>

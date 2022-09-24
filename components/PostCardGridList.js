@@ -11,7 +11,7 @@ function PostCardGridList({posts}) {
         <Container maxW="container.xl" my={8}>
             <SimpleGrid minChildWidth="350px" spacing="8" justifyItems="center" alignItems="center">
                 {posts.map((post) => (
-                    <FadeIn key={post.title}>
+                    <FadeIn key={post.id}>
                         <PostCard postDetails={post} LoadingComp={LoadingCard} />
                     </FadeIn>
                 ))}
