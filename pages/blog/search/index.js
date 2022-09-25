@@ -10,7 +10,7 @@ import {Container, Flex} from '@chakra-ui/react'
 import BlogLayout from '../../../layout/BlogLayout'
 
 import tags from '../../../_posts/tags.json'
-import {getAllBlogs} from '../../../helpers'
+import {getAllBlogsList} from '../../../helpers'
 
 const debouncedChangeHandler = (fn) => debounce(fn, 200)
 
@@ -43,7 +43,7 @@ function Index({posts: originalPosts}) {
 }
 
 export async function getStaticProps() {
-    const posts = getAllBlogs(false) || []
+    const posts = getAllBlogsList() || []
     return {
         props: {
             posts,

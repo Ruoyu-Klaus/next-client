@@ -46,6 +46,10 @@ class BlogCollection {
                 fileNames.forEach((fileName) => {
                     if (fileName.includes('.md')) {
                         subTree.push({...this.parsedFrontMatter(fileName, absPath), category})
+                    } else if (fileName.includes('.png' | '.jpg' | '.jpeg' | '.svg' | '.webp' | '.glf')) {
+                        fs.copyFile(`${absPath}/${fileName}`, `public/${fileName}`, (err) => {
+                            console.error('copy images error' + {err})
+                        })
                     } else {
                         dirPath = `${absPath}/${fileName}`
                         subTree.push({[fileName]: recursion([], dirPath)})
@@ -75,6 +79,7 @@ class BlogCollection {
             console.log(e)
         }
     }
+
     countTags(tags) {
         return _.values(_.groupBy(tags)).map((tag) => ({
             text: tag[0],

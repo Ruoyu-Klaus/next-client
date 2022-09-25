@@ -2,7 +2,7 @@ import Head from 'next/head'
 
 import PostCardGridList from '../../components/PostCardGridList'
 import BlogLayout from '../../layout/BlogLayout'
-import {getAllBlogs} from '../../helpers'
+import {getAllBlogsList} from '../../helpers'
 
 function Index({posts}) {
     return (
@@ -18,7 +18,7 @@ function Index({posts}) {
 }
 export async function getStaticProps() {
     try {
-        const posts = getAllBlogs(false)
+        const posts = getAllBlogsList()
         return {
             props: {
                 posts,
