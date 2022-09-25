@@ -9,6 +9,7 @@ class Category {
         this.categories = []
         this.init()
     }
+
     init() {
         const categories = fs.readdirSync(path.join(`${this.blog_path}`)).filter((dir) => !/(^|\/)\.[^\/\.]/g.test(dir))
         let index = categories.indexOf('draft')
@@ -47,7 +48,7 @@ class BlogCollection {
                     if (fileName.includes('.md')) {
                         subTree.push({...this.parsedFrontMatter(fileName, absPath), category})
                     } else if (fileName.includes('.png' | '.jpg' | '.jpeg' | '.svg' | '.webp' | '.glf')) {
-                        fs.copyFile(`${absPath}/${fileName}`, `public/${fileName}`, (err) => {
+                        fs.copyFile(`${absPath}/${fileName}`, `public/${fileName}`, fs.constants.COPYFILE_EXCL, (err) => {
                             console.error('copy images error' + {err})
                         })
                     } else {

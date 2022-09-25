@@ -5,7 +5,6 @@ export const useUtterances = (commentNodeId) => {
     const {colorMode} = useColorMode()
     useEffect(() => {
         const scriptParentNode = document.getElementById(commentNodeId)
-        console.log({commentNodeId,scriptParentNode})
         if (!scriptParentNode) return
         const utteranceTheme = colorMode === 'dark' ? 'github-dark' : 'github-light'
         const script = document.createElement('script')
