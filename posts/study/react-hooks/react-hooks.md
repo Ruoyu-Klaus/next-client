@@ -31,7 +31,7 @@ tags:
 
 React本质上是单向数据流的库，由自身状态的变化驱动视图变化，它的核心就是一个函数`UI = fn(state)`。
 
-```JavaScript
+```react
 const App = state => `
   <div id='App'>
     <h1>Count: ${state.count}</h1>
@@ -69,7 +69,7 @@ document.body.innerHTML = App({ count: 5 })
 - 当我们点击add按钮，则触发setCount函数，执行我们传入的一个更新方法，即将当前count值加一
 - React监测到组件自身状态发生了变化，页面重新被渲染，此时页面为Current Count: 1
 
-```JavaScript
+```react
 function Counter() {
 
   const [count, setCount] = useState(0);
@@ -96,7 +96,7 @@ function Counter() {
 - 当点击add按钮，触发dispatch函数，执行类型为increment的更新规则
 - 当点击tax按钮，触发dispatch函数，除了类型之外，可以额外传入payload对象作为消费数据，用于状态更新
 
-```JavaScript
+```react
 const initialState = {count: 0, tax:0};
 
 function reducer(state, action) {
@@ -132,7 +132,7 @@ function Counter() {
 useContext可以用于在组件内消费一个context，当context的值发生了变化，该组件就会重新render
 
 
-```JavaScript
+```react
 const themes = {
   light: {
     background: "#eeeeee"
@@ -184,7 +184,7 @@ function ThemedButton() {
 - 传入的函数可以理解为一个高性能开销的方法
 - useMemo返回一个值，这个值等于传入它第一个函数参数的返回值
 
-```JavaScript
+```react
 function Counter({income}) {
 
   const [count, setCount] = useState(0);
@@ -208,7 +208,7 @@ function Counter({income}) {
 
 useCallback(fn, deps) 相当于 useMemo(() => fn, deps)
 
-```JavaScript
+```react
 function Counter({income}) {
   // 如果说渲染时传入的income值与上一次相同，那么就不会重新计算tax，直接返回上一次缓存下来的值
   const taxCallback = useCallback(()=> income * 0.1 , [income])
@@ -241,7 +241,7 @@ function Counter({income}) {
 
 如果想执行只运行一次的 effect（仅在组件挂载和卸载时执行），可以传递一个空数组（[]）作为第二个参数。这就告诉 React你的effect不依赖于props或state中的任何值，所以它永远都不需要重复执行。
 
-```JavaScript
+```react
 function Counter({income}) {
 
   const [count, setCount] = useState(0);
@@ -274,7 +274,7 @@ function Counter({income}) {
 
 1. 存储可变变量
 
-```JavaScript
+```react
 const Timer = () => {
   const intervalRef = useRef();
 
@@ -300,7 +300,7 @@ const Timer = () => {
 
 2. 访问DOM节点
 
-```JavaScript
+```react
 const CustomTextInput = () => {
   const textInput = useRef();
 
@@ -321,6 +321,6 @@ const CustomTextInput = () => {
 Reference
 
 
-https://reactjs.org/docs/thinking-in-react.html
-https://reactjs.org/docs/hooks-reference.html
-https://www.kn8.lt/blog/ui-is-a-function-of-data/
+- https://reactjs.org/docs/thinking-in-react.html
+- https://reactjs.org/docs/hooks-reference.html
+- https://www.kn8.lt/blog/ui-is-a-function-of-data/
