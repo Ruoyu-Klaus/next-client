@@ -49,7 +49,7 @@ class BlogCollection {
                         subTree.push({...this.parsedFrontMatter(fileName, absPath), category})
                     } else if (fileName.includes('.png' | '.jpg' | '.jpeg' | '.svg' | '.webp' | '.glf')) {
                         fs.copyFile(`${absPath}/${fileName}`, `public/${fileName}`, fs.constants.COPYFILE_EXCL, (err) => {
-                            console.error('copy images error' + {err})
+                            console.error('copy images error ' + err)
                         })
                     } else {
                         dirPath = `${absPath}/${fileName}`

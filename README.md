@@ -69,6 +69,7 @@ Hi 👋, I'm ruoyu.
 - [x] upgrade next version and adopt webpack5
 - [x] remove useless pagination hook and infinite scrolling component
 - [x] custom cursor translate CSS delays while rendering 3d modal
+- [ ] dynamic reading images under public folder depending on categories
 
 
 <!-- ACKNOWLEDGMENTS -->
