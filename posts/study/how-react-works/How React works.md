@@ -2,7 +2,7 @@
 title: React原理基础
 date: 2022-10-13
 excerpt: 简单梳理一下React核心原理基础，从JSX，到Fiber架构...
-cover: /2022-10-13-00-32-43.png
+cover: /2022-10-13-00-48-21.png
 tags:
 - React
 ---
@@ -343,7 +343,9 @@ Stack reconciler 是一个同步的递归过程，如果虚拟DOM树层级很深
 所谓Fiber就是比线程还要精细对过程，可以在对渲染过程实现更精细的控制。Fiber实现增量渲染，可中断，可恢复与优先级
 
 Diff的工作流：Reconciler -> Renderer
+
 ⬇
+
 Fiber架构下的工作流：Scheduler -> Reconciler -> Renderer
 
 React根据浏览器帧率，计算时间切片大小，结合当前时间对task进行切割，中断当前代码执行，给浏览器喘气的空间。
@@ -358,12 +360,14 @@ render主要分为三个阶段
 
 当current树呈现用户面前，所有更新会由workInProgress接管，直到更新完，current指针被指向workInProgress。
 
-总结
 
 Fiber是React核心算法重写，是React内部定义的一种数据结构。Fiber节点保存了组件更新的状态以及副作用。
 
-扩展阅读
+
+> 扩展阅读
+
 [React-fiber](https://github.com/acdlite/react-fiber-architecture)
+
 [React Internals (Part 3) - Fiber Architecture](https://www.burhanuday.com/blog/2020/09/react-internals-fiber-architecture-280l)
 
 

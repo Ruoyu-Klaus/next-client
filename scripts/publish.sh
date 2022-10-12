@@ -5,7 +5,7 @@ GREEN='\033[0;32m'
 NORMAL='\033[0m'
 
 current_branch=$(git branch --show-current)
-chenged=$(git status | grep "posts/" | sed 's/.md//;s/^\t*//' | tr '\n' ',' | sed 's/,$/\n/' | cut -b -20)
+chenged=$(git status | grep "posts/" | sed 's/.md//;s/^\t*//' | tr '\n' ',' | sed 's/,$/\n/' | cut -b -50)
 message=${1:-📝publish blog: 🏷️ $chenged}
 
 echo '🌲 Current branch: ' $GREEN$current_branch$NORMAL
