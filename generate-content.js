@@ -26,6 +26,7 @@ class BlogCollection {
     _tags = []
     blogsTree = []
     tagWithCount = []
+    imageExtensions = ['.png','.jpg', '.jpeg', '.svg','.webp','.glf']
 
     constructor(rootPath = 'posts') {
         if (BlogCollection._instance) {
@@ -47,7 +48,7 @@ class BlogCollection {
                 fileNames.forEach((fileName) => {
                     if (fileName.includes('.md')) {
                         subTree.push({...this.parsedFrontMatter(fileName, absPath), category})
-                    } else if (fileName.includes('.png' | '.jpg' | '.jpeg' | '.svg' | '.webp' | '.glf')) {
+                    } else if (this.imageExtensions.includes(path.extname(fileName).toLowerCase())) {
                         fs.access(`public/${fileName}`, fs.constants.F_OK, err => {
                             if (err) {
                                 fs.copyFile(`${absPath}/${fileName}`, `public/${fileName}`, fs.constants.COPYFILE_EXCL, (err) => {
