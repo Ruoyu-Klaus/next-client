@@ -2,7 +2,7 @@
 title: 发布订阅模式
 date: 2022-10-15
 excerpt: 发布订阅模式是软件架构中常见的设计模式。它可以有效降低系统底层组件之间的耦合程度
-cover: /pub:sub-compressed.png
+cover: /pub-sub-compressed.png
 tags:
 - Javascript
 - Design Pattern
