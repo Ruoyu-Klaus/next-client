@@ -21,6 +21,9 @@ export function getParsedContentWithTocTree(content) {
     renderer.heading = function(text, level) {
         return tocRenderer.renderHTML(text, level)
     }
+    renderer.image = function(href, title, text) {
+        return `<img src=/${href} alt=${text}/>`
+    }
     marked.setOptions(markedOptions)
     marked.use({renderer})
     return {parsedContent: marked(content), tocTree: getTocTree(tocRenderer)}

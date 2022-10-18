@@ -9,6 +9,7 @@ class Category {
         this.categories = []
         this.init()
     }
+
     init() {
         const categories = fs.readdirSync(path.join(`${this.blog_path}`)).filter((dir) => !/(^|\/)\.[^\/\.]/g.test(dir))
         let index = categories.indexOf('draft')
@@ -25,6 +26,7 @@ class BlogCollection {
     _tags = []
     blogsTree = []
     tagWithCount = []
+    imageExtensions = ['.png','.jpg', '.jpeg', '.svg','.webp','.glf']
 
     constructor(rootPath = 'posts') {
         if (BlogCollection._instance) {
@@ -46,6 +48,14 @@ class BlogCollection {
                 fileNames.forEach((fileName) => {
                     if (fileName.includes('.md')) {
                         subTree.push({...this.parsedFrontMatter(fileName, absPath), category})
+                    } else if (this.imageExtensions.includes(path.extname(fileName).toLowerCase())) {
+                        fs.access(`public/${fileName}`, fs.constants.F_OK, err => {
+                            if (err) {
+                                fs.copyFile(`${absPath}/${fileName}`, `public/${fileName}`, fs.constants.COPYFILE_EXCL, (err) => {
+                                    console.error('copy image error ' + err)
+                                })
+                            }
+                        })
                     } else {
                         dirPath = `${absPath}/${fileName}`
                         subTree.push({[fileName]: recursion([], dirPath)})
@@ -75,6 +85,7 @@ class BlogCollection {
             console.log(e)
         }
     }
+
     countTags(tags) {
         return _.values(_.groupBy(tags)).map((tag) => ({
             text: tag[0],

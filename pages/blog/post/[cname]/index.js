@@ -3,7 +3,7 @@ import Head from 'next/head'
 
 import PostCardGridList from '../../../../components/PostCardGridList'
 import categories from '../../../../_posts/categories.json'
-import {getAllBlogs} from '../../../../helpers/'
+import {getAllBlogsList} from '../../../../helpers/'
 import BlogLayout from '../../../../layout/BlogLayout'
 
 function Category({posts}) {
@@ -26,7 +26,7 @@ export async function getStaticProps(context) {
     const {params} = context
     const category_name = params.cname
     try {
-        const posts = getAllBlogs(false).filter((blog) => blog.category === category_name)
+        const posts = getAllBlogsList().filter((blog) => blog.category === category_name)
         return {
             props: {
                 posts,

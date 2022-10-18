@@ -7,7 +7,7 @@ import BackToTop from '../../../../components/BackToTop'
 import CustomDivider from '../../../../components/CustomDivider'
 import LinkToPost from '../../../../components/LinkToPost'
 import Toc from '../../../../components/Toc'
-import {getAllBlogs, getAllPostPaths} from '../../../../helpers'
+import {getAllPostPaths, getBlogDetailByCategoryAndId} from '../../../../helpers'
 import BlogLayout from '../../../../layout/BlogLayout'
 import {NEXT_POST_LABEL, PREVIOUS_POST_LABEL} from '../../../../utils/content'
 import Comments from '../../../../components/Comments'
@@ -33,40 +33,40 @@ function Post({post = {}, previousPath, nextPath}) {
         <>
             <Head>
                 <title>{title} | Ruoyu</title>
-                <link rel="icon" href="/favicon.ico" />
-                <meta name="description" content={excerpt} />
+                <link rel='icon' href='/favicon.ico' />
+                <meta name='description' content={excerpt} />
             </Head>
 
-            <Container maxW="container.xl" my={8}>
-                <CustomDivider my={4} text={emoji} dividerWidth="full" />
-                <VStack spacing="4">
-                    <Image w={['90%', '80vw', '60vw']} maxW="600px" objectFit="contain" src={coverImage} />
+            <Container maxW='container.xl' my={8}>
+                <CustomDivider my={4} text={emoji} dividerWidth='full' />
+                <VStack spacing='4'>
+                    <Image w={['90%', '80vw', '60vw']} maxW='600px' objectFit='contain' src={coverImage} />
                     <HStack spacing={4}>
                         {tags?.map((tag) => (
                             <Tag key={tag}>{tag}</Tag>
                         ))}
                     </HStack>
-                    <Box w={['90%', '80vw', '60vw']} maxW="1000px">
+                    <Box w={['90%', '80vw', '60vw']} maxW='1000px'>
                         <Heading>{title}</Heading>
                     </Box>
 
-                    <Flex w={['90%', '80vw', '60vw']} maxW="1000px" gap={4}>
-                        <Text fontSize="0.8rem">{category}</Text>
-                        <Text fontSize="0.8rem">{dayjs(date).format('MM-DD, YYYY')}</Text>
+                    <Flex w={['90%', '80vw', '60vw']} maxW='1000px' gap={4}>
+                        <Text fontSize='0.8rem'>{category}</Text>
+                        <Text fontSize='0.8rem'>{dayjs(date).format('MM-DD, YYYY')}</Text>
                     </Flex>
 
-                    <Box w={['90%', '80vw', '60vw']} maxW="1000px" className="markdown-body">
-                        <Toc tocTree={tocTree} />
+                    <Box w={['90%', '80vw', '60vw']} maxW='1000px' className='markdown-body'>
+                        <Toc tocTree={tocTree || []} />
                     </Box>
 
                     <Box
                         w={['90%', '80vw', '60vw']}
-                        maxW="1000px"
-                        className="markdown-body"
-                        id="content"
+                        maxW='1000px'
+                        className='markdown-body'
+                        id='content'
                         dangerouslySetInnerHTML={{__html: content}}
                     />
-                    <CustomDivider my={4} text={emoji} dividerWidth="full" />
+                    <CustomDivider my={4} text={emoji} dividerWidth='full' />
 
                     <Flex w={['auto', 'full']} justifyContent={['center', 'space-between']} flexDir={['column', 'row']}>
                         <LinkToPost payload={previousPath} />
@@ -85,11 +85,10 @@ export async function getStaticProps(context) {
     try {
         const {params} = context
         const [id] = params.slug
+        const category = params.cname
 
-        const posts = getAllBlogs()
-        const linkPaths = getAllPostPaths(posts, true)
-
-        const post = posts.find((post) => post.id === id)
+        const post = getBlogDetailByCategoryAndId(category, id)
+        const linkPaths = getAllPostPaths(true)
 
         if (!post) {
             return {
@@ -129,8 +128,7 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
     try {
-        const posts = getAllBlogs()
-        const paths = getAllPostPaths(posts)
+        const paths = getAllPostPaths()
         return {
             paths,
             fallback: false,

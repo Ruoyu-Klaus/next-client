@@ -2,7 +2,7 @@ import React from 'react'
 
 const Toc = ({tocTree = []}) => (
     <ul>
-        {tocTree.map((item) => (
+        {tocTree?.map((item) => (
             <li key={item.anchor}>
                 <a
                     href={`#${item.anchor}`}

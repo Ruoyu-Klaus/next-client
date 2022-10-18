@@ -1,8 +1,9 @@
 ---
 title: <% tp.file.title %>
-date: <% tp.date.now("YYYY-MM-DD", 1) %>
+date: 1990-01-01
 excerpt: 
 cover: 
 tags:
 - 
 ---
+template

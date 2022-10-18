@@ -2,29 +2,53 @@ import {getParsedContentWithTocTree} from './markDownRenderer'
 import blogCollection from '../_posts/blogCollection.json'
 import dayjs from 'dayjs'
 
-export const getAllBlogs = (withContent = true) => {
+export const getAllBlogsList = () => {
     const blogs = []
     const recursion = (arr) => {
         arr.forEach((item) => {
             if (item.id) {
-                if (!withContent) {
-                    item.content = null
-                }
-                blogs.push(parseMarkdownContent(item))
+                const _item = {};
+                Object.assign(_item, item)
+                _item.content = null
+                blogs.push(_item)
             } else {
                 const category = Object.keys(item)[0]
                 recursion(item[category])
             }
         })
     }
-    recursion(blogCollection)
+    recursion([...blogCollection])
     blogs.sort((a, b) => {
         return dayjs(a.date).isBefore(dayjs(b.date)) ? 1 : -1
     })
     return blogs
 }
+export const getBlogDetailByCategoryAndId = (category, id) => {
+    const category_blogs = [...blogCollection].find(blog => Object.keys(blog)[0] === category)
+    if (!category_blogs) {
+        return null
+    }
+    const blogs = category_blogs[category]
+    let blog
+    const recursion = (arr) => {
+        arr.forEach(item => {
+            if (blog) return
+            if (item.id) {
+                if (item.id === id) {
+                    blog = Object.assign({}, item)
+                }
+            } else {
+                const category = Object.keys(item)[0]
+                recursion(item[category])
+            }
+        })
+    }
+    recursion([...blogs])
+    return parseMarkdownContent(blog)
+}
 
-export const getAllPostPaths = (blogs, isLinkPath = false) => {
+export const getAllPostPaths = (isLinkPath = false) => {
+    const blogs = getAllBlogsList();
     if (isLinkPath) {
         return blogs.map((post) => ({
             href: {

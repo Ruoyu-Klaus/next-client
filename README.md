@@ -49,19 +49,15 @@ Hi 👋, I'm ruoyu.
 ## Roadmap
 
 <b>Feat</b>
-- [x] cloud words for search pages
-- [x] routes for post name
+- [x] cloud-word component exhibits keywords by the number of occurrences 
+- [x] post title based routes SEO friendly 
 - [x] use dynamic slug routes for post id and title
 - [x] previous post & next post
 - [x] comments
-- [ ] author page
-
-
-<b>Bugs</b>
-
-- [x] post cover position
-- [x] post MD parse highlight not right
-- [x] strange post transition-in
+- [x] dark/light mode
+- [x] directory based blogs reading[use folder for categorizing blogs]
+- [ ] author/portfolio page
+- [ ] publish CLI  
 
 
 <b>Tech</b>
@@ -72,7 +68,8 @@ Hi 👋, I'm ruoyu.
 - [x] SEO set HTML language attribute and add page description
 - [x] upgrade next version and adopt webpack5
 - [x] remove useless pagination hook and infinite scrolling component
-- [ ] custom cursor translate CSS delays while rendering 3d modal
+- [x] custom cursor translate CSS delays while rendering 3d modal
+- [ ] dynamic reading images under public folder depending on categories
 
 
 <!-- ACKNOWLEDGMENTS -->
