@@ -2,6 +2,7 @@
 title: Empower VScode with Excalidraw
 date: 2022-07-19
 excerpt: 分享一个特别好用的画图工具`Excalidraw`，并使它能够在VScode中和我们项目或者笔记中一起使用。
+cover: /2022-10-19-22-50-21.png
 tags:
 - Excalidraw
 - VScode extensions
