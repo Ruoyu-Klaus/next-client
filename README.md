@@ -56,8 +56,8 @@ Hi 👋, I'm ruoyu.
 - [x] comments
 - [x] dark/light mode
 - [x] directory based blogs reading[use folder for categorizing blogs]
+- [x] publish CLI  
 - [ ] author/portfolio page
-- [ ] publish CLI  
 
 
 <b>Tech</b>
@@ -69,7 +69,8 @@ Hi 👋, I'm ruoyu.
 - [x] upgrade next version and adopt webpack5
 - [x] remove useless pagination hook and infinite scrolling component
 - [x] custom cursor translate CSS delays while rendering 3d modal
-- [ ] dynamic reading images under public folder depending on categories
+- [x] dynamically reading images under public folder depending on categories
+- [ ] compress all new images before pushing
 
 
 <!-- ACKNOWLEDGMENTS -->
