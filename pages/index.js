@@ -33,7 +33,7 @@ function Cover() {
     return (
         <>
             <Head>
-                <title>首页 | Ruoyu</title>
+                <title>Home | 首页</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 

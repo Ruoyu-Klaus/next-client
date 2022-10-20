@@ -8,7 +8,7 @@ function Index({posts}) {
     return (
         <>
             <Head>
-                <title>博客 | Ruoyu</title>
+                <title>Blog | 博客</title>
                 <link rel="icon" href="/favicon.ico" />
                 <meta name="description" content="blogs" />
             </Head>

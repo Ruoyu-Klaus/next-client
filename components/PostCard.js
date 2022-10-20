@@ -37,7 +37,7 @@ PostCard.propTypes = {
 }
 
 function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
-    const {id, title, date, excerpt, coverImage, category, tags = []} = postDetails
+    const {id, title, date, excerpt, coverImage, category, tags = [], author = 'Ruoyu'} = postDetails
     if (!id) return <></>
     const status = useImage({src: coverImage})
 
@@ -97,7 +97,7 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
         () => (
             <Flex w={'full'} justifyContent="space-between">
                 <Text fontSize={'xs'}>
-                    By <span>Ruoyu</span>
+                    By <span>{author}</span>
                 </Text>
                 <HStack fontSize={'xs'}>
                     <TimeIcon />
@@ -105,7 +105,7 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
                 </HStack>
             </Flex>
         ),
-        [date],
+        [date,author],
     )
 
     return (
