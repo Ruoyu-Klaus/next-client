@@ -52,7 +52,7 @@ function Header({navArray = []}) {
             className="header"
             w="full"
             h={16}
-            px={4}
+            px={8}
             templateColumns="repeat(3, 1fr)"
             bg={useColorModeValue('gray.50', '#333')}
             borderBottomWidth={'1px'}
@@ -64,11 +64,6 @@ function Header({navArray = []}) {
                 <Button variant="ghost" onClick={handleThemeChange}>
                     {colorMode === 'light' ? <Text fontSize="lg">{DARK_MODE_ICON}</Text> : <Text fontSize="lg">{LIGHT_MODE_ICON}</Text>}
                 </Button>
-                <MenuItemLink to="/blog/search">
-                    <Button variant="ghost">
-                        <SearchIcon />
-                    </Button>
-                </MenuItemLink>
             </HStack>
             <GridItem justifySelf="center">
                 <NavBarLogo w="80%" m="0 auto" />
@@ -93,6 +88,11 @@ function Header({navArray = []}) {
                             <Button variant="link">{NAVIGATION_HOMEPAGE}</Button>
                         </MenuItemLink>
                         {renderCategoriesLink()}
+                        <MenuItemLink to="/blog/search">
+                            <Button variant="link">
+                                <SearchIcon />
+                            </Button>
+                        </MenuItemLink>
                     </Stack>
                 </Box>
             </GridItem>
