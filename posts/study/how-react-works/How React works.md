@@ -342,13 +342,15 @@ Stack reconciler 是一个同步的递归过程，如果虚拟DOM树层级很深
 
 所谓Fiber就是比线程还要精细对过程，可以在对渲染过程实现更精细的控制。Fiber实现增量渲染，可中断，可恢复与优先级
 
+
 Diff的工作流：Reconciler -> Renderer
 
 ⬇
 
 Fiber架构下的工作流：Scheduler -> Reconciler -> Renderer
 
-React根据浏览器帧率，计算时间切片大小，结合当前时间对task进行切割，中断当前代码执行，给浏览器喘气的空间。
+Fiber Reconciler根据浏览器帧率，计算时间切片大小，结合当前时间对task进行切割，中断当前代码执行，给浏览器喘气的空间。为实现这一效果，就需要调度器来分配任务，优先级高的任务可以打断优先级低的任务的执行。
+
 
 render主要分为三个阶段
 
@@ -356,12 +358,19 @@ render主要分为三个阶段
 2. render phase
 3. commit phase
 
-双缓冲模式可以帮助复用Fiber树，实现无缝转接。在初始化阶段创建的current树与workInProgress树作为一种双缓冲数据
+第二个阶段，主要是用于生成Fiber树，得出需要更新的节点信息，可以被打断。而第三commit阶段，则是对需要更新的节点进行批量更新，这一过程不可以被打断。
 
-当current树呈现用户面前，所有更新会由workInProgress接管，直到更新完，current指针被指向workInProgress。
+在React中，还采用了双缓冲模式可以帮助复用Fiber树，实现无缝转接。在初始化阶段创建的current树与workInProgress树作为一种双缓冲数据。当current树呈现用户面前，所有更新会由workInProgress接管，直到更新完，current指针被指向workInProgress。
 
+Fiber树在首次渲染的时候会一次过生成。在后续需要Diff的时候，会根据已有树和最新Virtual DOM的信息，生成一棵新的树。这颗新树每生成一个新的节点，都会将控制权交回给主线程，去检查有没有优先级更高的任务需要执行。如果没有，则继续构建树的过程
+
+![fiber-tree](2022-10-20-22-24-34.png)
+
+
+总结
 
 Fiber是React核心算法重写，是React内部定义的一种数据结构。Fiber节点保存了组件更新的状态以及副作用。
+
 
 
 > 扩展阅读
