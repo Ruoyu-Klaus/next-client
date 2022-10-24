@@ -26,7 +26,7 @@ class BlogCollection {
     _tags = []
     blogsTree = []
     tagWithCount = []
-    imageExtensions = ['.png','.jpg', '.jpeg', '.svg','.webp','.glf']
+    imageExtensions = ['.png','.jpg', '.jpeg', '.svg','.webp','.glf','.gif']
 
     constructor(rootPath = 'posts') {
         if (BlogCollection._instance) {
