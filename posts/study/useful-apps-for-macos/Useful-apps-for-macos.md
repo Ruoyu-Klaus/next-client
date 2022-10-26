@@ -63,6 +63,10 @@ tags:
 - https://github.com/excalidraw/excalidraw#documentation
 - Virtual whiteboard for sketching hand-drawn like diagrams.
 
+# Pika 🎨
+
+- https://superhighfives.com/pika
+- An open-source color picker app for macOS.
 
 # Others 
 
