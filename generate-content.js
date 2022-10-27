@@ -3,7 +3,6 @@ const path = require('path')
 const matter = require('gray-matter')
 const _ = require('lodash')
 
-const isNetworkURL = (str) => str.match(/^http.+/)
 
 class Category {
     constructor(blog_path = 'posts') {
@@ -96,6 +95,7 @@ class BlogCollection {
 
     getCoverImagePath(cover) {
         if (!cover) return '/cover_placeholder.png'
+        const isNetworkURL = (str) => str.match(/^http.+/)
         if (isNetworkURL(cover)) return cover
         const markdownImageFormat = cover.match(/\(([^)]+)\)/)
         if (markdownImageFormat) {

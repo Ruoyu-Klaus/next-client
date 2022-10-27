@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import React, {useMemo, useState} from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import NextImage from 'next/image'
@@ -6,7 +6,7 @@ import NextImage from 'next/image'
 import dayjs from 'dayjs'
 import styles from '../styles/Components/PostCard.module.scss'
 
-import {Box, Divider, Flex, Heading, HStack, Skeleton, Tag, Text, useImage, VStack} from '@chakra-ui/react'
+import {Box, Divider, Flex, Heading, HStack, Skeleton, Tag, Text, VStack} from '@chakra-ui/react'
 import {TimeIcon} from '@chakra-ui/icons'
 
 function LinkToPostDetail(props) {
@@ -39,38 +39,35 @@ PostCard.propTypes = {
 function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
     const {id, title, date, excerpt, coverImage, category, tags = [], author = 'Ruoyu'} = postDetails
     if (!id) return <></>
-    const status = useImage({src: coverImage})
+    const [isImageLoading, setIsImageLoading] = useState(true)
 
     const postCover = useMemo(
         () => (
             <LinkToPostDetail category={category} id={id} title={title}>
-                {status === 'loading' ? (
-                    <Skeleton w="100%" h="100%" />
-                ) : (
-                    <Box w="100%" h="100%" pos="relative" transition="all 0.3s ease-in-out" _hover={{transform: 'scale(1.05)', opacity: '0.5'}}>
-                        <NextImage
-                            src={status === 'failed' ? '/cover_placeholder.png' : coverImage}
-                            blurDataURL="/cover_placeholder.png"
-                            overflow="hidden"
-                            objectFit="cover"
-                            alt={title}
-                            layout="fill"
-                            priority={true}
-                        />
-                    </Box>
-                )}
+                {isImageLoading && <Skeleton w='100%' h='100%' />}
+                <Box w='100%' h='100%' pos='relative' transition='all 0.3s ease-in-out'
+                     _hover={{transform: 'scale(1.05)', opacity: '0.5'}}>
+                    <NextImage
+                        src={coverImage}
+                        overflow='hidden'
+                        objectFit='cover'
+                        alt={title}
+                        layout='fill'
+                        onLoadingComplete={(e) => setIsImageLoading(false)}
+                    />
+                </Box>
             </LinkToPostDetail>
         ),
-        [coverImage, title, category, id, status],
+        [coverImage, title, category, id, isImageLoading],
     )
     const description = useMemo(
         () => (
-            <VStack h="full" spacing={3} alignItems="flex-start">
-                <Text mt={1} fontSize={'16px'} color="gray.500">
+            <VStack h='full' spacing={3} alignItems='flex-start'>
+                <Text mt={1} fontSize={'16px'} color='gray.500'>
                     {category}
                 </Text>
                 <LinkToPostDetail category={category} id={id} title={title}>
-                    <Heading as="h3" size="md" className={styles.postTitle}>
+                    <Heading as='h3' size='md' className={styles.postTitle}>
                         {title}
                     </Heading>
                 </LinkToPostDetail>
@@ -81,9 +78,9 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
                 </LinkToPostDetail>
                 <Divider />
 
-                <Box className={styles.postTag} w="full">
+                <Box className={styles.postTag} w='full'>
                     {tags.map((tag) => (
-                        <Tag size="sm" key={tag}>
+                        <Tag size='sm' key={tag}>
                             {tag}
                         </Tag>
                     ))}
@@ -95,7 +92,7 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
 
     const meta = useMemo(
         () => (
-            <Flex w={'full'} justifyContent="space-between">
+            <Flex w={'full'} justifyContent='space-between'>
                 <Text fontSize={'xs'}>
                     By <span>{author}</span>
                 </Text>
@@ -105,30 +102,30 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
                 </HStack>
             </Flex>
         ),
-        [date,author],
+        [date, author],
     )
 
     return (
         <Box
-            w="350px"
-            minW="250px"
-            maxW="350px"
-            h="480px"
-            borderWidth="1px"
-            borderRadius="6"
-            display="flex"
-            flexDir="column"
+            w='350px'
+            minW='250px'
+            maxW='350px'
+            h='480px'
+            borderWidth='1px'
+            borderRadius='6'
+            display='flex'
+            flexDir='column'
             className={styles.postCard}
         >
             {isLoading ? (
-                <LoadingComp w="full" h="full" />
+                <LoadingComp w='full' h='full' />
             ) : (
                 <>
-                    <Box w="full" h="240px" minH="240px" overflow="hidden">
+                    <Box w='full' h='240px' minH='240px' overflow='hidden'>
                         {postCover}
                     </Box>
 
-                    <Box flex="1" p={4} py={1}>
+                    <Box flex='1' p={4} py={1}>
                         {description}
                     </Box>
 
