@@ -49,9 +49,9 @@ class BlogCollection {
                     if (fileName.includes('.md')) {
                         subTree.push({...this.parsedFrontMatter(fileName, absPath), category})
                     } else if (this.imageExtensions.includes(path.extname(fileName).toLowerCase())) {
-                        fs.access(`public/${fileName}`, fs.constants.F_OK, err => {
+                        fs.access(`public/images/${fileName}`, fs.constants.F_OK, err => {
                             if (err) {
-                                fs.copyFile(`${absPath}/${fileName}`, `public/${fileName}`, fs.constants.COPYFILE_EXCL, (err) => {
+                                fs.copyFile(`${absPath}/${fileName}`, `public/images/${fileName}`, fs.constants.COPYFILE_EXCL, (err) => {
                                     console.error('copy image error ' + err)
                                 })
                             }
@@ -72,7 +72,7 @@ class BlogCollection {
             const slug = fileName.replace(/\.md$/, '')
             const markdownWithMeta = fs.readFileSync(path.join(`${dirPath}/${fileName}`), 'utf-8')
             const {data: frontMatter, content} = matter(markdownWithMeta)
-            const coverImage = frontMatter.cover ?? '/cover_placeholder.png'
+            const coverImage = `/images${frontMatter.cover}` ?? '/cover_placeholder.png'
             frontMatter.tags && this._tags.push(frontMatter.tags)
             return {
                 id: slug,

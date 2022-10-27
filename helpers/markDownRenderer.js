@@ -22,7 +22,7 @@ export function getParsedContentWithTocTree(content) {
         return tocRenderer.renderHTML(text, level)
     }
     renderer.image = function(href, title, text) {
-        return `<img src=/${href} alt=${text}/>`
+        return `<img src=/images/${href} alt=${text}/>`
     }
     marked.setOptions(markedOptions)
     marked.use({renderer})
