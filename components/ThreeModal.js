@@ -1,8 +1,7 @@
 import {useRef} from 'react'
 import {useFrame} from '@react-three/fiber'
-import {useGLTF} from '@react-three/drei'
+import {useGLTF} from '@react-three/drei/core/useGLTF'
 
-useGLTF.preload('/farmhouse2.0.glb')
 
 export default function Model({url, ...props}) {
     const {scene} = useGLTF(url)
@@ -26,3 +25,5 @@ export default function Model({url, ...props}) {
     return <primitive ref={myScene} object={scene} position={[0, -2, 1]} rotation={[0, 0, 0]}
                       scale={[1, 1, 1]} {...props} dispose={null} />
 }
+
+useGLTF.preload('/farmhouse.glb')
