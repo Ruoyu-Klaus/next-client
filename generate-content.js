@@ -3,6 +3,8 @@ const path = require('path')
 const matter = require('gray-matter')
 const _ = require('lodash')
 
+const isNetworkURL = (str) => str.match(/^http.+/)
+
 class Category {
     constructor(blog_path = 'posts') {
         this.blog_path = blog_path
@@ -72,13 +74,12 @@ class BlogCollection {
             const slug = fileName.replace(/\.md$/, '')
             const markdownWithMeta = fs.readFileSync(path.join(`${dirPath}/${fileName}`), 'utf-8')
             const {data: frontMatter, content} = matter(markdownWithMeta)
-            const coverImage = `/images${frontMatter.cover}` ?? '/cover_placeholder.png'
             frontMatter.tags && this._tags.push(frontMatter.tags)
             return {
                 id: slug,
                 content,
                 dirPath,
-                coverImage,
+                coverImage: this.getCoverImagePath(frontMatter.cover),
                 ...frontMatter,
             }
         } catch (e) {
@@ -91,6 +92,16 @@ class BlogCollection {
             text: tag[0],
             value: tag.length,
         }))
+    }
+
+    getCoverImagePath(cover) {
+        if (!cover) return '/cover_placeholder.png'
+        if (isNetworkURL(cover)) return cover
+        const markdownImageFormat = cover.match(/\(([^)]+)\)/)
+        if (markdownImageFormat) {
+            return `/images/${markdownImageFormat[1]}`
+        }
+        return `/images${cover}`
     }
 }
 
