@@ -71,6 +71,8 @@ Hi 👋, I'm ruoyu.
 - [x] custom cursor translate CSS delays while rendering 3d modal
 - [x] dynamically reading images under public folder depending on categories
 - [ ] compress all new images before pushing
+- [ ] support network images in blogs
+- [ ] support embedding videos in blogs
 
 
 <!-- ACKNOWLEDGMENTS -->
