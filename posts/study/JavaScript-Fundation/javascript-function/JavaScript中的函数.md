@@ -2,7 +2,7 @@
 title: 'JavaScript中的函数'
 date: '2021-07-08'
 excerpt: '本次学习一下JavaScript中的函数'
-cover: 'https://i.loli.net/2021/09/15/mhKaPD5AepnINB9.jpg'
+cover: '![](2022-10-28-21-16-38.png)'
 tags:
   - JavaScript
 ---

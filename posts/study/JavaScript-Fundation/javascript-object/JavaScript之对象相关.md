@@ -2,7 +2,7 @@
 title: 'JavaScript之对象相关'
 date: '2021-07-12'
 excerpt: '本次学习一下JavaScript之对象相关'
-cover: 'https://i.loli.net/2021/09/15/LZVUOs3kS5eYRGK.png'
+cover: '![](2022-10-28-21-33-04.png)'
 tags:
   - JavaScript
 ---

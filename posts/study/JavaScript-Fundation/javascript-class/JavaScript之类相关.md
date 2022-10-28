@@ -2,7 +2,7 @@
 title: 'JavaScript之类相关'
 date: '2021-07-14'
 excerpt: '本次学习一下JavaScript类相关的知识'
-cover: 'https://i.loli.net/2021/10/08/Jh2MgtPCXYZbLrk.jpg'
+cover: '![](2022-10-28-21-35-19.png)'
 tags:
   - JavaScript
 ---

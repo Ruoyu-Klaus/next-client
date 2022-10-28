@@ -2,13 +2,11 @@
 title: 'Next.js如何在页面跳转之间做CSS过渡？'
 date: '2021-12-06'
 excerpt: '最近在开发个人博客项目的时候使用了Next.js框架，期间遇到不少小问题。我打算把这些小问题都记录下来，以免之后再次遇到，同时也分享给大家我的一些思路经供参考。'
-cover: 'https://i.loli.net/2021/09/14/iKRIs2tafBOS9G1.jpg'
+cover: '![](2022-10-28-21-23-11.png)' 
 tags:
   - Next.js
   - JavaScript
 ---
-
-
 
 ### Next.js 简介
 

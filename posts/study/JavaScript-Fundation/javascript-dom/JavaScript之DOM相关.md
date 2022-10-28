@@ -2,7 +2,7 @@
 title: 'JavaScript之DOM相关'
 date: '2021-07-11'
 excerpt: '本次学习一下JavaScript之DOM相关'
-cover: 'https://i.loli.net/2021/09/14/1M3ApqhxBTwgHjV.jpg'
+cover: '![](2022-10-28-21-19-13.png)'
 tags:
   - JavaScript
 ---

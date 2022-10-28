@@ -2,7 +2,7 @@
 title: 'Javascript中关于loops异步操作'
 date: 2022-03-17
 excerpt: 对于`async`和`await`的一般用法是比较容易理解的，但是当在循环中尝试使用`await`事情就会变得有点复杂。
-cover: 'https://raw.githubusercontent.com/Ruoyu-Klaus/pics/main/images/Javascript%E4%B8%AD%E5%85%B3%E4%BA%8Eloops%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C.png'
+cover: '![](2022-10-28-21-06-56.png)'
 tags:
 - Javascript
 - Async 

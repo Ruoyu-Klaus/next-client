@@ -2,7 +2,7 @@
 title: 'JavaScript之原型相关'
 date: '2021-07-17'
 excerpt: '本次来学习一下JavaScript之原型相关。所有对象都是对象的实例'
-cover: 'https://i.loli.net/2021/10/08/u4L25SBVMs1jQU9.png'
+cover: '![](2022-10-28-21-30-59.png)'
 tags:
   - JavaScript
 ---

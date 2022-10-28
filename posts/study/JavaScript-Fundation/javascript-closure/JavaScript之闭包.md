@@ -2,7 +2,7 @@
 title: 'JavaScript之闭包'
 date: '2021-07-06'
 excerpt: '本次了解一下JS中闭包'
-cover: 'https://i.loli.net/2021/09/14/p2ouw8QqIBxJgcU.png'
+cover: '![](2022-10-28-21-37-07.png)'
 tags:
   - JavaScript
 ---

@@ -2,7 +2,7 @@
 title: 'Java函数式接口'
 date: 2022-04-30
 excerpt: Java一直以来是OO语言，而Lambda是Java8中的新特性，它用来表示函数接口的实现，一个函数式接口可以拥有多个默认方法。
-cover: 'https://raw.githubusercontent.com/Ruoyu-Klaus/pics/main/images/java-functional-interface.png'
+cover: '![](2022-10-28-21-08-59.png)'
 tags:
 - Java
 - Functional Interface

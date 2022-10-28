@@ -2,7 +2,7 @@
 title: 'JavaScript之Promise'
 date: '2021-08-01'
 excerpt: '学习了解一下JS中通过Promise异步处理'
-cover: 'https://s2.loli.net/2022/02/14/o24PNSgwmjGQnYy.png'
+cover: '![](2022-10-28-21-28-21.png)'
 tags:
   - JavaScript
 ---
