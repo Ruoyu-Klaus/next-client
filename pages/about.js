@@ -1,0 +1,28 @@
+import Head from 'next/head'
+import Author from '../components/Author'
+import BlogLayout from '../layout/BlogLayout'
+import {Container} from '@chakra-ui/react'
+
+function Index() {
+    return (
+        <>
+            <Head>
+                <title>About | 首页</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <Container maxW="container.xl" my={8}>
+                <Author />
+            </Container>
+        </>
+    )
+}
+
+Index.getLayout = function getLayout(page, categories) {
+    return (
+        <BlogLayout categories={categories} showModel>
+            {page}
+        </BlogLayout>
+    )
+}
+
+export default Index
