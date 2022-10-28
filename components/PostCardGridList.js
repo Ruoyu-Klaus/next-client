@@ -1,10 +1,12 @@
 import React from 'react'
+import dynamic from 'next/dynamic'
 
 import {Container, SimpleGrid} from '@chakra-ui/react'
 
 import PostCard from './PostCard'
-import LoadingCard from './LoadingCard'
 import FadeIn from './FadeIn'
+
+const LoadingCard = dynamic(() => import('./LoadingCard'))
 
 function PostCardGridList({posts}) {
     return (
