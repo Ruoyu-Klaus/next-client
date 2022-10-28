@@ -1,8 +1,9 @@
 ---
-title: 'test'
+title: 'templates'
 date: '2021-12-01'
-excerpt: 'testtesttesttesttest'
+excerpt: 'templates templates templates templates'
 tags:
+- Templates
 - Test
 ---
 
