@@ -1,34 +1,23 @@
-import {Avatar, Divider} from 'antd'
-import Link from 'next/link'
-import {WechatFilled, FacebookFilled, GithubFilled} from '@ant-design/icons'
-import '../styles/Components/Author.less'
+import {Center, Stack, Text} from '@chakra-ui/react'
 
 function Author(props) {
-    const {coverStyle} = props
     return (
-        <div className={`author-div ${coverStyle ? 'cover-box' : 'comm-box'}`}>
-            <div>
-                <Avatar size={coverStyle ? 120 : 100} src="https://picsum.photos/200/300" />
-            </div>
-            <div className={`${coverStyle ? 'author-introduction-cover' : 'author-introduction'}`}>
-                <div className="name">你好，我叫王若宇。</div>
-                MA Communication and Journalism
-                <br />
-                MSc Computational and Data Journalism
-                <br />
-                {coverStyle && <Link href={{pathname: '/home'}}>进入主页</Link>}
-                <Divider style={coverStyle && {color: '#eee', justifyContent: 'center'}}>社交账号</Divider>
-                <a target="_blank" href="https://github.com/Ruoyu-Klaus">
-                    <Avatar size={coverStyle ? 50 : 30} icon={<GithubFilled />} className="account" />
-                </a>
-                <a target="_blank" href="https://www.facebook.com/ruoyu.wang.9028194">
-                    <Avatar size={coverStyle ? 50 : 30} icon={<FacebookFilled />} className="account" />
-                </a>
-                <a target="_blank" href="https://i.loli.net/2020/07/03/WklZBzG2MxepQyg.jpg">
-                    <Avatar size={coverStyle ? 50 : 30} icon={<WechatFilled />} className="account" />
-                </a>
-            </div>
-        </div>
+        <Center maxW="container.md" width="50vw" alignItems="center">
+            <Stack spacing="28px">
+                <Text fontSize="lg">Ruoyu Klaus</Text>
+                <Text fontSize="md">👋 Hi there, welcome to my corner in the world of internet. </Text>
+                <Text fontSize="md">
+                    👨‍💻 I am a junior software developer, developing both FE and BE application, specializing in front end development.
+                </Text>
+                <Text fontSize="md">🏃 I am also an Agile practitioner with business awareness, clean code enthusiast.</Text>
+                <Text fontSize="md">🤔 I believe that software is build for servicing humanity, and solving real problems.</Text>
+                <Text fontSize="md">🏖️ Apart from programming, I quite like traveling, putting myself among diverse cultures and chilling.</Text>
+                <Text fontSize="md">
+                    🥘 I am also good at cooking. It takes the knowledge of different ingredients, how their combination would work. Really enjoy the
+                    time of cooking but washing dishes.
+                </Text>
+            </Stack>
+        </Center>
     )
 }
 

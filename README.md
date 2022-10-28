@@ -57,7 +57,7 @@ Hi 👋, I'm ruoyu.
 - [x] dark/light mode
 - [x] directory based blogs reading[use folder for categorizing blogs]
 - [x] publish CLI  
-- [ ] author/portfolio page
+- [x] author/portfolio page
 
 
 <b>Tech</b>
@@ -70,8 +70,8 @@ Hi 👋, I'm ruoyu.
 - [x] remove useless pagination hook and infinite scrolling component
 - [x] custom cursor translate CSS delays while rendering 3d modal
 - [x] dynamically reading images under public folder depending on categories
-- [ ] compress all new images before pushing
-- [ ] support network images in blogs
+- [x] compress all new images before pushing
+- [x] support network images in blogs
 - [ ] support embedding videos in blogs
 
 
