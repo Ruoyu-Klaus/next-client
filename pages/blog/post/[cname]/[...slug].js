@@ -33,42 +33,42 @@ function Post({post = {}, previousPath, nextPath}) {
         <>
             <Head>
                 <title>{title} | Ruoyu</title>
-                <link rel='icon' href='/favicon.ico' />
-                <meta name='description' content={excerpt} />
+                <link rel="icon" href="/favicon.ico" />
+                <meta name="description" content={excerpt} />
             </Head>
 
-            <Container maxW='container.xl' my={8}>
-                <CustomDivider my={4} text={emoji} dividerWidth='full' />
-                <VStack spacing='4'>
-                    <Image w={['90%', '80vw', '60vw']} maxW='600px' objectFit='contain' src={coverImage} />
+            <Container maxW="container.xl" my={8}>
+                <CustomDivider my={4} text={emoji} dividerWidth="full" />
+                <VStack spacing="4">
+                    <Image w={['90%', '80vw', '60vw']} maxW="600px" objectFit="contain" src={coverImage} />
                     <HStack spacing={4}>
                         {tags?.map((tag) => (
                             <Tag key={tag}>{tag}</Tag>
                         ))}
                     </HStack>
-                    <Box w={['90%', '80vw', '60vw']} maxW='1000px'>
+                    <Box w={['90%', '80vw', '60vw']} maxW="1000px">
                         <Heading>{title}</Heading>
                     </Box>
 
-                    <Flex w={['90%', '80vw', '60vw']} maxW='1000px' gap={4}>
-                        <Text fontSize='0.8rem'>{category}</Text>
-                        <Text fontSize='0.8rem'>{dayjs(date).format('MM-DD, YYYY')}</Text>
+                    <Flex w={['90%', '80vw', '60vw']} maxW="1000px" gap={4}>
+                        <Text fontSize="0.8rem">{category}</Text>
+                        <Text fontSize="0.8rem">{dayjs(date).format('MM-DD, YYYY')}</Text>
                     </Flex>
 
-                    <Box w={['90%', '80vw', '60vw']} maxW='1000px' className='markdown-body'>
+                    <Box w={['90%', '80vw', '60vw']} maxW="1000px" className="markdown-body">
                         <Toc tocTree={tocTree || []} />
                     </Box>
 
                     <Box
                         w={['90%', '80vw', '60vw']}
-                        maxW='1000px'
-                        className='markdown-body'
-                        id='content'
+                        maxW="1000px"
+                        className="markdown-body"
+                        id="content"
                         dangerouslySetInnerHTML={{__html: content}}
                     />
-                    <CustomDivider my={4} text={emoji} dividerWidth='full' />
+                    <CustomDivider my={4} text={emoji} dividerWidth="full" />
 
-                    <Flex w={['auto', 'full']} justifyContent={['center', 'space-between']} flexDir={['column', 'row']}>
+                    <Flex w={['90%', '80vw', '60vw']} justifyContent={['center', 'space-between']} flexDir={['column', 'row']}>
                         <LinkToPost payload={previousPath} />
                         <LinkToPost payload={nextPath} />
                     </Flex>
@@ -102,11 +102,11 @@ export async function getStaticProps(context) {
             nextPath = null
         if (currentPathIndex !== 0) {
             previousPath = linkPaths[currentPathIndex - 1]
-            previousPath.label = PREVIOUS_POST_LABEL
+            previousPath.title = `${PREVIOUS_POST_LABEL} ${previousPath.title}`
         }
         if (currentPathIndex !== linkPaths.length - 1) {
             nextPath = linkPaths[currentPathIndex + 1]
-            nextPath.label = NEXT_POST_LABEL
+            nextPath.title = `${nextPath.title} ${NEXT_POST_LABEL}`
         }
 
         return {
