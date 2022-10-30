@@ -8,7 +8,7 @@ import MenuToggleForSmallScreen from './NavBarMenuToggle'
 import {Box, Button, Grid, GridItem, HStack, Stack, Text, useColorMode, useColorModeValue} from '@chakra-ui/react'
 import {SearchIcon} from '@chakra-ui/icons'
 import useRouterScroll from '../hooks/useRouterScroll'
-import {DARK_MODE_ICON, LIGHT_MODE_ICON, NAVIGATION_HOMEPAGE} from '../utils/content'
+import {DARK_MODE_ICON, LIGHT_MODE_ICON, NAVIGATION_ABOUTPAGE, NAVIGATION_HOMEPAGE} from '../utils/content'
 
 Header.propTypes = {
     navArray: PropTypes.array,
@@ -88,6 +88,9 @@ function Header({navArray = []}) {
                             <Button variant="link">{NAVIGATION_HOMEPAGE}</Button>
                         </MenuItemLink>
                         {renderCategoriesLink()}
+                        <MenuItemLink to="/about">
+                            <Button variant="link">{NAVIGATION_ABOUTPAGE}</Button>
+                        </MenuItemLink>
                         <MenuItemLink to="/blog/search">
                             <Button variant="link">
                                 <SearchIcon />

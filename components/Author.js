@@ -11,10 +11,10 @@ function Author(props) {
                 </Text>
                 <Text fontSize="md">🏃 I am also an Agile practitioner with business awareness, clean code enthusiast.</Text>
                 <Text fontSize="md">🤔 I believe that software is build for servicing humanity, and solving real problems.</Text>
-                <Text fontSize="md">🏖️ Apart from programming, I quite like traveling, putting myself among diverse cultures and chilling.</Text>
+                <Text fontSize="md">🏖️ Apart from programming, I quite like traveling, immersing myself among diverse cultures.</Text>
                 <Text fontSize="md">
-                    🥘 I am also good at cooking. It takes the knowledge of different ingredients, how their combination would work. Really enjoy the
-                    time of cooking but washing dishes.
+                    🥘 I am also good at cooking. It takes the knowledge of different ingredients, how their combination would work. I usually cook
+                    during weekends, it's a special moment for relaxing.
                 </Text>
             </Stack>
         </Center>

@@ -10,7 +10,7 @@ function Index() {
                 <title>About | 首页</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Container maxW="container.xl" my={8}>
+            <Container w="fit-content">
                 <Author />
             </Container>
         </>
