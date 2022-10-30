@@ -3,7 +3,6 @@ const path = require('path')
 const matter = require('gray-matter')
 const _ = require('lodash')
 
-
 class Category {
     constructor(blog_path = 'posts') {
         this.blog_path = blog_path
@@ -27,7 +26,7 @@ class BlogCollection {
     _tags = []
     blogsTree = []
     tagWithCount = []
-    imageExtensions = ['.png','.jpg', '.jpeg', '.svg','.webp','.glf','.gif']
+    imageExtensions = ['.png', '.jpg', '.jpeg', '.svg', '.webp', '.glf', '.gif']
 
     constructor(rootPath = 'posts') {
         if (BlogCollection._instance) {
@@ -50,7 +49,7 @@ class BlogCollection {
                     if (fileName.includes('.md')) {
                         subTree.push({...this.parsedFrontMatter(fileName, absPath), category})
                     } else if (this.imageExtensions.includes(path.extname(fileName).toLowerCase())) {
-                        fs.access(`public/images/${fileName}`, fs.constants.F_OK, err => {
+                        fs.access(`public/images/${fileName}`, fs.constants.F_OK, (err) => {
                             if (err) {
                                 fs.copyFile(`${absPath}/${fileName}`, `public/images/${fileName}`, fs.constants.COPYFILE_EXCL, (err) => {
                                     console.error('copy image error ' + err)
@@ -75,7 +74,7 @@ class BlogCollection {
             const {data: frontMatter, content} = matter(markdownWithMeta)
             frontMatter.tags && this._tags.push(frontMatter.tags)
             return {
-                id: slug,
+                id: frontMatter.slug || slug,
                 content,
                 dirPath,
                 coverImage: this.getCoverImagePath(frontMatter.cover),
