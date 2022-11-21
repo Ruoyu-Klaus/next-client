@@ -2,6 +2,7 @@
 title: 'templates'
 date: '2021-12-01'
 excerpt: 'templates templates templates templates'
+slug:
 tags:
 - Templates
 - Test
