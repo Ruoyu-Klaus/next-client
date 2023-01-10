@@ -1,10 +1,11 @@
-import {useRouter} from 'next/router'
-import Head from 'next/head'
+import { useRouter } from "next/router";
+import Head from "next/head";
 
-import PostCardGridList from '../../../../components/PostCardGridList'
-import categories from '../../../../_posts/categories.json'
-import {getAllBlogsList} from '../../../../helpers/'
-import BlogLayout from '../../../../layout/BlogLayout'
+import PostCardGridList from "../../../../components/PostCardGridList";
+import categories from "../../../../_posts/categories.json";
+import { getAllBlogsList } from "../../../../helpers/";
+import BlogLayout from "../../../../layout/BlogLayout";
+import BackToTop from "../../../../components/BackToTop";
 
 function Category({posts}) {
     const router = useRouter()
@@ -18,6 +19,7 @@ function Category({posts}) {
                 <meta name='description' content={`${cname} blogs`} />
             </Head>
             <PostCardGridList posts={posts} />
+            <BackToTop />
         </>
     )
 }
