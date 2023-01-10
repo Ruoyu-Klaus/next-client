@@ -1,13 +1,13 @@
-import React, {useMemo, useState} from 'react'
-import PropTypes from 'prop-types'
-import Link from 'next/link'
-import NextImage from 'next/image'
+import React, { useMemo, useState } from "react";
+import PropTypes from "prop-types";
+import Link from "next/link";
+import NextImage from "next/image";
 
-import dayjs from 'dayjs'
-import styles from '../styles/Components/PostCard.module.scss'
+import dayjs from "dayjs";
+import styles from "../styles/Components/PostCard.module.scss";
 
-import {Box, Divider, Flex, Heading, HStack, Skeleton, Tag, Text, VStack} from '@chakra-ui/react'
-import {TimeIcon} from '@chakra-ui/icons'
+import { Box, Divider, Flex, Heading, HStack, Skeleton, Tag, Text, VStack } from "@chakra-ui/react";
+import { TimeIcon } from "@chakra-ui/icons";
 
 function LinkToPostDetail(props) {
     const {category, id, title} = props
@@ -82,7 +82,7 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
                 <Box className={styles.postTag} w='full'>
                     {tags.map((tag) => (
                         <Tag size='sm' key={tag}>
-                            {tag}
+                            #{tag}
                         </Tag>
                     ))}
                 </Box>
