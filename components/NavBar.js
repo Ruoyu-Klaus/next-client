@@ -1,14 +1,14 @@
-import React, {useCallback, useEffect, useState} from 'react'
-import PropTypes from 'prop-types'
+import React, { useCallback, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
-import NavBarLogo from './NavBarLogo'
-import MenuItemLink from './MenuItemLink'
-import MenuToggleForSmallScreen from './NavBarMenuToggle'
+import NavBarLogo from "./NavBarLogo";
+import MenuItemLink from "./MenuItemLink";
+import MenuToggleForSmallScreen from "./NavBarMenuToggle";
 
-import {Box, Button, Grid, GridItem, HStack, Stack, Text, useColorMode, useColorModeValue} from '@chakra-ui/react'
-import {SearchIcon} from '@chakra-ui/icons'
-import useRouterScroll from '../hooks/useRouterScroll'
-import {DARK_MODE_ICON, LIGHT_MODE_ICON, NAVIGATION_ABOUTPAGE, NAVIGATION_HOMEPAGE} from '../utils/content'
+import { Box, Button, Grid, GridItem, HStack, Stack, Text, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
+import useRouterScroll from "../hooks/useRouterScroll";
+import { DARK_MODE_ICON, LIGHT_MODE_ICON, NAVIGATION_ABOUTPAGE, NAVIGATION_HOMEPAGE } from "../utils/content";
 
 Header.propTypes = {
     navArray: PropTypes.array,
@@ -54,10 +54,10 @@ function Header({navArray = []}) {
             h={16}
             px={8}
             templateColumns="repeat(3, 1fr)"
-            bg={useColorModeValue('gray.50', '#333')}
+            bg={useColorModeValue('#EEEBE4FF', '#283237')}
             borderBottomWidth={'1px'}
             borderBottomStyle={'solid'}
-            borderBottomColor={useColorModeValue('gray.200', 'gray.800')}
+            borderBottomColor={useColorModeValue('gray.100', 'gray.800')}
             alignItems={'center'}
         >
             <HStack spacing={{base: 'none', md: 4}}>

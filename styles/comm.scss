@@ -1,7 +1,7 @@
 html body {
   font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace,sans-serif,Apple Color Emoji,Segoe UI Emoji !important;
   overflow-x: hidden;
-  background: linear-gradient(120deg, rgba(246,246,246,1), rgba(226,236,236,1));
+  background: linear-gradient(120deg, rgb(238, 235, 228), rgb(223, 237, 237));
   font-size: 28px;
   line-height: 1;
   scroll-behavior: smooth;
@@ -51,7 +51,7 @@ html body {
 
 body {
   &.chakra-ui-dark {
-    background:linear-gradient(90deg, #212121, #1d1d1e) #080a18;
+    background:linear-gradient(90deg, #283237, #1d1d1e) #656c70;
     color: #fff !important;
     .header {
       box-shadow: 0 2px 4px rgb(0 0 0 / 50%);
