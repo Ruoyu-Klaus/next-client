@@ -1,11 +1,10 @@
-import { useRouter } from "next/router";
-import Head from "next/head";
-
-import PostCardGridList from "../../../../components/PostCardGridList";
-import categories from "../../../../_posts/categories.json";
-import { getAllBlogsList } from "../../../../helpers/";
-import BlogLayout from "../../../../layout/BlogLayout";
-import BackToTop from "../../../../components/BackToTop";
+import {useRouter} from 'next/router'
+import Head from 'next/head'
+import categories from '../../../../_posts/categories.json'
+import {getAllBlogsList} from '../../../../helpers/'
+import BlogLayout from '../../../../layout/BlogLayout'
+import BackToTop from '../../../../components/BackToTop'
+import VirtualGridList from '../../../../components/VirtualGridList'
 
 function Category({posts}) {
     const router = useRouter()
@@ -15,10 +14,10 @@ function Category({posts}) {
         <>
             <Head>
                 <title>{cname} | Ruoyu</title>
-                <link rel='icon' href='/favicon.ico' />
-                <meta name='description' content={`${cname} blogs`} />
+                <link rel="icon" href="/favicon.ico" />
+                <meta name="description" content={`${cname} blogs`} />
             </Head>
-            <PostCardGridList posts={posts} />
+            <VirtualGridList posts={posts} />
             <BackToTop />
         </>
     )

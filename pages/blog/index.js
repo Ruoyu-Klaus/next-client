@@ -1,9 +1,8 @@
-import Head from "next/head";
-
-import PostCardGridList from "../../components/PostCardGridList";
-import BlogLayout from "../../layout/BlogLayout";
-import { getAllBlogsList } from "../../helpers";
-import BackToTop from "../../components/BackToTop";
+import Head from 'next/head'
+import BlogLayout from '../../layout/BlogLayout'
+import {getAllBlogsList} from '../../helpers'
+import BackToTop from '../../components/BackToTop'
+import VirtualGridList from '../../components/VirtualGridList'
 
 function Index({posts}) {
     return (
@@ -13,7 +12,7 @@ function Index({posts}) {
                 <link rel="icon" href="/favicon.ico" />
                 <meta name="description" content="blogs" />
             </Head>
-            <PostCardGridList posts={posts} />
+            <VirtualGridList posts={posts} />
             <BackToTop />
         </>
     )

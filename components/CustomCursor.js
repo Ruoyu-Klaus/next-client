@@ -1,6 +1,5 @@
-import React, {useContext, useEffect, useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import useMousePosition from '../hooks/useMousePosition'
-import {CursorContext} from '../context/cursor/CursorContext'
 import {isMobile} from 'react-device-detect'
 
 const getElementWidthAndHeight = (element) => {
@@ -15,7 +14,6 @@ function CustomCursor() {
     const ringRef = useRef()
     const dotRef = useRef()
 
-    const {cursorType} = useContext(CursorContext)
     const [isActive, setIsActive] = useState(false)
 
     const [ringWidth, ringHeight] = ringRef.current ? getElementWidthAndHeight(ringRef.current) : [0, 0]
@@ -53,7 +51,7 @@ function CustomCursor() {
                 style={{
                     transform: `translate(${x - dotWidth / 2}px, ${y - dotHeight / 2}px)`,
                 }}
-                className={'dot ' + cursorType}
+                className={'dot default'}
             />
         </>
     )

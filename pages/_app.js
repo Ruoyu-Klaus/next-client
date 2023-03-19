@@ -7,7 +7,6 @@ import {ChakraProvider} from '@chakra-ui/react'
 import theme from '../styles/chakraTheme'
 
 import dynamic from 'next/dynamic'
-import {CursorContextProvider} from '../context/cursor/CursorContext'
 import categories from '../_posts/categories.json'
 
 const CustomCursor = dynamic(() => import('../components/CustomCursor'), {
@@ -18,10 +17,8 @@ function MyApp({Component, pageProps}) {
     const getLayout = Component.getLayout || ((page) => page)
     return (
         <ChakraProvider theme={theme}>
-            <CursorContextProvider>
-                {getLayout(<Component {...pageProps} />, categories)}
-                <CustomCursor />
-            </CursorContextProvider>
+            {getLayout(<Component {...pageProps} />, categories)}
+            <CustomCursor />
         </ChakraProvider>
     )
 }

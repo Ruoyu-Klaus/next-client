@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import NextLink from 'next/link'
-import {useContext, useRef} from 'react'
-import {CursorContext} from '../context/cursor/CursorContext'
+import {useRef} from 'react'
 
 import styles from '../styles/Pages/index.module.scss'
 
@@ -25,7 +24,6 @@ import {
 import {VscGithubAlt, VscMail} from 'react-icons/vsc'
 
 function Cover() {
-    const {setCursorType} = useContext(CursorContext)
     const rightMenuRef = useRef()
 
     const {isOpen, onOpen, onClose} = useDisclosure()
@@ -41,7 +39,7 @@ function Cover() {
                 <Center w="100vw" h="100vh" bgPosition="center" bgRepeat="no-repeat" bgSize="cover" bgImage={'url(./SaoPaulo.jpg)'}>
                     <VStack className="noselect">
                         <NextLink href={{pathname: '/blog'}}>
-                            <a onMouseEnter={(e) => setCursorType('link')} onMouseLeave={(e) => setCursorType('default')}>
+                            <a>
                                 <img
                                     className={styles.authorName}
                                     src="../imruoyu.png"
@@ -75,7 +73,7 @@ function Cover() {
                         <VStack w="full" h="full" my={40} spacing={3} alignItems="flex-end">
                             <DrawerBody>
                                 <NextLink href={{pathname: '/blog'}}>
-                                    <a className="blog" onMouseEnter={(e) => setCursorType('link')} onMouseLeave={(e) => setCursorType('default')}>
+                                    <a className="blog">
                                         <Text fontSize="3xl">Blog.</Text>
                                     </a>
                                 </NextLink>
