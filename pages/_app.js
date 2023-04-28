@@ -6,12 +6,9 @@ import '../styles/code-highlight-light.scss'
 import {ChakraProvider} from '@chakra-ui/react'
 import theme from '../styles/chakraTheme'
 
-import dynamic from 'next/dynamic'
 import categories from '../_posts/categories.json'
 
-const CustomCursor = dynamic(() => import('../components/CustomCursor'), {
-    ssr: false,
-})
+import CustomCursor from '../components/CustomCursor'
 
 function MyApp({Component, pageProps}) {
     const getLayout = Component.getLayout || ((page) => page)
