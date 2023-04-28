@@ -46,7 +46,7 @@ function Header({navArray = []}) {
             maxW="container.xl"
             h={16}
             px={isLargerThan900 ? 8 : 0}
-            mt={8}
+            mt={4}
             templateColumns="repeat(2, 1fr)"
             alignItems={'center'}
         >

@@ -16,7 +16,7 @@ function BlogLayout({children, showModel = false}) {
     }, [children, setTransitionStage, displayChildren])
 
     return (
-        <Flex flexDir="column" minH="100vh">
+        <Flex flexDir="column">
             <main
                 onTransitionEnd={() => {
                     if (transitionStage === 'fadeOut') {

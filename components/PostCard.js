@@ -62,11 +62,11 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
     const description = useMemo(
         () => (
             <VStack h="full" spacing={3} alignItems="flex-start">
-                <Text mt={1} fontSize={'16px'} color="gray.500">
+                {/* <Text mt={1} fontSize={'16px'} color="gray.500">
                     {category}
-                </Text>
+                </Text> */}
                 <LinkToPostDetail category={category} id={id} title={title}>
-                    <Heading as="h3" size="md" className={styles.postTitle}>
+                    <Heading mt={1} as="h3" size="md" className={styles.postTitle}>
                         {title}
                     </Heading>
                 </LinkToPostDetail>
@@ -105,22 +105,12 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
     )
 
     return (
-        <Box
-            w="350px"
-            minW="250px"
-            maxW="350px"
-            h="480px"
-            borderWidth="1px"
-            borderRadius="6"
-            display="flex"
-            flexDir="column"
-            className={styles.postCard}
-        >
+        <Box minW="280px" maxW="350px" h="400px" borderWidth="1px" borderRadius="6" display="flex" flexDir="column" className={styles.postCard}>
             {isLoading ? (
                 <LoadingComp w="full" h="full" />
             ) : (
                 <>
-                    <Box w="full" h="240px" minH="240px" overflow="hidden">
+                    <Box w="full" h="210px" overflow="hidden">
                         {postCover}
                     </Box>
 
