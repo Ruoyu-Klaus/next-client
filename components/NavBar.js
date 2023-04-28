@@ -39,12 +39,6 @@ function Header({navArray = []}) {
 
     const colorModeText = colorMode === 'light' ? DARK_MODE_ICON : LIGHT_MODE_ICON
 
-    const categoriesLink = navArray.map((item) => (
-        <MenuItemLink to={`/blog/post/${encodeURIComponent(item)}`} key={item}>
-            <Button variant="link">{item.toUpperCase()}</Button>
-        </MenuItemLink>
-    ))
-
     return (
         <Grid
             margin="0 auto"
@@ -76,10 +70,12 @@ function Header({navArray = []}) {
             <GridItem justifySelf="end">
                 {isLargerThan900 ? (
                     <HStack spacing={4}>
-                        <MenuItemLink to="/blog">
+                        <MenuItemLink to="/">
                             <Button variant="link">{NAVIGATION_HOMEPAGE}</Button>
                         </MenuItemLink>
-                        {categoriesLink}
+                        <MenuItemLink to={`/blog/1`}>
+                            <Button variant="link">BLOG</Button>
+                        </MenuItemLink>
 
                         <MenuItemLink to="/about">
                             <Button variant="link">{NAVIGATION_ABOUTPAGE}</Button>
@@ -113,10 +109,12 @@ function Header({navArray = []}) {
                             <PopoverContent w="100px">
                                 <PopoverBody>
                                     <VStack>
-                                        <MenuItemLink to="/blog">
+                                        <MenuItemLink to="/">
                                             <Button variant="link">{NAVIGATION_HOMEPAGE}</Button>
                                         </MenuItemLink>
-                                        {categoriesLink}
+                                        <MenuItemLink to={`/blog/1`}>
+                                            <Button variant="link">BLOG</Button>
+                                        </MenuItemLink>
                                         <MenuItemLink to="/about">
                                             <Button variant="link">{NAVIGATION_ABOUTPAGE}</Button>
                                         </MenuItemLink>

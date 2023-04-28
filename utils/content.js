@@ -6,3 +6,4 @@ export const LIGHT_MODE_ICON = '🌤️'
 export const NEXT_POST_LABEL = '⏭'
 export const PREVIOUS_POST_LABEL = '⏮'
 export const RELATED_POST_LABEL = '相关阅读'
+export const PAGINATION_PER_SIZE = 6

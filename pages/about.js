@@ -7,7 +7,7 @@ function Index() {
     return (
         <>
             <Head>
-                <title>About | 首页</title>
+                <title>About | 关于</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Container w="fit-content">
@@ -20,5 +20,6 @@ function Index() {
 Index.getLayout = function getLayout(page) {
     return <BlogLayout showModel>{page}</BlogLayout>
 }
+Index.showModel = true
 
 export default Index

@@ -8,9 +8,14 @@ import theme from '../styles/chakraTheme'
 import dynamic from 'next/dynamic'
 
 import categories from '../_posts/categories.json'
+import CanvasLoadingSpinner from '../components/CanvasContainer'
 
 const CustomCursor = dynamic(() => import('../components/CustomCursor'), {ssr: false})
 const NavBar = dynamic(() => import('../components/NavBar'), {ssr: false})
+const ThreeCanvas = dynamic(() => import('../components/ThreejsCanvas'), {
+    ssr: false,
+    loading: () => <CanvasLoadingSpinner />,
+})
 
 import Footer from '../components/Footer'
 
@@ -19,6 +24,7 @@ function MyApp({Component, pageProps}) {
     return (
         <ChakraProvider theme={theme}>
             <NavBar navArray={categories} />
+            {Component.showModel ? <ThreeCanvas /> : <></>}
             {getLayout(<Component {...pageProps} />)}
             <Footer mb={4} />
             <CustomCursor />

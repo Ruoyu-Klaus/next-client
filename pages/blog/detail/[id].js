@@ -3,15 +3,15 @@ import dayjs from 'dayjs'
 import Head from 'next/head'
 import {useRouter} from 'next/router'
 import {useEffect} from 'react'
-import BackToTop from '../../../../components/BackToTop'
-import CustomDivider from '../../../../components/CustomDivider'
-import LinkToPost from '../../../../components/LinkToPost'
-import Toc from '../../../../components/Toc'
-import {getAllPostPaths, getBlogDetailByCategoryAndId} from '../../../../helpers'
-import BlogLayout from '../../../../layout/BlogLayout'
-import {NEXT_POST_LABEL, PREVIOUS_POST_LABEL} from '../../../../utils/content'
-import Comments from '../../../../components/Comments'
-import emojiList from '../../../../helpers/emoji.json'
+import BackToTop from '../../../components/BackToTop'
+import CustomDivider from '../../../components/CustomDivider'
+import LinkToPost from '../../../components/LinkToPost'
+import Toc from '../../../components/Toc'
+import {getAllPostPaths, getBlogDetailById} from '../../../helpers'
+import BlogLayout from '../../../layout/BlogLayout'
+import {NEXT_POST_LABEL, PREVIOUS_POST_LABEL} from '../../../utils/content'
+import Comments from '../../../components/Comments'
+import emojiList from '../../../helpers/emoji.json'
 
 export function randomEmoji() {
     const keys = Object.keys(emojiList)
@@ -84,10 +84,8 @@ function Post({post = {}, previousPath, nextPath}) {
 export async function getStaticProps(context) {
     try {
         const {params} = context
-        const [id] = params.slug
-        const category = params.cname
-
-        const post = getBlogDetailByCategoryAndId(category, id)
+        const id = params.id
+        const post = getBlogDetailById(id)
         const linkPaths = getAllPostPaths(true)
 
         if (!post) {

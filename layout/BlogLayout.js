@@ -1,15 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import dynamic from 'next/dynamic'
 
-import CanvasLoadingSpinner from '../components/CanvasContainer'
 import {Flex} from '@chakra-ui/react'
 
 import styles from '../styles/Layout/bloglayout.module.scss'
-
-const ThreeCanvas = dynamic(() => import('../components/ThreejsCanvas'), {
-    ssr: false,
-    loading: () => <CanvasLoadingSpinner />,
-})
 
 function BlogLayout({children, showModel = false}) {
     const [displayChildren, setDisplayChildren] = useState(children)
@@ -33,7 +26,6 @@ function BlogLayout({children, showModel = false}) {
                 }}
                 className={`${styles.root} ${styles[transitionStage]}`}
             >
-                {showModel && <ThreeCanvas />}
                 {displayChildren}
             </main>
         </Flex>
