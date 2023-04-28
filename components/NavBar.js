@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useCallback, useState} from 'react'
+import React, {useState} from 'react'
 
 import MenuItemLink from './MenuItemLink'
 
@@ -34,21 +34,16 @@ function Header({navArray = []}) {
     useRouterScroll()
     const {colorMode, toggleColorMode} = useColorMode()
     const [isLargerThan900] = useMediaQuery('(min-width: 900px)')
-
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const toggleMenuIcon = () => setIsMenuOpen(!isMenuOpen)
 
-    const renderCategoriesLink = useCallback(
-        () =>
-            navArray.map((item) => {
-                return (
-                    <MenuItemLink to={`/blog/post/${encodeURIComponent(item)}`} key={item}>
-                        <Button variant="link">{item.toUpperCase()}</Button>
-                    </MenuItemLink>
-                )
-            }),
-        [navArray],
-    )
+    const colorModeText = colorMode === 'light' ? DARK_MODE_ICON : LIGHT_MODE_ICON
+
+    const categoriesLink = navArray.map((item) => (
+        <MenuItemLink to={`/blog/post/${encodeURIComponent(item)}`} key={item}>
+            <Button variant="link">{item.toUpperCase()}</Button>
+        </MenuItemLink>
+    ))
 
     return (
         <Grid
@@ -61,7 +56,7 @@ function Header({navArray = []}) {
             templateColumns="repeat(2, 1fr)"
             alignItems={'center'}
         >
-            <HStack w={isLargerThan900 ? '80%' : '60%'} m="0 auto">
+            <div m="0 auto">
                 <Link href={{pathname: '/'}} as={'/'} passHref>
                     <a title={'home'}>
                         <Box w={{base: 100, md: 300}} h="50" pos="relative">
@@ -76,31 +71,33 @@ function Header({navArray = []}) {
                         </Box>
                     </a>
                 </Link>
-            </HStack>
+            </div>
 
             <GridItem justifySelf="end">
                 {isLargerThan900 ? (
-                    <HStack w="full" alignItems={'center'} spacing={4}>
+                    <HStack spacing={4}>
                         <MenuItemLink to="/blog">
                             <Button variant="link">{NAVIGATION_HOMEPAGE}</Button>
                         </MenuItemLink>
-                        {renderCategoriesLink()}
+                        {categoriesLink}
+
                         <MenuItemLink to="/about">
                             <Button variant="link">{NAVIGATION_ABOUTPAGE}</Button>
                         </MenuItemLink>
+
                         <MenuItemLink to="/blog/search">
                             <Button variant="ghost">
                                 <SearchIcon />
                             </Button>
                         </MenuItemLink>
                         <Button variant="ghost" onClick={toggleColorMode}>
-                            {colorMode === 'light' ? <Text fontSize="lg">{DARK_MODE_ICON}</Text> : <Text fontSize="lg">{LIGHT_MODE_ICON}</Text>}
+                            <Text fontSize="lg">{colorModeText}</Text>
                         </Button>
                     </HStack>
                 ) : (
-                    <HStack spacing={0}>
+                    <HStack spacing={2}>
                         <Button variant="ghost" onClick={toggleColorMode}>
-                            {colorMode === 'light' ? <Text fontSize="lg">{DARK_MODE_ICON}</Text> : <Text fontSize="lg">{LIGHT_MODE_ICON}</Text>}
+                            <Text fontSize="lg">{colorModeText}</Text>
                         </Button>
                         <MenuItemLink to="/blog/search">
                             <Button variant="ghost">
@@ -119,7 +116,7 @@ function Header({navArray = []}) {
                                         <MenuItemLink to="/blog">
                                             <Button variant="link">{NAVIGATION_HOMEPAGE}</Button>
                                         </MenuItemLink>
-                                        {renderCategoriesLink()}
+                                        {categoriesLink}
                                         <MenuItemLink to="/about">
                                             <Button variant="link">{NAVIGATION_ABOUTPAGE}</Button>
                                         </MenuItemLink>

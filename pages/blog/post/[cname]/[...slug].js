@@ -1,17 +1,17 @@
-import { Box, Container, Flex, Heading, HStack, Image, Tag, Text, VStack } from "@chakra-ui/react";
-import dayjs from "dayjs";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import BackToTop from "../../../../components/BackToTop";
-import CustomDivider from "../../../../components/CustomDivider";
-import LinkToPost from "../../../../components/LinkToPost";
-import Toc from "../../../../components/Toc";
-import { getAllPostPaths, getBlogDetailByCategoryAndId } from "../../../../helpers";
-import BlogLayout from "../../../../layout/BlogLayout";
-import { NEXT_POST_LABEL, PREVIOUS_POST_LABEL } from "../../../../utils/content";
-import Comments from "../../../../components/Comments";
-import emojiList from "../../../../helpers/emoji.json";
+import {Box, Container, Flex, Heading, HStack, Image, Tag, Text, VStack} from '@chakra-ui/react'
+import dayjs from 'dayjs'
+import Head from 'next/head'
+import {useRouter} from 'next/router'
+import {useEffect} from 'react'
+import BackToTop from '../../../../components/BackToTop'
+import CustomDivider from '../../../../components/CustomDivider'
+import LinkToPost from '../../../../components/LinkToPost'
+import Toc from '../../../../components/Toc'
+import {getAllPostPaths, getBlogDetailByCategoryAndId} from '../../../../helpers'
+import BlogLayout from '../../../../layout/BlogLayout'
+import {NEXT_POST_LABEL, PREVIOUS_POST_LABEL} from '../../../../utils/content'
+import Comments from '../../../../components/Comments'
+import emojiList from '../../../../helpers/emoji.json'
 
 export function randomEmoji() {
     const keys = Object.keys(emojiList)
@@ -141,8 +141,8 @@ export async function getStaticPaths() {
     }
 }
 
-Post.getLayout = function getLayout(page, categories) {
-    return <BlogLayout categories={categories}>{page}</BlogLayout>
+Post.getLayout = function getLayout(page) {
+    return <BlogLayout>{page}</BlogLayout>
 }
 
 export default Post

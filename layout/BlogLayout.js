@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import dynamic from 'next/dynamic'
 
-import NavBar from '../components/NavBar'
-import Footer from '../components/Footer'
 import CanvasLoadingSpinner from '../components/CanvasContainer'
 import {Flex} from '@chakra-ui/react'
 
@@ -13,7 +11,7 @@ const ThreeCanvas = dynamic(() => import('../components/ThreejsCanvas'), {
     loading: () => <CanvasLoadingSpinner />,
 })
 
-function BlogLayout({categories = [], children, showModel = false}) {
+function BlogLayout({children, showModel = false}) {
     const [displayChildren, setDisplayChildren] = useState(children)
     const [transitionStage, setTransitionStage] = useState('fadeOut')
     useEffect(() => {
@@ -26,7 +24,6 @@ function BlogLayout({categories = [], children, showModel = false}) {
 
     return (
         <Flex flexDir="column" minH="100vh">
-            <NavBar navArray={categories} />
             <main
                 onTransitionEnd={() => {
                     if (transitionStage === 'fadeOut') {
@@ -39,7 +36,6 @@ function BlogLayout({categories = [], children, showModel = false}) {
                 {showModel && <ThreeCanvas />}
                 {displayChildren}
             </main>
-            <Footer mb={4} />
         </Flex>
     )
 }

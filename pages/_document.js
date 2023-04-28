@@ -19,7 +19,6 @@ class MyDocument extends Document {
                             ></script>
                         </>
                     )}
-                    <title>Home | 首页</title>
                 </Head>
                 <body>
                     <Main />

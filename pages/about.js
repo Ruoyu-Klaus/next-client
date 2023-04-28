@@ -17,12 +17,8 @@ function Index() {
     )
 }
 
-Index.getLayout = function getLayout(page, categories) {
-    return (
-        <BlogLayout categories={categories} showModel>
-            {page}
-        </BlogLayout>
-    )
+Index.getLayout = function getLayout(page) {
+    return <BlogLayout showModel>{page}</BlogLayout>
 }
 
 export default Index
