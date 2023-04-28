@@ -10,7 +10,7 @@ const LinkToPost = ({payload}) => {
         <NextLink href={payload.href} as={payload.as}>
             <Link>
                 <Text fontSize="1rem" noOfLines={1}>
-                    ️ {payload.title} ️
+                    {payload.title}
                 </Text>
             </Link>
         </NextLink>

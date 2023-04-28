@@ -1,17 +1,17 @@
-import { Box, Container, Flex, Heading, HStack, Image, Tag, Text, VStack } from "@chakra-ui/react";
-import dayjs from "dayjs";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import BackToTop from "../../../../components/BackToTop";
-import CustomDivider from "../../../../components/CustomDivider";
-import LinkToPost from "../../../../components/LinkToPost";
-import Toc from "../../../../components/Toc";
-import { getAllPostPaths, getBlogDetailByCategoryAndId } from "../../../../helpers";
-import BlogLayout from "../../../../layout/BlogLayout";
-import { NEXT_POST_LABEL, PREVIOUS_POST_LABEL } from "../../../../utils/content";
-import Comments from "../../../../components/Comments";
-import emojiList from "../../../../helpers/emoji.json";
+import {Box, Container, Flex, Heading, HStack, Image, Tag, Text, VStack} from '@chakra-ui/react'
+import dayjs from 'dayjs'
+import Head from 'next/head'
+import {useRouter} from 'next/router'
+import {useEffect} from 'react'
+import BackToTop from '../../../components/BackToTop'
+import CustomDivider from '../../../components/CustomDivider'
+import LinkToPost from '../../../components/LinkToPost'
+import Toc from '../../../components/Toc'
+import {getAllPostPaths, getBlogDetailById} from '../../../helpers'
+import BlogLayout from '../../../layout/BlogLayout'
+import {NEXT_POST_LABEL, PREVIOUS_POST_LABEL} from '../../../utils/content'
+import Comments from '../../../components/Comments'
+import emojiList from '../../../helpers/emoji.json'
 
 export function randomEmoji() {
     const keys = Object.keys(emojiList)
@@ -19,9 +19,8 @@ export function randomEmoji() {
     return emojiList[keys[randomIndex]]
 }
 
-function Post({post = {}, previousPath, nextPath}) {
+function Post({post = {}, emoji, previousPath, nextPath}) {
     const router = useRouter()
-    const emoji = randomEmoji()
 
     const {id, title, excerpt, coverImage, tags, category, content, date, tocTree} = post
 
@@ -84,10 +83,9 @@ function Post({post = {}, previousPath, nextPath}) {
 export async function getStaticProps(context) {
     try {
         const {params} = context
-        const [id] = params.slug
-        const category = params.cname
-
-        const post = getBlogDetailByCategoryAndId(category, id)
+        const id = params.id
+        const post = getBlogDetailById(id)
+        const emoji = randomEmoji()
         const linkPaths = getAllPostPaths(true)
 
         if (!post) {
@@ -112,6 +110,7 @@ export async function getStaticProps(context) {
         return {
             props: {
                 post,
+                emoji,
                 previousPath,
                 nextPath,
             },
@@ -141,8 +140,8 @@ export async function getStaticPaths() {
     }
 }
 
-Post.getLayout = function getLayout(page, categories) {
-    return <BlogLayout categories={categories}>{page}</BlogLayout>
+Post.getLayout = function getLayout(page) {
+    return <BlogLayout>{page}</BlogLayout>
 }
 
 export default Post

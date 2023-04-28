@@ -3,7 +3,7 @@ import {Box, Spinner} from '@chakra-ui/react'
 
 export const CanvasContainer = ({children}) => {
     return (
-        <Box m="auto" my={8} w={[280, 380, 440]} h={[220, 240, 240]} position="relative">
+        <Box m="auto" my={4} w={[280, 380, 440]} h={[220, 240, 240]} position="relative">
             {children}
         </Box>
     )

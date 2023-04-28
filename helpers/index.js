@@ -7,7 +7,7 @@ export const getAllBlogsList = () => {
     const recursion = (arr) => {
         arr.forEach((item) => {
             if (item.id) {
-                const _item = {};
+                const _item = {}
                 Object.assign(_item, item)
                 _item.content = null
                 blogs.push(_item)
@@ -23,15 +23,11 @@ export const getAllBlogsList = () => {
     })
     return blogs
 }
-export const getBlogDetailByCategoryAndId = (category, id) => {
-    const category_blogs = [...blogCollection].find(blog => Object.keys(blog)[0] === category)
-    if (!category_blogs) {
-        return null
-    }
-    const blogs = category_blogs[category]
+export const getBlogDetailById = (id) => {
+    const blogs = [...blogCollection]
     let blog
     const recursion = (arr) => {
-        arr.forEach(item => {
+        arr.forEach((item) => {
             if (blog) return
             if (item.id) {
                 if (item.id === id) {
@@ -48,25 +44,23 @@ export const getBlogDetailByCategoryAndId = (category, id) => {
 }
 
 export const getAllPostPaths = (isLinkPath = false) => {
-    const blogs = getAllBlogsList();
+    const blogs = getAllBlogsList()
     if (isLinkPath) {
         return blogs.map((post) => ({
             href: {
-                pathname: `/blog/post/[cname]/[...slug]`,
+                pathname: `/blog/detail/[id]`,
                 query: {
-                    cname: post.category,
-                    slug: [post.id],
+                    id: post.id,
                 },
             },
             id: post.id,
             title: post.title,
-            as: `/blog/post/${post.category}/${post.id}`,
+            as: `/blog/detail/${post.id}`,
         }))
     }
     return blogs.map((post) => ({
         params: {
-            cname: post.category,
-            slug: [post.id],
+            id: post.id,
         },
     }))
 }
@@ -74,4 +68,8 @@ export const getAllPostPaths = (isLinkPath = false) => {
 const parseMarkdownContent = (blog) => {
     const {parsedContent, tocTree} = getParsedContentWithTocTree(blog.content)
     return {...blog, content: parsedContent, tocTree}
+}
+
+export const pageCount = (number, show_per_page) => {
+    return Math.ceil(number / show_per_page)
 }

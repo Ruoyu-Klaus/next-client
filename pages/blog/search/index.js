@@ -1,17 +1,17 @@
-import { useCallback } from "react";
-import Head from "next/head";
+import {useCallback} from 'react'
+import Head from 'next/head'
 
-import SearchBar from "../../../components/SearchBar";
-import PostCardGridList from "../../../components/PostCardGridList";
-import useSearchPost from "../../../hooks/useSearchPost";
+import SearchBar from '../../../components/SearchBar'
+import PostCardGridList from '../../../components/PostCardGridList'
+import useSearchPost from '../../../hooks/useSearchPost'
 
-import { debounce } from "lodash";
-import { Container, Flex } from "@chakra-ui/react";
-import BlogLayout from "../../../layout/BlogLayout";
+import {debounce} from 'lodash'
+import {Container, Flex} from '@chakra-ui/react'
+import BlogLayout from '../../../layout/BlogLayout'
 
-import tags from "../../../_posts/tags.json";
-import { getAllBlogsList } from "../../../helpers";
-import BackToTop from "../../../components/BackToTop";
+import tags from '../../../_posts/tags.json'
+import {getAllBlogsList} from '../../../helpers'
+import BackToTop from '../../../components/BackToTop'
 
 const debouncedChangeHandler = (fn) => debounce(fn, 200)
 
@@ -53,8 +53,8 @@ export async function getStaticProps() {
     }
 }
 
-Index.getLayout = function getLayout(page, categories) {
-    return <BlogLayout categories={categories}>{page}</BlogLayout>
+Index.getLayout = function getLayout(page) {
+    return <BlogLayout>{page}</BlogLayout>
 }
 
 export default Index
