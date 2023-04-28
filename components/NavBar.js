@@ -1,14 +1,14 @@
-import React, {useCallback, useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
+import React, {useCallback, useEffect, useState} from 'react'
 
-import NavBarLogo from './NavBarLogo'
 import MenuItemLink from './MenuItemLink'
+import NavBarLogo from './NavBarLogo'
 import MenuToggleForSmallScreen from './NavBarMenuToggle'
 
-import {Box, Button, Grid, GridItem, HStack, Stack, Text, useColorMode, useColorModeValue} from '@chakra-ui/react'
 import {SearchIcon} from '@chakra-ui/icons'
+import {Box, Text, Button, Grid, GridItem, HStack, Stack, useColorMode, useColorModeValue} from '@chakra-ui/react'
 import useRouterScroll from '../hooks/useRouterScroll'
-import {DARK_MODE_ICON, LIGHT_MODE_ICON, NAVIGATION_ABOUTPAGE, NAVIGATION_HOMEPAGE} from '../utils/content'
+import {NAVIGATION_ABOUTPAGE, NAVIGATION_HOMEPAGE, LIGHT_MODE_ICON, DARK_MODE_ICON} from '../utils/content'
 
 Header.propTypes = {
     navArray: PropTypes.array,
@@ -48,26 +48,10 @@ function Header({navArray = []}) {
     )
 
     return (
-        <Grid
-            className="header"
-            w="full"
-            h={16}
-            px={8}
-            templateColumns="repeat(3, 1fr)"
-            bg={useColorModeValue('#cfe0db', '#283237')}
-            borderBottomWidth={'1px'}
-            borderBottomStyle={'solid'}
-            borderBottomColor={useColorModeValue('gray.100', 'gray.800')}
-            alignItems={'center'}
-        >
+        <Grid margin="0 auto" w="80%" maxW="container.xl" h={16} px={8} mt={8} templateColumns="repeat(2, 1fr)" alignItems={'center'}>
             <HStack spacing={{base: 'none', md: 4}}>
-                <Button variant="ghost" onClick={handleThemeChange}>
-                    {colorMode === 'light' ? <Text fontSize="lg">{DARK_MODE_ICON}</Text> : <Text fontSize="lg">{LIGHT_MODE_ICON}</Text>}
-                </Button>
-            </HStack>
-            <GridItem justifySelf="center">
                 <NavBarLogo w="80%" m="0 auto" />
-            </GridItem>
+            </HStack>
 
             <GridItem justifySelf="end">
                 <MenuToggleForSmallScreen display={{base: 'block', md: 'none'}} toggle={toggleMenuIcon} isMenuOpen={isMenuOpen} />
@@ -92,10 +76,13 @@ function Header({navArray = []}) {
                             <Button variant="link">{NAVIGATION_ABOUTPAGE}</Button>
                         </MenuItemLink>
                         <MenuItemLink to="/blog/search">
-                            <Button variant="link">
+                            <Button variant="ghost">
                                 <SearchIcon />
                             </Button>
                         </MenuItemLink>
+                        <Button variant="ghost" onClick={handleThemeChange}>
+                            {colorMode === 'light' ? <Text fontSize="lg">{DARK_MODE_ICON}</Text> : <Text fontSize="lg">{LIGHT_MODE_ICON}</Text>}
+                        </Button>
                     </Stack>
                 </Box>
             </GridItem>
