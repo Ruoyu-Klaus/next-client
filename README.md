@@ -86,7 +86,9 @@ I would like to give credit to a list of resources below.
 * [Chakra UI](https://chakra-ui.com/)
 * [Netlify](https://www.netlify.com/)
 
+## Support
 
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/ruoyu)
 
 <!-- LICENSE -->
 ## License
