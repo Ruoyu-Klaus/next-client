@@ -1,15 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react'
 import useMousePosition from '../hooks/useMousePosition'
-import {isMobile} from 'react-device-detect'
 
 const getElementWidthAndHeight = (element) => {
     return [element.offsetWidth, element.offsetHeight]
 }
 
 function CustomCursor() {
-    if (isMobile) {
-        return null
-    }
     const {x, y} = useMousePosition()
     const ringRef = useRef()
     const dotRef = useRef()

@@ -19,9 +19,8 @@ export function randomEmoji() {
     return emojiList[keys[randomIndex]]
 }
 
-function Post({post = {}, previousPath, nextPath}) {
+function Post({post = {}, emoji, previousPath, nextPath}) {
     const router = useRouter()
-    const emoji = randomEmoji()
 
     const {id, title, excerpt, coverImage, tags, category, content, date, tocTree} = post
 
@@ -86,6 +85,7 @@ export async function getStaticProps(context) {
         const {params} = context
         const id = params.id
         const post = getBlogDetailById(id)
+        const emoji = randomEmoji()
         const linkPaths = getAllPostPaths(true)
 
         if (!post) {
@@ -110,6 +110,7 @@ export async function getStaticProps(context) {
         return {
             props: {
                 post,
+                emoji,
                 previousPath,
                 nextPath,
             },
