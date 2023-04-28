@@ -3,7 +3,7 @@ import '../styles/markdown.scss'
 import '../styles/Components/CustomCursor.scss'
 import '../styles/code-highlight-dark.scss'
 import '../styles/code-highlight-light.scss'
-import {ChakraProvider} from '@chakra-ui/react'
+import {ChakraProvider, VStack} from '@chakra-ui/react'
 import theme from '../styles/chakraTheme'
 import dynamic from 'next/dynamic'
 
@@ -23,10 +23,13 @@ function MyApp({Component, pageProps}) {
     const getLayout = Component.getLayout || ((page) => page)
     return (
         <ChakraProvider theme={theme}>
-            <NavBar navArray={categories} />
-            {Component.showModel ? <ThreeCanvas /> : <></>}
-            {getLayout(<Component {...pageProps} />)}
-            <Footer mb={4} />
+            <VStack minH="100vh">
+                <NavBar navArray={categories} />
+                {Component.showModel ? <ThreeCanvas /> : <></>}
+                {getLayout(<Component {...pageProps} />)}
+                <Footer mb={4} />
+            </VStack>
+
             <CustomCursor />
         </ChakraProvider>
     )
