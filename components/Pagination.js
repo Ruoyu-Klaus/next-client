@@ -30,7 +30,7 @@ function Pagination({totalPageCount}) {
     }
 
     return (
-        <HStack justifyContent="center" my={4}>
+        <HStack justifyContent="center" my={12}>
             <Button variant="link" onClick={() => handlePageClick(currentPage - 1)} disabled={currentPage === 1}>
                 <ChevronLeftIcon />
             </Button>
