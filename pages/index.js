@@ -3,8 +3,11 @@ import BlogLayout from '../layout/BlogLayout'
 import {getAllBlogsList} from '../helpers'
 import BackToTop from '../components/BackToTop'
 import PostCardGridList from '../components/PostCardGridList'
+import {Text, Box} from '@chakra-ui/react'
+import {useRouter} from 'next/router'
 
 function Index({posts}) {
+    const router = useRouter()
     return (
         <>
             <Head>
@@ -14,6 +17,22 @@ function Index({posts}) {
             </Head>
 
             <PostCardGridList posts={posts} />
+
+            <Box my={8}>
+                <Text
+                    userSelect="none"
+                    margin="0 auto"
+                    w="fit-content"
+                    onClick={() => router.push('blog/1')}
+                    cursor="pointer"
+                    textDecoration="underline"
+                    fontSize="lg"
+                    textAlign="center"
+                >
+                    See More...
+                </Text>
+            </Box>
+
             <BackToTop />
         </>
     )
@@ -21,7 +40,7 @@ function Index({posts}) {
 export async function getStaticProps() {
     try {
         const totalPosts = getAllBlogsList()
-        const posts = totalPosts.slice(0, 6)
+        const posts = totalPosts.slice(0, 4)
         return {
             props: {
                 posts,
