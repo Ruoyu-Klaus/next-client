@@ -10,8 +10,8 @@ const LoadingCard = dynamic(() => import('./LoadingCard'))
 
 function PostCardGridList({posts}) {
     return (
-        <Container w="75%" maxW="container.xl" my={4}>
-            <SimpleGrid minChildWidth="290px" spacing="8" justifyItems="center" alignItems="center">
+        <Container w="76%" maxW="container.xl" my={4}>
+            <SimpleGrid columns={[1, 1, 1, 2, 3]} spacing="8" justifyItems="center" alignItems="center">
                 {posts.map((post) => (
                     <FadeIn key={post.id}>
                         <PostCard postDetails={post} LoadingComp={LoadingCard} />

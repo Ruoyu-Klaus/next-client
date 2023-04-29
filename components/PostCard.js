@@ -105,12 +105,12 @@ function PostCard({postDetails, isLoading = false, LoadingComp = Skeleton}) {
     )
 
     return (
-        <Box minW="280px" maxW="350px" h="400px" borderWidth="1px" borderRadius="6" display="flex" flexDir="column" className={styles.postCard}>
+        <Box minW="290px" maxW="350px" h="380px" borderWidth="1px" borderRadius="6" display="flex" flexDir="column" className={styles.postCard}>
             {isLoading ? (
                 <LoadingComp w="full" h="full" />
             ) : (
                 <>
-                    <Box w="full" h="210px" overflow="hidden">
+                    <Box w="full" h="190px" overflow="hidden">
                         {postCover}
                     </Box>
 
